@@ -21,7 +21,6 @@ No projeto trabalhamos habilidades como:
 - Troca de MSG entre objetos
 - Programação orientada para objetos
 
------------------------
  
 OBSERVAÇÕES:
 
@@ -30,12 +29,14 @@ OBSERVAÇÕES:
 conforme explicado em aula.  
 • O grupo deve criar um Kanban e dar acesso ao professor para acompanhamento dos trabalhos.
 
+-----------------------
 CONSIDERAÇÕES DO GRUPO:
 
 • Diagramas serão implementados no README.md e serão feitos utilizando uma linguagem de markdown baseada em javascript chamada Mermaid.
+
 • Link documentação Mermaid: https://mermaid-js.github.io/mermaid/#/
 
-
+-----------------------
 #ETAPAS DO PROJETO:
 
 **1ª Etapa do projeto:** 
@@ -57,6 +58,6 @@ construtores nem métodos get/set no modelo.
 #Diagramas De classe
 ```mermaid
 classDiagram
-classA <|-- classB
+place_holderA<|-- place_holderB
 end
 ```
