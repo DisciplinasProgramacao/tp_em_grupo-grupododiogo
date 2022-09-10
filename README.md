@@ -1,4 +1,4 @@
-#FlyCore
+#FLYCORE
 
 Apelidado de "FlyCore" este projeto foi desenvolvido em grupos para a disciplina de "Programação Orientada a Objetos" (POO) cursada na PUC Minas Campus São Gabriel em Belo Horizonte, Minas Gerais, Brasil. 
 Os membros do grupo são: 
@@ -53,8 +53,8 @@ construtores nem métodos get/set no modelo.
 
 
 #Diagramas De classe
-`mermaid
+```mermaid
 classDiagram
 classA <|-- classB
 end
-``
+```
