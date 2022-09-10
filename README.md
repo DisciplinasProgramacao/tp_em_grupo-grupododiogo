@@ -60,8 +60,10 @@ Barcelona/Paris.
 
 **1ª Etapa do projeto:** 
 
-a) Criar um diagrama de classes UML que modele corretamente o que foi descrito; 
-b) validar o diagrama com o analista sênior; 
+a) Criar um diagrama de classes UML que modele corretamente o que foi descrito;
+
+b) validar o diagrama com o analista sênior;
+
 c) implementar as classes após a validação.  
 
 
