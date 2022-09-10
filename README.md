@@ -23,18 +23,20 @@ No projeto trabalhamos habilidades como:
 
 -----------------------
  
-Observações: 
+OBSERVAÇÕES:
+
 • Trabalho em grupos de 3 ou 4 alunos.  
 • Todos  os  artefatos  do  trabalho  devem  ser  hospedados  em  uma  tarefa  do  GitHub  Classroom, 
 conforme explicado em aula.  
 • O grupo deve criar um Kanban e dar acesso ao professor para acompanhamento dos trabalhos.
 
-Considerações do Grupo:
+CONSIDERAÇÕES DO GRUPO:
+
 • Diagramas serão implementados no README.md e serão feitos utilizando uma linguagem de markdown baseada em javascript chamada Mermaid.
 • Link documentação Mermaid: https://mermaid-js.github.io/mermaid/#/
 
 
-#Etapas do projeto
+#ETAPAS DO PROJETO:
 
 **1ª Etapa do projeto:** 
 
