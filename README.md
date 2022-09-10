@@ -1,4 +1,4 @@
-#FLYCORE
+# FLYCORE
 
 Apelidado de "FlyCore" este projeto foi desenvolvido em grupos para a disciplina de "Programação Orientada a Objetos" (POO) cursada na PUC Minas Campus São Gabriel em Belo Horizonte, Minas Gerais, Brasil. 
 Os membros do grupo são: 
@@ -11,8 +11,6 @@ Os membros do grupo são:
 
 - Lucas Amaral (lucasamaralgh);
 
------------------------
-
 No projeto trabalhamos habilidades como:
 
 - Análise voltada para objetos
@@ -22,7 +20,7 @@ No projeto trabalhamos habilidades como:
 - Programação orientada para objetos
 
  
-OBSERVAÇÕES:
+Observações:
 
 • Trabalho em grupos de 3 ou 4 alunos.  
 • Todos  os  artefatos  do  trabalho  devem  ser  hospedados  em  uma  tarefa  do  GitHub  Classroom, 
@@ -30,14 +28,15 @@ conforme explicado em aula.
 • O grupo deve criar um Kanban e dar acesso ao professor para acompanhamento dos trabalhos.
 
 -----------------------
-CONSIDERAÇÕES DO GRUPO:
+
+# Considerações do grupo:
 
 • Diagramas serão implementados no README.md e serão feitos utilizando uma linguagem de markdown baseada em javascript chamada Mermaid.
 
 • Link documentação Mermaid: https://mermaid-js.github.io/mermaid/#/
 
 -----------------------
-#ETAPAS DO PROJETO:
+# Etapas do Projeto:
 
 **1ª Etapa do projeto:** 
 
@@ -55,7 +54,7 @@ construtores nem métodos get/set no modelo.
 -------------------------------------------------------------------
 
 
-#Diagramas De classe
+# Diagramas De classe
 ```mermaid
 classDiagram
 place_holderA<|-- place_holderB
