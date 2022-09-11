@@ -6,7 +6,7 @@ Os membros do grupo são:
 
 - Diogo Marques (diogo-oos);
 
-- Esdras (xxx);
+- Esdras (Esdras-Filipe);
 
 - Leonardo Mamede (xLyMzR);
 
