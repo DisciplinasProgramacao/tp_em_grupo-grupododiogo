@@ -51,7 +51,7 @@ Barcelona/Paris.
 
 # Considerações do grupo
 
-• Diagramas serão implementados no README.md e serão feitos utilizando uma linguagem de markdown baseada em javascript chamada Mermaid.
+• Diagramas serão implementados no README.md na pasta de diagramas e serão feitos utilizando uma linguagem de markdown baseada em javascript chamada Mermaid.
 
 • Link documentação Mermaid: https://mermaid-js.github.io/mermaid/#/
 
@@ -74,9 +74,3 @@ construtores nem métodos get/set no modelo.
 • Código das classes, de acordo com o diagrama, documentado/comentado. 
 
 -------------------------------------------------------------------
-# Diagramas De classe
-```mermaid
-classDiagram
-place_holderA<|-- place_holderB
-end
-```
