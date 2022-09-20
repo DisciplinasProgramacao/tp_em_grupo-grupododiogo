@@ -73,4 +73,39 @@ O que deve ser produzido:
 construtores nem métodos get/set no modelo. 
 • Código das classes, de acordo com o diagrama, documentado/comentado. 
 
--------------------------------------------------------------------
+-------------------------
+# Diagramas de classe
+```mermaid
+classDiagram
+class Bilhete {
+ -int IDBILHETE
+ -LinkedList~Voo~ Voos
+ +inserirVoo(Voo novoVoo) boolean
+ +removerVoo(int idVoo) boolean
+ -buscarVoo(int idVoo) Voo
+ -percorrer_listaVoo_remover(int idVoo) boolean
+}
+
+class Voo {
+ -int IDVOO
+ -LinkedList~Trecho~ Trechos
+ -Data dataVoo
+ +inserirTrecho(Trecho novoTrecho) boolean
+ +removerTrecho(int idTrecho) boolean
+ +alterarTrecho(int idTrechoVelho, Trecho novoTrecho) boolean
+ +alterarData(Data novaData) boolean
+ +percorrerTrecho() String
+ -buscarTrechos(int idTrecho) Trecho
+}
+
+class Trecho {
+ -String IDTRECHO
+ -String cidadeOrigem
+ -String cidadeDestino
+ +infoTrecho() String
+}
+
+Bilhete o-- Voo
+Voo *-- Trecho
+end
+```
