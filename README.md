@@ -82,30 +82,28 @@ class Bilhete {
  -LinkedList~Voo~ Voos
  +inserirVoo(Voo novoVoo) boolean
  +removerVoo(int idVoo) boolean
+ +toString() String
  -buscarVoo(int idVoo) Voo
  -percorrer_listaVoo_remover(int idVoo) boolean
 }
 
 class Voo {
  -int IDVOO
- -LinkedList~Trecho~ Trechos
+ -Trecho Trecho
  -Data dataVoo
- +inserirTrecho(Trecho novoTrecho) boolean
- +removerTrecho(int idTrecho) boolean
- +alterarTrecho(int idTrechoVelho, Trecho novoTrecho) boolean
+ +alterarTrecho(Trecho novoTrecho) boolean
  +alterarData(Data novaData) boolean
- +percorrerTrecho() String
- -buscarTrechos(int idTrecho) Trecho
+ +toString() String
 }
 
 class Trecho {
  -String IDTRECHO
  -String cidadeOrigem
  -String cidadeDestino
- +infoTrecho() String
+ +toString() String
 }
 
 Bilhete o-- Voo
-Voo *-- Trecho
+Voo o-- Trecho
 end
 ```
