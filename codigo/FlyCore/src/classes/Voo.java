@@ -55,6 +55,13 @@ public class Voo {
         }
     }
 
+    /**
+     * Retorna id do voo
+     * @return int idVoo
+     */
+    public int getIdVoo(){
+        return this.idVoo;
+    }
     //#endregion
 
 //#region Override's da Classe
