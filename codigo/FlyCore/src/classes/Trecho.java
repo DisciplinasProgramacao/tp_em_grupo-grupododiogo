@@ -17,7 +17,7 @@ public class Trecho {
      * @param cidadeOrigem
      * @return void
      */
-    public void setCidadeOrigem(String cidadeOrigem){
+    public void setCidadeOrigem(String cidadeOrigem) {
         this.cidadeOrigem = cidadeOrigem;
     }
 
@@ -26,7 +26,7 @@ public class Trecho {
      * @param cidadeDestino
      * @return void
      */
-    public void setCidadeDestino(String cidadeDestino){
+    public void setCidadeDestino(String cidadeDestino) {
         this.cidadeDestino = cidadeDestino;
     }
 
