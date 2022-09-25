@@ -83,8 +83,8 @@ class Bilhete {
  +inserirVoo(Voo novoVoo) boolean
  +removerVoo(int idVoo) boolean
  +toString() String
- -buscarVoo(int idVoo) Voo
- -percorrer_listaVoo_remover(int idVoo) boolean
+ -buscarIndexVoo(int idVoo) int
+ -buscarVoo(int indexVoo) Voo
 }
 
 class Voo {
@@ -94,6 +94,7 @@ class Voo {
  +alterarTrecho(Trecho novoTrecho) boolean
  +alterarData(Data novaData) boolean
  +toString() String
+ -equals(Object obj) boolean
 }
 
 class Trecho {
