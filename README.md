@@ -94,7 +94,7 @@ class Voo {
  +alterarTrecho(Trecho novoTrecho) boolean
  +alterarData(Data novaData) boolean
  +toString() String
- -equals(Object obj) boolean
+ +equals(Object obj) boolean
 }
 
 class Trecho {
