@@ -63,7 +63,7 @@ public class Bilhete {
      */
     private int buscarIndexVoo(int idVoo) {
         for (int i = 0; i < voos.size(); i++) {
-            if (voos.get(i).equals(idVoo)) {
+            if (voos.get(i).getIdVoo() == idVoo) {
                 return i;
             }
         }
