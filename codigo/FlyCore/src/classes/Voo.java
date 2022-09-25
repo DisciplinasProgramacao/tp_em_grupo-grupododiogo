@@ -62,7 +62,7 @@ public class Voo {
     public String toString(){
         StringBuilder infoVoo = new StringBuilder();
         infoVoo.append("=========== Voo Número: "+this.idVoo+"\n Data do Voo: "+this.dataVoo+"\n");
-        infoVoo.append(this.trechoVoo.toString);
+        infoVoo.append(this.trechoVoo.toString());
         return infoVoo.toString();
     }
     @Override
