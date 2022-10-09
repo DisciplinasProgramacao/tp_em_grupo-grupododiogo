@@ -12,7 +12,7 @@ public class TrechoTest {
     public void toStringInfo() {
         Trecho bhParaSp = new Trecho("Belo Horizonte", "São Paulo"); 
     
-        assertEquals(Integer.toString(bhParaSp.getId()) + " de Belo Horizonte para São Paulo", bhParaSp.toString());
+        assertEquals(Integer.toString(bhParaSp.getIdTrecho()) + " de Belo Horizonte para São Paulo", bhParaSp.toString());
     }
 
     @Test
@@ -20,7 +20,7 @@ public class TrechoTest {
         Trecho bhParaSp = new Trecho("Belo Horizonte", "São Paulo"); 
     
         bhParaSp.setCidadeDestino("Rio de Janeiro");
-        assertEquals(Integer.toString(bhParaSp.getId()) + " de Belo Horizonte para Rio de Janeiro", bhParaSp.toString());
+        assertEquals(Integer.toString(bhParaSp.getIdTrecho()) + " de Belo Horizonte para Rio de Janeiro", bhParaSp.toString());
     }
 
     @Test
@@ -28,6 +28,6 @@ public class TrechoTest {
         Trecho bhParaSp = new Trecho("Belo Horizonte", "São Paulo"); 
     
         bhParaSp.setCidadeOrigem("Rio de Janeiro");
-        assertEquals(Integer.toString(bhParaSp.getId()) + " de Rio de Janeiro para São Paulo", bhParaSp.toString());
+        assertEquals(Integer.toString(bhParaSp.getIdTrecho()) + " de Rio de Janeiro para São Paulo", bhParaSp.toString());
     }
 }

@@ -47,7 +47,7 @@ public class Trecho {
         return this.idTrecho + " de " + this.cidadeOrigem + " para " + this.cidadeDestino;
     } 
 
-    public int getId() {
+    public int getIdTrecho() {
         return this.idTrecho;
     }
 }

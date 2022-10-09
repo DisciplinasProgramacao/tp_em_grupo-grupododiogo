@@ -65,15 +65,14 @@ public class Voo {
     @Override
     public String toString() {
         StringBuilder infoVoo = new StringBuilder();
-        infoVoo.append("=========== Voo Número: "+this.idVoo+"\n Data do Voo: "+this.dataVoo+"\n");
+        infoVoo.append("=========== Voo Número: "+this.idVoo+"\n Data do Voo: "+this.dataVoo.dataFormatada()+"\n");
         infoVoo.append(this.trechoVoo.toString());
         return infoVoo.toString();
     }
 
     @Override
     public boolean equals(Object obj) {
-        Voo nv;
-        nv = (Voo) obj;
+        Voo nv = (Voo) obj;
         if(this.idVoo == nv.idVoo)
             return true;
         else
