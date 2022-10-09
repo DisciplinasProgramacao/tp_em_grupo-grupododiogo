@@ -6,6 +6,11 @@ public class Trecho {
     private String cidadeOrigem;
     private String cidadeDestino;
 
+    /**
+     * Recebe a cidade do aeroporto de origem e destino
+     * @param cidadeOrigem,cidadeDestino 
+     * @return void
+     */
     public Trecho(String cidadeOrigem, String cidadeDestino) {
         this.idTrecho      = this.hashCode();
         this.cidadeOrigem  = cidadeOrigem;
@@ -41,4 +46,8 @@ public class Trecho {
     public String toString() {
         return this.idTrecho + " de " + this.cidadeOrigem + " para " + this.cidadeDestino;
     } 
+
+    public int getId() {
+        return this.idTrecho;
+    }
 }

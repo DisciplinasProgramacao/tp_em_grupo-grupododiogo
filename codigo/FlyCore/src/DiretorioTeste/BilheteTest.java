@@ -1,5 +1,5 @@
 package DiretorioTeste;
 
-public class VooTest {
+public class BilheteTest {
     
 }
