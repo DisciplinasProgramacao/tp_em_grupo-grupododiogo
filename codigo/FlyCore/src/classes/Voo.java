@@ -1,10 +1,9 @@
 package classes;
-import java.util.Date;
 public class Voo {
 //#region Atributos Do Voo
     private final int idVoo;
     private Trecho trechoVoo;
-    private Date dataVoo;
+    private Data dataVoo;
 //#endregion
 
 //#region Construtor do Voo
@@ -13,7 +12,7 @@ public class Voo {
      * @param trecho Recebe Trecho que está ligado ao vooo
      * @param data Recebe a Data referente ao voo
      */
-    public Voo(Trecho trecho, Date data) {
+    public Voo(Trecho trecho, Data data) {
         this.trechoVoo = trecho;
         this.dataVoo = data;
         this.idVoo = this.hashCode();
@@ -42,7 +41,7 @@ public class Voo {
      * @param novaData Nova data do Vooo
      * @return boolean Retorno true --> Sucesso na alteração; false --> Erro na alteração da Data
      */
-    public boolean alterarData(Date novaData) {
+    public boolean alterarData(Data novaData) {
         try {
             this.dataVoo = novaData;
             return true;
