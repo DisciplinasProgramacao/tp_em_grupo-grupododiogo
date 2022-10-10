@@ -3,7 +3,7 @@ import java.util.LinkedList;
 
 public class Bilhete {
     private final int idBilhete;
-    private LinkedList<Voo> voos;
+    private LinkedList<Voo> voos = new LinkedList<Voo>();
 
     public Bilhete() {
         this.idBilhete = this.hashCode();
@@ -15,7 +15,7 @@ public class Bilhete {
      * @return true em caso de sucesso.
      */
     public boolean inserirVoo(Voo novoVoo) {
-        voos.add(novoVoo);
+        this.voos.add(novoVoo);
         return true;
     }
 
@@ -26,7 +26,7 @@ public class Bilhete {
      */
     public boolean removerVoo(int idVoo) {
         try {
-            voos.remove(buscarIndexVoo(idVoo));
+            this.voos.remove(buscarIndexVoo(idVoo));
             return true;
         }
         catch (IndexOutOfBoundsException e) {
@@ -41,7 +41,11 @@ public class Bilhete {
     public String toString(){
         StringBuilder infoBilhete = new StringBuilder();
         infoBilhete.append("=========== Bilhete número: "+this.idBilhete+"===========\n");
-        for (int i = 0; i < voos.size(); i++) {
+        if (this.voos.isEmpty()) {
+            return "Nenhum voo cadastrado";
+        }
+
+        for (int i = 0; i < this.voos.size(); i++) {
             infoBilhete.append(buscarVoo(i).toString());
         }
         return infoBilhete.toString();
@@ -52,7 +56,7 @@ public class Bilhete {
      * @return Voo encontrado.
      */
     private Voo buscarVoo(int indexVoo) {
-        return voos.get(indexVoo);
+        return this.voos.get(indexVoo);
     }
 
     /**
@@ -61,12 +65,16 @@ public class Bilhete {
      * -1.
      */
     private int buscarIndexVoo(int idVoo) {
-        for (int i = 0; i < voos.size(); i++) {
-            if (voos.get(i).getIdVoo() == idVoo) {
+        for (int i = 0; i < this.voos.size(); i++) {
+            if (this.voos.get(i).getIdVoo() == idVoo) {
                 return i;
             }
         }
         return -1;
+    }
+
+    public int getIdBilhete() {
+        return this.idBilhete;
     }
 }
 
