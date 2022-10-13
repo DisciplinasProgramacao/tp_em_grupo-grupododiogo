@@ -104,6 +104,15 @@ class Trecho {
  +toString() String
 }
 
+class Cliente {
+- String NOME
+- int NUM_DOCUMENTO
+- int pontuacaoCliente
+- LinkeedList<Bilhete> bilhetesCliente
++comprarBilhete(Bilhete bilheteCompra) boolean
+- verificarPontuacaoBilhete(Bilhete bilheteCompra) int
+}
+Cliente -- Bilhete
 Bilhete o-- Voo
 Voo o-- Trecho
 end
