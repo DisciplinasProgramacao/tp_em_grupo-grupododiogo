@@ -85,6 +85,7 @@ class Bilhete {
  +toString() String
  -buscarIndexVoo(int idVoo) int
  -buscarVoo(int indexVoo) Voo
+ - verificarPontuacaoBilhete(Bilhete bilheteCompra) int
 }
 
 class Voo {
@@ -110,7 +111,6 @@ class Cliente {
 - int pontuacaoCliente
 - LinkeedList<Bilhete> bilhetesCliente
 +comprarBilhete(Bilhete bilheteCompra) boolean
-- verificarPontuacaoBilhete(Bilhete bilheteCompra) int
 }
 Cliente -- Bilhete
 Bilhete o-- Voo
