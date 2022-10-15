@@ -1,5 +1,4 @@
 package classes;
-import codigo.FlyCore.src.Passagens.*;
 import codigo.Flycore.src.Utilitarios.*;
 public class Voo {
 //#region Atributos Do Voo
