@@ -1,4 +1,4 @@
-package classes;
+package Passagens;
 import java.util.LinkedList;
 
 public class Bilhete {
