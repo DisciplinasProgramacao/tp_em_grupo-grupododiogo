@@ -4,7 +4,9 @@ import java.util.LinkedList;
 public class Bilhete {
     private final int idBilhete;
     private LinkedList<Voo> voos = new LinkedList<Voo>();
-
+    private boolean promocional = false;
+    private boolean fidelidade = false;
+    private double precoBilhete = 0d;
     public Bilhete() {
         this.idBilhete = this.hashCode();
     }
