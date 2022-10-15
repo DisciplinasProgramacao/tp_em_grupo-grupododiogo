@@ -77,15 +77,23 @@ construtores nem métodos get/set no modelo.
 # Diagramas de classe
 ```mermaid
 classDiagram
+class Cliente {
+-String NOME
+-int NUM_DOCUMENTO
+-int pontuacaoCliente
+-LinkeedList<Bilhete> bilhetesCliente
++comprarBilhete(Bilhete bilheteCompra) boolean
+}
+
 class Bilhete {
  -int IDBILHETE
  -LinkedList~Voo~ Voos
  +inserirVoo(Voo novoVoo) boolean
  +removerVoo(int idVoo) boolean
+ +verificarPontuacao() int
  +toString() String
  -buscarIndexVoo(int idVoo) int
  -buscarVoo(int indexVoo) Voo
- - verificarPontuacaoBilhete(Bilhete bilheteCompra) int
 }
 
 class Voo {
@@ -105,13 +113,6 @@ class Trecho {
  +toString() String
 }
 
-class Cliente {
-- String NOME
-- int NUM_DOCUMENTO
-- int pontuacaoCliente
-- LinkeedList<Bilhete> bilhetesCliente
-+comprarBilhete(Bilhete bilheteCompra) boolean
-}
 Cliente -- Bilhete
 Bilhete o-- Voo
 Voo o-- Trecho
