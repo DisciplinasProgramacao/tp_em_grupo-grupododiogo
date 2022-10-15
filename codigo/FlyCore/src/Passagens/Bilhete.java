@@ -1,10 +1,10 @@
 package Passagens;
 import java.util.LinkedList;
 
-public class Bilhete {
+public abstract class Bilhete {
     private final int idBilhete;
     private LinkedList<Voo> voos = new LinkedList<Voo>();
-
+    private double precoBilhete = 0d;
     public Bilhete() {
         this.idBilhete = this.hashCode();
     }
@@ -33,6 +33,13 @@ public class Bilhete {
             return false;
         }
     }
+
+    /**
+     *
+     * @return double precoFinal do bilhete
+     */
+    public abstract double calcularPreco();
+
 
     /** 
      * @return String com as informações de todos os Voos do bilhete.
