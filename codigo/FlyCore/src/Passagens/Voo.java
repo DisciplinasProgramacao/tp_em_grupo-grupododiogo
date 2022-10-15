@@ -7,6 +7,7 @@ public class Voo {
     private final int idVoo;
     private Trecho trechoVoo;
     private Data dataVoo;
+    private double preco;
 //#endregion
 
 //#region Construtor do Voo
@@ -15,10 +16,11 @@ public class Voo {
      * @param trecho Recebe Trecho que está ligado ao vooo
      * @param data Recebe a Data referente ao voo
      */
-    public Voo(Trecho trecho, Data data) {
+    public Voo(Trecho trecho, Data dat, double precoVoo) {
         this.trechoVoo = trecho;
         this.dataVoo = data;
         this.idVoo = this.hashCode();
+        this.preco = preco;
     }
 //#endregion
 

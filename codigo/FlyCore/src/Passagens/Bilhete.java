@@ -38,7 +38,26 @@ public abstract class Bilhete {
      *
      * @return double precoFinal do bilhete
      */
-    public abstract double calcularPreco();
+    public double calcularPreco(){
+        double precoFinal=0;
+        if(!voos.isEmpty && voos.size() == 1){
+            precoFinal = voos.get(0).preco;
+            this.precoBilhete = (0.010 * precoFinal) + precoFinal;
+            return this.precoBilhete;
+        }
+        else{
+            if(!voos.isEmpty && voos.size()>1){
+                for (Voo vooCadastrado: voos) {
+                    if(vooCadastrado!=null)
+                    {
+                        //IMPLEMENTAR QUICK SORT PARA ENCONTRAR MAIOR VALOR
+                        //Após isso calcular a soma dos preços do voo!
+                    }
+                }
+            }
+        }
+        return precoFinal;
+    }
 
 
     /** 
