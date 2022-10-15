@@ -6,10 +6,7 @@ import static org.junit.Assert.assertTrue;
 
 import org.junit.jupiter.api.Test;
 
-import classes.Trecho;
-import classes.Bilhete;
-import classes.Data;
-import classes.Voo;
+import codigo.FlyCore.src.Passagens.Bilhete;
 
 public class BilheteTest {
     

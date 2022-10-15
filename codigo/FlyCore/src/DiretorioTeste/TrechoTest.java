@@ -4,7 +4,7 @@ import static org.junit.Assert.assertEquals;
 
 import org.junit.jupiter.api.Test;
 
-import classes.Trecho;
+import codigo.FlyCore.src.Passagens.Trecho;
 
 public class TrechoTest {
     

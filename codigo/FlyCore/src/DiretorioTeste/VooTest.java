@@ -5,9 +5,7 @@ import static org.junit.Assert.assertFalse;
 
 import org.junit.jupiter.api.Test;
 
-import classes.Trecho;
-import classes.Voo;
-import classes.Data;
+import codigo.FlyCore.src.Passagens.Voo;
 
 public class VooTest {
     
