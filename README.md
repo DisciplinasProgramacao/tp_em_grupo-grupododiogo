@@ -83,6 +83,7 @@ class Cliente {
 -int pontuacaoCliente
 -LinkeedList<Bilhete> bilhetesCliente
 +comprarBilhete(Bilhete bilheteCompra) boolean
++verificarPontuacao() int
 }
 
 class Bilhete {
@@ -90,10 +91,12 @@ class Bilhete {
  -LinkedList~Voo~ Voos
  +inserirVoo(Voo novoVoo) boolean
  +removerVoo(int idVoo) boolean
- +verificarPontuacao() int
+ +calcularPrecoFinal() double
+ +calcularPontuacao() int
  +toString() String
  -buscarIndexVoo(int idVoo) int
  -buscarVoo(int indexVoo) Voo
+ -maiorValorVoos() double
 }
 
 class Voo {
