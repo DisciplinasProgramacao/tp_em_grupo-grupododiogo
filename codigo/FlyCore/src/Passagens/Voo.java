@@ -1,5 +1,7 @@
 package Passagens;
-import codigo.Flycore.src.Utilitarios.*;
+
+import Utilitarios.Data;
+
 public class Voo {
 //#region Atributos Do Voo
     private final int idVoo;

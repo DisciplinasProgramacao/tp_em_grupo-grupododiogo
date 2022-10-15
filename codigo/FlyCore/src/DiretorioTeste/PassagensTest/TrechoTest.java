@@ -1,10 +1,10 @@
-package DiretorioTeste;
+package DiretorioTeste.PassagensTest;
 
 import static org.junit.Assert.assertEquals;
 
 import org.junit.jupiter.api.Test;
 
-import codigo.FlyCore.src.Passagens.Trecho;
+import Passagens.Trecho;
 
 public class TrechoTest {
     

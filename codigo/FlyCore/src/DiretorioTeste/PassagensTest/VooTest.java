@@ -1,11 +1,14 @@
-package DiretorioTeste;
+package DiretorioTeste.PassagensTest;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 
 import org.junit.jupiter.api.Test;
 
-import codigo.FlyCore.src.Passagens.Voo;
+import Passagens.Voo;
+import Passagens.Trecho;
+
+import Utilitarios.Data;
 
 public class VooTest {
     
