@@ -1,6 +1,7 @@
 package Clientes;
-import java.util.LinkedList;
+
 import codigo.FlyCore.src.*;
+import java.util.LinkedList;
 public class Cliente {
 
     private final String nome = " ";

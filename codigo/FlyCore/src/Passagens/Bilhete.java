@@ -75,7 +75,7 @@ public abstract class Bilhete {
             }
             return idMaiorVoo;
         }
-        catch (Exception e; System.out.println(e); return 0d;)
+        catch (Exception e) {System.out.println(e); return 0d;}
     }
 
     /** 
