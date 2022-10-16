@@ -16,11 +16,11 @@ public class Voo {
      * @param trecho Recebe Trecho que está ligado ao vooo
      * @param data Recebe a Data referente ao voo
      */
-    public Voo(Trecho trecho, Data dat, double precoVoo) {
+    public Voo(Trecho trecho, Data data, double precoVoo) {
         this.trechoVoo = trecho;
         this.dataVoo = data;
         this.idVoo = this.hashCode();
-        this.preco = preco;
+        this.preco = precoVoo;
     }
 //#endregion
 
@@ -65,6 +65,10 @@ public class Voo {
         return this.idVoo;
     }
 
+    /**
+     * Retorna preco do voo
+     * @return int preco
+     */
     public double getPreco() {
         return preco;
     }

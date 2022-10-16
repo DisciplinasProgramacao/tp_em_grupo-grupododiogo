@@ -16,7 +16,7 @@ public class VooTest {
     public void toStringInfo() {
         Trecho bhParaSp = new Trecho("Belo Horizonte", "São Paulo"); 
         Data dataVoo = new Data(06, 05, 2003);
-        Voo bhParaSpVoo = new Voo(bhParaSp, dataVoo);
+        Voo bhParaSpVoo = new Voo(bhParaSp, dataVoo, 0);
     
         assertEquals("=========== Voo Número: " + bhParaSpVoo.getIdVoo() + "\n Data do Voo: 06/05/2003" + "\n" + Integer.toString(bhParaSp.getIdTrecho()) + " de Belo Horizonte para São Paulo", bhParaSpVoo.toString());
     }
@@ -25,11 +25,11 @@ public class VooTest {
     public void equalsTest() {
         Trecho bhParaSp = new Trecho("Belo Horizonte", "São Paulo"); 
         Data dataVoo = new Data(06, 05, 2003);
-        Voo bhParaSpVoo = new Voo(bhParaSp, dataVoo);
+        Voo bhParaSpVoo = new Voo(bhParaSp, dataVoo, 0);
 
         Trecho bhParaRj = new Trecho("Belo Horizonte", "Rio de Janeiro"); 
         Data dataVoo2 = new Data(06, 05, 2003);
-        Voo bhParaRjVoo = new Voo(bhParaRj, dataVoo2);
+        Voo bhParaRjVoo = new Voo(bhParaRj, dataVoo2, 0);
     
         assertFalse(bhParaSpVoo.equals(bhParaRjVoo));
     }
@@ -38,7 +38,7 @@ public class VooTest {
     public void alterarTrechoTest() {
         Trecho bhParaSp = new Trecho("Belo Horizonte", "São Paulo"); 
         Data dataVoo = new Data(06, 05, 2003);
-        Voo bhParaSpVoo = new Voo(bhParaSp, dataVoo);
+        Voo bhParaSpVoo = new Voo(bhParaSp, dataVoo, 0);
     
         assertEquals("=========== Voo Número: " + bhParaSpVoo.getIdVoo() + "\n Data do Voo: 06/05/2003" + "\n" + Integer.toString(bhParaSp.getIdTrecho()) + " de Belo Horizonte para São Paulo", bhParaSpVoo.toString());
     
@@ -52,7 +52,7 @@ public class VooTest {
     public void alterarDataTest() {
         Trecho bhParaSp = new Trecho("Belo Horizonte", "São Paulo"); 
         Data dataVoo = new Data(06, 05, 2003);
-        Voo bhParaSpVoo = new Voo(bhParaSp, dataVoo);
+        Voo bhParaSpVoo = new Voo(bhParaSp, dataVoo, 0);
     
         assertEquals("=========== Voo Número: " + bhParaSpVoo.getIdVoo() + "\n Data do Voo: 06/05/2003" + "\n" + Integer.toString(bhParaSp.getIdTrecho()) + " de Belo Horizonte para São Paulo", bhParaSpVoo.toString());
     

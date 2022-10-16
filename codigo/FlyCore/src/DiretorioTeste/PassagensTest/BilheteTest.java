@@ -17,7 +17,7 @@ public class BilheteTest {
     public void toStringEmptyInfo() {
         Trecho bhParaSp = new Trecho("Belo Horizonte", "São Paulo"); 
         Data dataVoo = new Data(06, 05, 2003);
-        Voo bhParaSpVoo = new Voo(bhParaSp, dataVoo);
+        Voo bhParaSpVoo = new Voo(bhParaSp, dataVoo, 0);
         Bilhete bilhete = new Bilhete();
 
         assertEquals("Nenhum voo cadastrado", bilhete.toString());
@@ -27,7 +27,7 @@ public class BilheteTest {
     public void toStringInfoEInserirVoo() {
         Trecho bhParaSp = new Trecho("Belo Horizonte", "São Paulo"); 
         Data dataVoo = new Data(06, 05, 2003);
-        Voo bhParaSpVoo = new Voo(bhParaSp, dataVoo);
+        Voo bhParaSpVoo = new Voo(bhParaSp, dataVoo, 0);
         Bilhete bilhete = new Bilhete();
         assertTrue(bilhete.inserirVoo(bhParaSpVoo));
 
@@ -40,7 +40,7 @@ public class BilheteTest {
     public void removerVooTest() {
         Trecho bhParaSp = new Trecho("Belo Horizonte", "São Paulo"); 
         Data dataVoo = new Data(06, 05, 2003);
-        Voo bhParaSpVoo = new Voo(bhParaSp, dataVoo);
+        Voo bhParaSpVoo = new Voo(bhParaSp, dataVoo, 0);
         Bilhete bilhete = new Bilhete();
         assertTrue(bilhete.inserirVoo(bhParaSpVoo));
 
@@ -51,7 +51,7 @@ public class BilheteTest {
     public void removerVooInexistenteTest() {
         Trecho bhParaSp = new Trecho("Belo Horizonte", "São Paulo"); 
         Data dataVoo = new Data(06, 05, 2003);
-        Voo bhParaSpVoo = new Voo(bhParaSp, dataVoo);
+        Voo bhParaSpVoo = new Voo(bhParaSp, dataVoo, 0);
         Bilhete bilhete = new Bilhete();
         assertTrue(bilhete.inserirVoo(bhParaSpVoo));
 
