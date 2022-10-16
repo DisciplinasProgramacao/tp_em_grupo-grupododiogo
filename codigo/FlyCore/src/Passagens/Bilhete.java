@@ -47,14 +47,7 @@ public abstract class Bilhete {
         }
         else{
             if(!this.voos.isEmpty && this.voos.size()>1){
-                double vooMaiorValor=0d;
-                for (Voo vooCadastrado: this.voos) {
-                    if(vooCadastrado!=null)
-                    {
-                        //IMPLEMENTAR QUICK SORT PARA ENCONTRAR MAIOR VALOR
-                        //Após isso calcular a soma dos preços do voo!
-                    }
-                }
+
             }
         }
         return precoFinal;
@@ -65,11 +58,13 @@ public abstract class Bilhete {
                 int idMaiorVoo = 0;
                 double maiorPrecoVoo = 0d;
                 for (int i = 0; i < this.voos.size() - 1; i_++) {
-                    maiorPrecoVoo = this.voos.get(i).getPreco();
-                    idMaiorVoo = this.voos.get(i).getIdVoo();
-                    if (maiorPrecoVoo < this.voos.get(i + 1).getPreco()) {
-                        maiorPrecoVoo = this.voos.getPreco();
-                        idMaiorVoo = this.voos.getIdVoo();
+                    if(this.voos.get(i)!=null) {
+                        maiorPrecoVoo = this.voos.get(i).getPreco();
+                        idMaiorVoo = this.voos.get(i).getIdVoo();
+                        if (maiorPrecoVoo < this.voos.get(i + 1).getPreco()) {
+                            maiorPrecoVoo = this.voos.getPreco();
+                            idMaiorVoo = this.voos.getIdVoo();
+                        }
                     }
                 }
             }
@@ -77,7 +72,11 @@ public abstract class Bilhete {
         }
         catch (Exception e) {System.out.println(e); return 0d;}
     }
-
+    private double somarPrecoVoos(){
+        for (Voo voosBilhete: this.voos) {
+            if(voosBilhete != null)
+        }
+    }
     /** 
      * @return String com as informações de todos os Voos do bilhete.
      */
