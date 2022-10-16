@@ -40,14 +40,15 @@ public abstract class Bilhete {
      */
     public double calcularPreco(){
         double precoFinal=0;
-        if(!voos.isEmpty && voos.size() == 1){
+        if(!this.voos.isEmpty() && this.voos.size() == 1){
             precoFinal = voos.get(0).preco;
             this.precoBilhete = (0.010 * precoFinal) + precoFinal;
             return this.precoBilhete;
         }
         else{
-            if(!voos.isEmpty && voos.size()>1){
-                for (Voo vooCadastrado: voos) {
+            if(!this.voos.isEmpty && this.voos.size()>1){
+                double vooMaiorValor=0d;
+                for (Voo vooCadastrado: this.voos) {
                     if(vooCadastrado!=null)
                     {
                         //IMPLEMENTAR QUICK SORT PARA ENCONTRAR MAIOR VALOR
@@ -58,7 +59,24 @@ public abstract class Bilhete {
         }
         return precoFinal;
     }
-
+    private int encontrarVooMaiorValor(){
+        try {
+            if (!this.voos.isEmpty()) {
+                int idMaiorVoo = 0;
+                double maiorPrecoVoo = 0d;
+                for (int i = 0; i < this.voos.size() - 1; i_++) {
+                    maiorPrecoVoo = this.voos.get(i).getPreco();
+                    idMaiorVoo = this.voos.get(i).getIdVoo();
+                    if (maiorPrecoVoo < this.voos.get(i + 1).getPreco()) {
+                        maiorPrecoVoo = this.voos.getPreco();
+                        idMaiorVoo = this.voos.getIdVoo();
+                    }
+                }
+            }
+            return idMaiorVoo;
+        }
+        catch (Exception e; System.out.println(e); return 0d;)
+    }
 
     /** 
      * @return String com as informações de todos os Voos do bilhete.

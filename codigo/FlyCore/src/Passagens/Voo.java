@@ -64,7 +64,11 @@ public class Voo {
     public int getIdVoo() {
         return this.idVoo;
     }
-//#endregion
+
+    public double getPreco() {
+        return preco;
+    }
+    //#endregion
 
 //#region Override's da Classe
     @Override
