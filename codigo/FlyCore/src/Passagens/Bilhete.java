@@ -2,9 +2,9 @@ package Passagens;
 import java.util.LinkedList;
 
 public class Bilhete {
-    private final int idBilhete;
-    private LinkedList<Voo> voos = new LinkedList<Voo>();
-    private double precoBilhete = 0d;
+    protected final int idBilhete;
+    protected LinkedList<Voo> voos = new LinkedList<Voo>();
+    protected double precoBilhete = 0d;
 
     public Bilhete() {
         this.idBilhete = this.hashCode();
@@ -40,52 +40,53 @@ public class Bilhete {
      * @return double precoFinal do bilhete
      */
     public double calcularPreco() {
-        double precoFinal = 0;
-
-        if (!this.voos.isEmpty()) {
-            return 0d;
+        double precoFinal = 0d;
+        if (this.voos.isEmpty()) {
+            return precoFinal;
         }
 
-        if(this.voos.size() == 1) {
-            precoFinal = voos.get(0).getPreco();
-            this.precoBilhete = (0.010 * precoFinal) + precoFinal;
-            return this.precoBilhete;
-        }
-        else{
-            if(!this.voos.isEmpty && this.voos.size()>1){
-
-            }
+        if (this.voos.size() == 1) {
+            double precovoo = voos.get(0).getPreco();
+            precoFinal = (0.010 * precovoo) + precovoo;
+            this.precoBilhete = precoFinal;
+        } else {
+            Voo vooMaisCaro = encontrarVooMaiorValor();
+            precoFinal = somarPrecoVoosRestantes(vooMaisCaro) + vooMaisCaro.getPreco();
+            this.precoBilhete = precoFinal;
         }
         return precoFinal;
     }
 
-    private int encontrarVooMaiorValor() {
+    private Voo encontrarVooMaiorValor() {
         try {
-            if (!this.voos.isEmpty()) {
-                int idMaiorVoo = 0;
-                double maiorPrecoVoo = 0d;
-                for (int i = 0; i < this.voos.size() - 1; i_++) {
-                    if(this.voos.get(i)!=null) {
-                        maiorPrecoVoo = this.voos.get(i).getPreco();
-                        idMaiorVoo = this.voos.get(i).getIdVoo();
-                        if (maiorPrecoVoo < this.voos.get(i + 1).getPreco()) {
-                            maiorPrecoVoo = this.voos.getPreco();
-                            idMaiorVoo = this.voos.getIdVoo();
-                        }
-                    }
+            Voo vooComMaiorPreco = this.voos.get(0);
+            double precoAtual = 0d;
+
+            for (int i = 0; i < this.voos.size() - 1; i++) {
+                precoAtual = this.voos.get(i).getPreco();
+                if (precoAtual < this.voos.get(i + 1).getPreco()) {
+                    vooComMaiorPreco = this.voos.get(i + 1);
                 }
             }
-            return idMaiorVoo;
-        }
-        catch (Exception e) {
-            System.out.println(e); return 0d;
+
+            return vooComMaiorPreco;
+        } catch (IndexOutOfBoundsException e) {
+            return null;
         }
     }
-    private double somarPrecoVoos(){
+
+    private double somarPrecoVoosRestantes(Voo maiorVoo) {
+        double precoDescontado = 0d, somaVoo = 0d;
         for (Voo voosBilhete: this.voos) {
-            if(voosBilhete != null)
+            if (!voosBilhete.equals(maiorVoo)) {
+                somaVoo += voosBilhete.getPreco();
+            }
         }
+
+        precoDescontado = somaVoo * 0.5;
+        return precoDescontado;
     }
+
     /** 
      * @return String com as informações de todos os Voos do bilhete.
      */
