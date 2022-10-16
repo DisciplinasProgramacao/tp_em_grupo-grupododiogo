@@ -41,13 +41,16 @@ public abstract class Bilhete {
     public double calcularPreco(){
         double precoFinal=0;
         if(!this.voos.isEmpty() && this.voos.size() == 1){
-            precoFinal = voos.get(0).preco;
-            this.precoBilhete = (0.010 * precoFinal) + precoFinal;
-            return this.precoBilhete;
+            double precovoo = voos.get(0).preco;
+            precoFinal = (0.010 * precovoo) + precovoo;
+            this.precoBilhete = precoFinal;
         }
         else{
             if(!this.voos.isEmpty && this.voos.size()>1){
-
+                int idVooMaisCaro = encontrarVooMaiorValor();
+                double precoVooMaisCaro  = buscarVoo(buscarIndexVoo(idVooMaisCaro)).getPreco();
+                precoFinal = somarPrecoVoos(idVooMaisCaro)+precoVooMaisCaro;
+                this.precoBilhete = precoFinal;
             }
         }
         return precoFinal;
@@ -72,10 +75,15 @@ public abstract class Bilhete {
         }
         catch (Exception e) {System.out.println(e); return 0d;}
     }
-    private double somarPrecoVoos(){
+    private double somarPrecoVoos(int idMaiorVoo){
+        double precoDescontado=0d, somaVoo=0d;
         for (Voo voosBilhete: this.voos) {
-            if(voosBilhete != null)
+            if(voosBilhete != null && voosBilhete.getIdVoo() != idMaiorVoo){
+                precoDescontado = (voosBilhete.getPreco()*0.5);
+                somaVoo+=precoDescontado;
+            }
         }
+        return somaVoo;
     }
     /** 
      * @return String com as informações de todos os Voos do bilhete.
