@@ -73,7 +73,7 @@ public abstract class Bilhete {
             }
             return idMaiorVoo;
         }
-        catch (Exception e) {System.out.println(e); return 0d;}
+        catch (IndexOutOfBoundsException e) {System.out.println(e); return 0d;}
     }
     private double somarPrecoVoos(int idMaiorVoo){
         double precoDescontado=0d, somaVoo=0d;
