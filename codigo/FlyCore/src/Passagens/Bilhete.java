@@ -57,7 +57,7 @@ public class Bilhete {
         return precoFinal;
     }
 
-    private Voo encontrarVooMaiorValor() {
+    protected Voo encontrarVooMaiorValor() {
         try {
             Voo vooComMaiorPreco = this.voos.get(0);
             double precoAtual = 0d;
