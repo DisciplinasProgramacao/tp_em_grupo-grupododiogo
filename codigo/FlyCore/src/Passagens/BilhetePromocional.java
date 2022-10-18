@@ -7,7 +7,8 @@ public class BilhetePromocional extends Bilhete {
 
     @Override
     public double calcularPreco() {
-        double precoBase = super.calcularPreco(), novoPreco = 0d;
+        double precoBase = super.calcularPreco();
+        double novoPreco = 0d;
         novoPreco = precoBase * 0.06;
         this.precoBilhete = novoPreco;
         return novoPreco;
