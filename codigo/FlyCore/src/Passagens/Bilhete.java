@@ -75,7 +75,7 @@ public class Bilhete {
         }
     }
 
-    private double somarPrecoVoosRestantes(Voo maiorVoo) {
+    protected double somarPrecoVoosRestantes(Voo maiorVoo) {
         double precoDescontado = 0d, somaVoo = 0d;
         for (Voo voosBilhete: this.voos) {
             if (!voosBilhete.equals(maiorVoo)) {
@@ -108,7 +108,7 @@ public class Bilhete {
      * @param indexVoo
      * @return Voo encontrado.
      */
-    private Voo buscarVoo(int indexVoo) {
+    protected Voo buscarVoo(int indexVoo) {
         return this.voos.get(indexVoo);
     }
 
@@ -117,7 +117,7 @@ public class Bilhete {
      * @return retorna o index do voo na lista de voos. Caso o voo não exista na lista, retorna
      * -1.
      */
-    private int buscarIndexVoo(int idVoo) {
+    protected int buscarIndexVoo(int idVoo) {
         for (int i = 0; i < this.voos.size(); i++) {
             if (this.voos.get(i).getIdVoo() == idVoo) {
                 return i;
