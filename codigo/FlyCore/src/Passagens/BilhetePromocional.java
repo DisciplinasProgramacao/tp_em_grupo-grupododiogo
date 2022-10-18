@@ -3,6 +3,7 @@ package Passagens;
 public class BilhetePromocional extends Bilhete {
     public BilhetePromocional() {
         super();
+        this.tipó = "Promocional";
     }
 
     @Override

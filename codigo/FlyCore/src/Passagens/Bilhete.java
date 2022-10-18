@@ -6,8 +6,11 @@ public class Bilhete {
     protected LinkedList<Voo> voos = new LinkedList<Voo>();
     protected double precoBilhete = 0d;
 
+    protected final String tipo;
+
     public Bilhete() {
         this.idBilhete = this.hashCode();
+        this.tipo = "Comum";
     }
 
     /**
