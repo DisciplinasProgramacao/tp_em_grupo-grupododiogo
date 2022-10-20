@@ -10,4 +10,9 @@ public class BilheteFidelidade extends Bilhete {
     public double calcularPreco() {
         return 0d;
     }
+
+    @Override
+    public int calcularPontuacao(){
+        return 0;
+    }
 }

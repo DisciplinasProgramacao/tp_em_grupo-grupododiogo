@@ -59,8 +59,35 @@ public class Bilhete {
         }
         return precoFinal;
     }
+    
+    /**
+    * @return pontos de fidelidade
+    */
+    public int calcularPontuacao(){
+        double valorAux = this.precoBilhete / 500;
+        int valorBase = (int)valorAux;
+
+        int pontosFidelidade = (valorBase * 500);
+
+        return pontosFidelidade;
+    }
+
 
     protected Voo encontrarVooMaiorValor() {
+    /**
+     * @return pontos de fidelidade
+     */
+    public int calcularPontuacao(){
+        double valorAux = this.precoBilhete / 500;
+        int valorBase = (int)valorAux;
+
+        int pontosFidelidade = (valorBase * 500);
+
+        return pontosFidelidade;
+    }
+
+
+    private Voo encontrarVooMaiorValor() {
         try {
             Voo vooComMaiorPreco = this.voos.get(0);
             double precoAtual = 0d;
