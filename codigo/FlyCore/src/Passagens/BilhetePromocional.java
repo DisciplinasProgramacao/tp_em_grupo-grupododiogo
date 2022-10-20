@@ -11,8 +11,6 @@ public class BilhetePromocional extends Bilhete {
         double precoBase = super.calcularPreco();
         double novoPreco = 0d;
         novoPreco = precoBase * 0.6;
-        double precoBase = super.calcularPreco(), novoPreco = 0d;
-        novoPreco = precoBase * 0.6;
         this.precoBilhete = novoPreco;
         return novoPreco;
     }

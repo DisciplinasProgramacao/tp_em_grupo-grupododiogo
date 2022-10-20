@@ -6,7 +6,7 @@ public class Bilhete {
     protected LinkedList<Voo> voos = new LinkedList<Voo>();
     protected double precoBilhete = 0d;
 
-    protected final String tipo;
+    protected String tipo;
 
     public Bilhete() {
         this.idBilhete = this.hashCode();
@@ -71,21 +71,6 @@ public class Bilhete {
 
         return pontosFidelidade;
     }
-
-
-    protected Voo encontrarVooMaiorValor() {
-    /**
-     * @return pontos de fidelidade
-     */
-    public int calcularPontuacao(){
-        double valorAux = this.precoBilhete / 500;
-        int valorBase = (int)valorAux;
-
-        int pontosFidelidade = (valorBase * 500);
-
-        return pontosFidelidade;
-    }
-
 
     private Voo encontrarVooMaiorValor() {
         try {
