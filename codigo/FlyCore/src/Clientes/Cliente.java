@@ -26,4 +26,13 @@ public class Cliente {
             return false;
         }
     }
+
+    public int verificarPontuacao(){
+        int pontuacaoTotal = 0;
+        for (Bilhete bilhete : bilhetesCliente) {
+            int pontuacao = bilhete.calcularPontuacao();
+            pontuacaoTotal += pontuacao;
+        }
+        return pontuacaoTotal;
+    } 
 }
