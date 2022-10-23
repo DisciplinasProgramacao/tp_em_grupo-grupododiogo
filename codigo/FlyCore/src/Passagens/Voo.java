@@ -78,7 +78,9 @@ public class Voo {
     @Override
     public String toString() {
         StringBuilder infoVoo = new StringBuilder();
-        infoVoo.append("=========== Voo Número: " + this.idVoo + " ===========" + "\nData do Voo: " + this.dataVoo.dataFormatada() + "\n");
+        infoVoo.append("=========== Voo Número: " + this.idVoo + " ===========" +
+        "\nData do Voo: " + this.dataVoo.dataFormatada() +
+        "\nPreço do voo: " + this.preco + "\n");
         infoVoo.append(this.trechoVoo.toString());
         return infoVoo.toString();
     }

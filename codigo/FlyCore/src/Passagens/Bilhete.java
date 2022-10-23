@@ -109,7 +109,7 @@ public class Bilhete {
     @Override
     public String toString() {
         StringBuilder infoBilhete = new StringBuilder();
-        infoBilhete.append("=========== Bilhete número: "+this.idBilhete+" ===========\n");
+        infoBilhete.append("=========== Bilhete " + this.tipo + " número: "+this.idBilhete+" ===========\n");
         if (this.voos.isEmpty()) {
             return "Nenhum voo cadastrado";
         }
@@ -118,7 +118,8 @@ public class Bilhete {
             infoBilhete.append(buscarVoo(i).toString());
         }
 
-        infoBilhete.append("\n\nLembre-se de anotar o número do bilhete, ele será necessário depois ;)");
+        infoBilhete.append("\nPreço total do bilhete: " + this.calcularPreco());
+        infoBilhete.append("\n\nLembre-se de anotar o número do bilhete e dos voos, eles serão necessários depois ;)");
         return infoBilhete.toString();
     }
 
