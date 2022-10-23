@@ -44,7 +44,7 @@ public class Trecho {
      */
     @Override
     public String toString() {
-        return this.idTrecho + " de " + this.cidadeOrigem + " para " + this.cidadeDestino;
+        return "Trecho " + this.idTrecho + " de " + this.cidadeOrigem + " para " + this.cidadeDestino + ".\n\n";
     } 
 
     public int getIdTrecho() {

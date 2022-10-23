@@ -4,12 +4,13 @@ import java.util.LinkedList;
 public class Bilhete {
     protected final int idBilhete;
     protected LinkedList<Voo> voos = new LinkedList<Voo>();
-    protected double precoBilhete = 0d;
+    protected double precoBilhete;
 
     protected String tipo;
 
     public Bilhete() {
         this.idBilhete = this.hashCode();
+        this.precoBilhete = calcularPreco();
         this.tipo = "Comum";
     }
 
@@ -63,8 +64,8 @@ public class Bilhete {
     /**
     * @return pontos de fidelidade
     */
-    public int calcularPontuacao(){
-        double valorAux = this.precoBilhete / 500;
+    public int calcularPontuacao() {
+        double valorAux = this.calcularPreco() / 500;
         int valorBase = (int)valorAux;
 
         int pontosFidelidade = (valorBase * 500);
@@ -72,7 +73,7 @@ public class Bilhete {
         return pontosFidelidade;
     }
 
-    private Voo encontrarVooMaiorValor() {
+    protected Voo encontrarVooMaiorValor() {
         try {
             Voo vooComMaiorPreco = this.voos.get(0);
             double precoAtual = 0d;
@@ -108,7 +109,7 @@ public class Bilhete {
     @Override
     public String toString() {
         StringBuilder infoBilhete = new StringBuilder();
-        infoBilhete.append("=========== Bilhete número: "+this.idBilhete+"===========\n");
+        infoBilhete.append("=========== Bilhete número: "+this.idBilhete+" ===========\n");
         if (this.voos.isEmpty()) {
             return "Nenhum voo cadastrado";
         }
@@ -116,6 +117,8 @@ public class Bilhete {
         for (int i = 0; i < this.voos.size(); i++) {
             infoBilhete.append(buscarVoo(i).toString());
         }
+
+        infoBilhete.append("\n\nLembre-se de anotar o número do bilhete, ele será necessário depois ;)");
         return infoBilhete.toString();
     }
 
@@ -123,7 +126,7 @@ public class Bilhete {
      * @param indexVoo
      * @return Voo encontrado.
      */
-    protected Voo buscarVoo(int indexVoo) {
+    public Voo buscarVoo(int indexVoo) {
         return this.voos.get(indexVoo);
     }
 
@@ -132,7 +135,7 @@ public class Bilhete {
      * @return retorna o index do voo na lista de voos. Caso o voo não exista na lista, retorna
      * -1.
      */
-    protected int buscarIndexVoo(int idVoo) {
+    public int buscarIndexVoo(int idVoo) {
         for (int i = 0; i < this.voos.size(); i++) {
             if (this.voos.get(i).getIdVoo() == idVoo) {
                 return i;
