@@ -231,8 +231,12 @@ public class App {
 
             switch (opcao) {
                 case 1: 
-                    novoBilhete = new Bilhete();
-                    System.out.println("Bilhete gerado com sucesso");
+                    if (!bilheteCriado(novoBilhete)) {
+                        novoBilhete = new Bilhete();
+                        System.out.println("Bilhete gerado com sucesso");
+                    } else {
+                        System.out.println("Já existe um bilhete cadastrado");
+                    } 
                 break;
 
                 case 2: 
@@ -243,32 +247,29 @@ public class App {
                             case 1: 
                                 novoBilhete.inserirVoo(formatarVoo());
                                 System.out.println("Voo inserido no bilhete cadastrado");
-
-                                pausa();
                             break; 
 
                             case 2: 
                                 System.out.print("Digite o id do voo que deseja remover: ");
                                 int idVooEscolhidoParaRemocao = teclado.nextInt();
+                                teclado.nextLine();
                                 
                                 if (novoBilhete.removerVoo(idVooEscolhidoParaRemocao)) {
                                     System.out.println("Voo removido com sucesso");
                                 } else {
                                     System.out.println("Não foi possível remover o voo. Por favor, verifique o id inserido.");
                                 }
-
-                                pausa();
                             break;
 
                             case 3: 
                                 System.out.print("Digite o id do voo que deseja editar: ");
                                 int idVooEscolhidoParaEdicao = teclado.nextInt();
+                                teclado.nextLine();
 
                                 int indexVooEscolhido = novoBilhete.buscarIndexVoo(idVooEscolhidoParaEdicao);
                                 if (indexVooEscolhido == -1) {
                                     System.out.println("Voo não cadastrado no bilhete");
             
-                                    pausa();
                                     break;
                                 } else {
                                     Voo vooEscolhido = novoBilhete.buscarVoo(indexVooEscolhido);
@@ -278,7 +279,6 @@ public class App {
                                     switch (opcaoVoo) {
                                         case 1:
                                             System.out.println("\nDigite as informações do novo trecho do voo: \n");
-                                            pausa();
 
                                             vooEscolhido.alterarTrecho(formatarTrecho());
                                             System.out.println("Trecho do voo alterado com sucesso");
@@ -286,7 +286,6 @@ public class App {
 
                                         case 2:
                                             System.out.println("\nDigite as informações da nova data do voo: \n");
-                                            pausa();
 
                                             vooEscolhido.alterarData(formatarData());
                                             System.out.println("Trecho do voo alterado com sucesso");
@@ -296,7 +295,6 @@ public class App {
                                         break;
                                     }
                                 }
-                                pausa();
                             break;
 
                             case 0:
