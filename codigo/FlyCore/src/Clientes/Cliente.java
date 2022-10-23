@@ -16,10 +16,9 @@ public class Cliente {
         this.pontuacaoCliente = 0;
     }
 
-    public boolean comparaBilhete(Bilhete bilheteCompra) {
+    public boolean comprarBilhete(Bilhete bilheteCompra) {
         try {
             this.bilhetesCliente.add(bilheteCompra);
-            //Restam implementações na classe bilhete para finalizar método
             return true;
         }
         catch (Exception e) {

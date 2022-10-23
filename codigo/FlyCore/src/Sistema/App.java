@@ -4,6 +4,8 @@ import java.util.InputMismatchException;
 import java.util.Scanner;
 
 import Passagens.Bilhete;
+import Passagens.BilheteFidelidade;
+import Passagens.BilhetePromocional;
 import Passagens.Trecho;
 import Passagens.Voo;
 import Utilitarios.CidadesTrecho;
@@ -61,6 +63,36 @@ public class App {
         }
     }
 
+    /**
+     * Menu para escolha do tipo de bilhete desejado
+     * @return Opção do usuário (int)
+    */
+    public static int menuTipoBilhete() {
+
+        System.out.println();
+        System.out.println();
+
+        System.out.println("FLY CORE");
+        System.out.println("==========================");
+        System.out.println("1 - Bilhete comum");
+        System.out.println("2 - Bilhete promocional");
+        System.out.println("3 - Bilhete fidelidade");
+        
+        System.out.println("0 - Sair");
+        System.out.print("Digite sua opção: ");
+        try {
+            int opcao = teclado.nextInt();
+            teclado.nextLine();
+            return opcao;
+        } catch (InputMismatchException e) {
+            return -1;
+        }
+    }
+
+    /**
+     * Menu para gerenciar bilhetes
+     * @return Opção do usuário (int)
+    */
     public static int menuBilhete() {
         limparTela();
         System.out.println();
@@ -82,6 +114,10 @@ public class App {
         }
     }
 
+    /**
+     * Menu para gerenciar voos
+     * @return Opção do usuário (int)
+    */
     public static int menuVoo() {
         limparTela();
         System.out.println();
@@ -101,10 +137,12 @@ public class App {
             return -1;
         }
     }
-    //#endregion
 
-    //#region menu cidades e datas
-    public static String escolherCidade(String escolha) {
+    /**
+     * Menu para escolher cidades disponíveis no sistema
+     * @return Opção do usuário (int)
+    */
+    public static String menuCidade(String escolha) {
         limparTela();
         System.out.println();
         System.out.println();
@@ -129,7 +167,11 @@ public class App {
         }
     }
 
-    public static String escolherData() {
+     /**
+     * Menu para escolher datas de voos disponíveis no sistema
+     * @return Opção do usuário (int)
+    */
+    public static String menuData() {
         limparTela();
         System.out.println();
         System.out.println();
@@ -153,7 +195,7 @@ public class App {
             return "";
         }
     }
-    //#endregion 
+    //#endregion
 
     //#region utilitários
     /**
@@ -176,7 +218,7 @@ public class App {
     public static Data formatarData() {
         String dataVoo = "";
         do {
-            dataVoo = escolherData();
+            dataVoo = menuData();
         } while (dataVoo == "");
 
         String[] arrDataVoo = dataVoo.split("/");
@@ -194,12 +236,12 @@ public class App {
     public static Trecho formatarTrecho() {
         String cidadeOrigem = "";
         do {
-            cidadeOrigem = escolherCidade("Origem");
+            cidadeOrigem = menuCidade("Origem");
         } while (cidadeOrigem == "");
 
         String cidadeDestino = "";
         do {
-            cidadeDestino = escolherCidade("Destino");
+            cidadeDestino = menuCidade("Destino");
         } while (cidadeDestino == "");
 
         return new Trecho(cidadeOrigem, cidadeDestino);
@@ -214,7 +256,7 @@ public class App {
 
         Data dataVoo = formatarData();
         
-        return new Voo(novoTrecho, dataVoo, 200);
+        return new Voo(novoTrecho, dataVoo, 500);
     }
     //#endregion
 
@@ -232,8 +274,24 @@ public class App {
             switch (opcao) {
                 case 1: 
                     if (!bilheteCriado(novoBilhete)) {
-                        novoBilhete = new Bilhete();
-                        System.out.println("Bilhete gerado com sucesso");
+                        int opcaoTipoBilhete = menuTipoBilhete();
+
+                        switch (opcaoTipoBilhete) {
+                            case 1:
+                                novoBilhete = new Bilhete();
+                                System.out.println("Bilhete gerado com sucesso");
+                            break;
+
+                            case 2:
+                                novoBilhete = new BilhetePromocional();
+                                System.out.println("Bilhete promocional gerado com sucesso");
+                            break;
+
+                            case 3:
+                                novoBilhete = new BilheteFidelidade();
+                                System.out.println("Bilhete fidelidade gerado com sucesso");
+                            break;
+                        }
                     } else {
                         System.out.println("Já existe um bilhete cadastrado");
                     } 
