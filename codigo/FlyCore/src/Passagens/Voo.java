@@ -24,7 +24,7 @@ public class Voo {
     }
 //#endregion
 
-//#region Metodos uteis do Voo
+//#region Metodos uteis do Voo+
     /**
      * Método que recebe um novo Trecho e substitui o Trecho atual do Voo
      * @param novoTrecho Novo Trecho do Voo

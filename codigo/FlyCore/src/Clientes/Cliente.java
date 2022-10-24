@@ -10,12 +10,22 @@ public class Cliente {
     private int pontuacaoCliente;
     private LinkedList<Bilhete> bilhetesCliente = new LinkedList<Bilhete>();
 
+    /**
+     * Construtor cliente, recebe o nome e o numero do documento.
+     * @param nomeCliente
+     * @param numDoc
+     */
     public Cliente(String nomeCliente, int numDoc) {
         this.nome = nomeCliente;
         this.NUM_DOCUMENTO = numDoc;
         this.pontuacaoCliente = 0;
     }
 
+    /**
+     * Comprar um bilhete adicionando na lista de bilhetes.
+     * @param bilheteCompra
+     * @return false/true
+     */
     public boolean comprarBilhete(Bilhete bilheteCompra) {
         try {
             this.bilhetesCliente.add(bilheteCompra);
@@ -26,9 +36,13 @@ public class Cliente {
         }
     }
 
+    /**
+     * Calcula a pontuaçao de fidelidade total do cliente.
+     * @return pontuaçao de fidelidade
+     */
     public int verificarPontuacao(){
         int pontuacaoTotal = 0;
-        for (Bilhete bilhete : bilhetesCliente) {
+        for (Bilhete bilhete : this.bilhetesCliente) {
             int pontuacao = bilhete.calcularPontuacao();
             pontuacaoTotal += pontuacao;
         }

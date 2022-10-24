@@ -8,6 +8,9 @@ public class Bilhete {
 
     protected String tipo;
 
+    /**
+     * Construtor do bilhete, atribuindo um hashCode como id e o tipo do bilhete
+     */
     public Bilhete() {
         this.idBilhete = this.hashCode();
         this.precoBilhete = calcularPreco();
@@ -24,10 +27,9 @@ public class Bilhete {
         return true;
     }
 
-    /**
+    /** Remove voo da lista de voos contidos no bilhete.
      * @param idVoo
-     * @return true caso consiga remover o voo com sucesso da lista. Caso isso não ocorra, 
-     * retorna false. 
+     * @return true caso consiga remover o voo com sucesso da lista. Caso isso não ocorra, retorna false.
      */
     public boolean removerVoo(int idVoo) {
         try {
@@ -39,8 +41,7 @@ public class Bilhete {
         }
     }
 
-    /**
-     *
+    /** Calcula o preço de um bilhete
      * @return double precoFinal do bilhete
      */
     public double calcularPreco() {
@@ -61,7 +62,7 @@ public class Bilhete {
         return precoFinal;
     }
     
-    /**
+    /** Calcula os pontos de fidelidade de um bilhete
     * @return pontos de fidelidade
     */
     public int calcularPontuacao() {
@@ -73,6 +74,10 @@ public class Bilhete {
         return pontosFidelidade;
     }
 
+    /**
+     * Encontra o voo com o maior preço contido no bilhete
+     * @return Voo com maior preço
+     */
     protected Voo encontrarVooMaiorValor() {
         try {
             Voo vooComMaiorPreco = this.voos.get(0);
@@ -91,6 +96,11 @@ public class Bilhete {
         }
     }
 
+    /**
+     * Soma o preço de voos restantes
+     * @param maiorVoo
+     * @return precoDescontado
+     */
     protected double somarPrecoVoosRestantes(Voo maiorVoo) {
         double precoDescontado = 0d, somaVoo = 0d;
         for (Voo voosBilhete: this.voos) {
@@ -133,7 +143,7 @@ public class Bilhete {
 
     /**
      * @param idVoo
-     * @return retorna o index do voo na lista de voos. Caso o voo não exista na lista, retorna
+     * @return Index do voo na lista de voos. Caso o voo não exista na lista, retorna
      * -1.
      */
     public int buscarIndexVoo(int idVoo) {
