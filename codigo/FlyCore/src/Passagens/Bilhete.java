@@ -1,5 +1,6 @@
 package Passagens;
 import java.util.LinkedList;
+import java.util.Objects;
 
 public class Bilhete {
     protected final int idBilhete;
@@ -162,6 +163,19 @@ public class Bilhete {
      */
     public int getIdBilhete() {
         return this.idBilhete;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Bilhete bilhete = (Bilhete) o;
+        return idBilhete == bilhete.idBilhete && Double.compare(bilhete.precoBilhete, precoBilhete) == 0 && voos.equals(bilhete.voos) && tipo.equals(bilhete.tipo);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(voos, precoBilhete, tipo);
     }
 }
 
