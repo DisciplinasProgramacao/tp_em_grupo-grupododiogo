@@ -2,6 +2,8 @@ package Passagens;
 
 import Utilitarios.Data;
 
+import java.util.Objects;
+
 public class Voo {
 //#region Atributos Do Voo
     private final int idVoo;
@@ -88,10 +90,13 @@ public class Voo {
     @Override
     public boolean equals(Object obj) {
         Voo nv = (Voo) obj;
-        if(this.idVoo == nv.idVoo)
-            return true;
-        else
-            return false;
+        return this.idVoo == nv.idVoo;
     }
-//endregion
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(trechoVoo, dataVoo, preco);
+    }
+
+    //endregion
 }
