@@ -8,6 +8,6 @@ public class MultiplicadorPrata extends Multiplicador{
     } 
     @Override
     public int multiplicarPts(int pts) {
-        return (int) ((int) pts*1.25);
+        return (int) ((int) pts*1.5);
     }
 }

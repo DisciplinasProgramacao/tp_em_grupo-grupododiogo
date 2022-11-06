@@ -1,6 +1,6 @@
 package Utilitarios.AceleradorPts;
 
-public class Multiplicador implements IMultiplicar {
+public abstract class Multiplicador{
     
     protected String tipo = "";
 
@@ -27,9 +27,7 @@ public class Multiplicador implements IMultiplicar {
     protected double getPrecoMensal(){
         return this.precoMensal;
     }
-    @Override
-    public int multiplicarPts(int pts) {
-        return 0;
-    }
+    
+    public abstract int multiplicarPts(int pts);
 
 }
