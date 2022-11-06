@@ -23,4 +23,5 @@ public class Multiplicador implements IMultiplicar {
     protected double getPrecoMensal(){
         return this.precoMensal;
     }
+
 }
