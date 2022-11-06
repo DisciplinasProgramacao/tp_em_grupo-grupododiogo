@@ -6,9 +6,7 @@ public class Bilhete {
     protected final int idBilhete;
     protected LinkedList<Voo> voos = new LinkedList<Voo>();
     protected double precoBilhete;
-
     protected String tipo;
-
     /**
      * Construtor do bilhete, atribuindo um hashCode como id e o tipo do bilhete
      */
@@ -178,4 +176,3 @@ public class Bilhete {
         return Objects.hash(voos, precoBilhete, tipo);
     }
 }
-
