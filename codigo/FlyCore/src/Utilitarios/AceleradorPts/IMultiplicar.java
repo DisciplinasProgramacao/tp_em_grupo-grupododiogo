@@ -1,6 +1,6 @@
 package Utilitarios.AceleradorPts;
 
-public class IMultiplicar {
+public interface IMultiplicar {
 
     /**
      * @param pts recebe pontuacao do bilhete que sofrerá o boost de pontos

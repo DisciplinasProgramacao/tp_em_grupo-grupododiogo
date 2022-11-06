@@ -1,6 +1,6 @@
 package Utilitarios.AceleradorPts;
 
-public class Multiplicador {
+public class Multiplicador implements IMultiplicar {
     
     protected String tipo ="";
 
