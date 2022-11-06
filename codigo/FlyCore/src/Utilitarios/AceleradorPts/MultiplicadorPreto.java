@@ -6,7 +6,6 @@ public class MultiplicadorPreto  extends Multiplicador{
         super(precoMensal);
         this.tipo = "Preto";
     } 
-
     @Override
     public int multiplicarPts(int pts) {
         return (int) ((int) pts*1.5);
