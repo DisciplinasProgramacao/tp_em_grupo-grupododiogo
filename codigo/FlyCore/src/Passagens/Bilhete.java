@@ -11,6 +11,7 @@ public class Bilhete {
     protected String tipo;
     protected Multiplicador acelerador_pts;
     protected boolean multiplicador_ativo = false;
+    protected double preco_mult =0d;
     /**
      * Construtor do bilhete, atribuindo um hashCode como id e o tipo do bilhete
      */
@@ -74,10 +75,18 @@ public class Bilhete {
         double valorAux = this.calcularPreco() / 500;
         int valorBase = (int)valorAux;
         pontosFidelidade = (valorBase * 500);
-        if(this.multiplicador_ativo){
-            return ((int) (acelerador_pts.multiplicarPts(pontosFidelidade)/500) * 500);
-        }
-        return pontosFidelidade;
+        int multiplicavel = this.multiplicar_pt_multiplicador(pontosFidelidade);
+        if(multiplicavel == 0)
+            return pontosFidelidade;
+        else{   
+        return multiplicavel;} 
+    }
+
+    protected int multiplicar_pt_multiplicador(int pnt_bilhete){
+        if(this.multiplicador_ativo && this.acelerador_pts != null){
+            return (Math.round((int) (this.acelerador_pts.multiplicarPts(pnt_bilhete)/500) * 500));}
+       else{ 
+       return 0;}    
     }
 
     /**

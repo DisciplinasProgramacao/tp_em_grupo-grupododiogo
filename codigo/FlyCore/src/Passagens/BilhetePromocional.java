@@ -28,10 +28,12 @@ public class BilhetePromocional extends Bilhete {
     @Override
     public int calcularPontuacao(){
         double valorAux = this.calcularPreco() / 500;
-        int valorBase = (int)valorAux;
-
+        int valorBase = (int) Math.round(valorAux);
         int pontosFidelidades = (valorBase * 500) / 2;
-
-        return pontosFidelidades;
+        final int multiplicavel = this.multiplicar_pt_multiplicador(pontosFidelidades);
+        if(multiplicavel != 0)
+         return multiplicavel;
+        else{    
+        return pontosFidelidades;}    
     }
 }
