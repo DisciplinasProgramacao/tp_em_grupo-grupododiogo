@@ -2,11 +2,15 @@ package Passagens;
 import java.util.LinkedList;
 import java.util.Objects;
 
+import Utilitarios.AceleradorPts.*;
+
 public class Bilhete {
     protected final int idBilhete;
     protected LinkedList<Voo> voos = new LinkedList<Voo>();
-    protected double precoBilhete;
+    protected double precoBilhete =0;
     protected String tipo;
+    protected Multiplicador acelerador_pts;
+    protected boolean multiplicador_ativo = false;
     /**
      * Construtor do bilhete, atribuindo um hashCode como id e o tipo do bilhete
      */
@@ -67,10 +71,14 @@ public class Bilhete {
     public int calcularPontuacao() {
         double valorAux = this.calcularPreco() / 500;
         int valorBase = (int)valorAux;
-
         int pontosFidelidade = (valorBase * 500);
-
         return pontosFidelidade;
+    }
+
+    public boolean ativar_multiplicador(){
+        if(this.acelerador_pts != null)
+            this.multiplicador_ativo = true;
+        return this.multiplicador_ativo;    
     }
 
     /**

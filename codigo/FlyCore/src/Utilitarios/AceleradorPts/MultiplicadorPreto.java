@@ -3,7 +3,7 @@ package Utilitarios.AceleradorPts;
 public class MultiplicadorPreto  extends Multiplicador{
 
     public MultiplicadorPreto(double precoMensal) {
-        super(precoMensal);
+        this.precoMensal = precoMensal;
         this.tipo = "Preto";
     } 
     @Override
