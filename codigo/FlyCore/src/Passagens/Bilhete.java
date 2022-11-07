@@ -2,15 +2,11 @@ package Passagens;
 import java.util.LinkedList;
 import java.util.Objects;
 
-import Utilitarios.AceleradorPts.*;
-
 public class Bilhete {
     protected final int idBilhete;
     protected LinkedList<Voo> voos = new LinkedList<Voo>();
     protected double precoBilhete =0;
     protected String tipo;
-    protected Multiplicador acelerador_pts;
-    protected boolean multiplicador_ativo = false;
     /**
      * Construtor do bilhete, atribuindo um hashCode como id e o tipo do bilhete
      */
@@ -74,50 +70,9 @@ public class Bilhete {
         double valorAux = this.calcularPreco() / 500;
         int valorBase = (int)valorAux;
         pontosFidelidade = (valorBase * 500);
-        int multiplicavel = this.multiplicar_pt_multiplicador(pontosFidelidade);
-        if(multiplicavel == 0)
-            return pontosFidelidade;
-        else{   
-        return multiplicavel;} 
+        return pontosFidelidade;
     }
 
-    protected int multiplicar_pt_multiplicador(int pnt_bilhete){
-        if(this.multiplicador_ativo && this.acelerador_pts != null){
-            return (Math.round((int) (this.acelerador_pts.multiplicarPts(pnt_bilhete)/500) * 500));}
-       else{ 
-       return 0;}    
-    }
-
-    /**
-     * Método responsavél por Ativar e Desativar o Multiplicador
-     * @return status do multiplicador
-     */
-    public boolean ativar_multiplicador(){
-        if(this.acelerador_pts != null){
-            if(this.multiplicador_ativo == false)
-                this.multiplicador_ativo = true;
-            else
-                this.multiplicador_ativo = false;       
-        }
-        return this.multiplicador_ativo;    
-    }
-
-    public void trocar_multiplicador(){
-        if(this.acelerador_pts != null){
-            final double preco_multi = this.acelerador_pts.getPrecoMensal();
-         switch (this.acelerador_pts.getTipo().strip()) {
-            case "Preto":
-                this.acelerador_pts = new MultiplicadorPreto(preco_multi);
-                break;
-            case"Prata":
-             this.acelerador_pts = new MultiplicadorPreto(preco_multi);
-            break;
-            default:
-                System.out.println(tipo+"Não existente de Multiplicador");
-                break;
-         }
-        }
-    }
     /**
      * Encontra o voo com o maior preço contido no bilhete
      * @return Voo com maior preço

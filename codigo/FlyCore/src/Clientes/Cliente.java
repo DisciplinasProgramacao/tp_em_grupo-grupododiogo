@@ -7,7 +7,7 @@ public class Cliente {
 
     private String nome = "";
     private int NUM_DOCUMENTO = 0;
-    private int pontuacaoCliente;
+    private int pontuacaoCliente =0;
     private LinkedList<Bilhete> bilhetesCliente = new LinkedList<Bilhete>();
 
     /**
