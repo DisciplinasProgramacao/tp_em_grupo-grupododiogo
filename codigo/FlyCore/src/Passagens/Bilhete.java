@@ -11,7 +11,6 @@ public class Bilhete {
     protected String tipo;
     protected Multiplicador acelerador_pts;
     protected boolean multiplicador_ativo = false;
-    protected double preco_mult =0d;
     /**
      * Construtor do bilhete, atribuindo um hashCode como id e o tipo do bilhete
      */
@@ -103,6 +102,22 @@ public class Bilhete {
         return this.multiplicador_ativo;    
     }
 
+    public void trocar_multiplicador(){
+        if(this.acelerador_pts != null){
+            final double preco_multi = this.acelerador_pts.getPrecoMensal();
+         switch (this.acelerador_pts.getTipo().strip()) {
+            case "Preto":
+                this.acelerador_pts = new MultiplicadorPreto(preco_multi);
+                break;
+            case"Prata":
+             this.acelerador_pts = new MultiplicadorPreto(preco_multi);
+            break;
+            default:
+                System.out.println(tipo+"Não existente de Multiplicador");
+                break;
+         }
+        }
+    }
     /**
      * Encontra o voo com o maior preço contido no bilhete
      * @return Voo com maior preço

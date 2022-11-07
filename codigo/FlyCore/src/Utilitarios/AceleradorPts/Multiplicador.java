@@ -21,4 +21,8 @@ public abstract class Multiplicador{
     
     public abstract int multiplicarPts(int pts);
 
+    public String getTipo(){
+        return this.tipo;
+    }
+
 }
