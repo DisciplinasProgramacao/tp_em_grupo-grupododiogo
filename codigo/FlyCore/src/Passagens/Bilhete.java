@@ -69,15 +69,28 @@ public class Bilhete {
     * @return pontos de fidelidade
     */
     public int calcularPontuacao() {
+        int pontosFidelidade=0;
+      
         double valorAux = this.calcularPreco() / 500;
         int valorBase = (int)valorAux;
-        int pontosFidelidade = (valorBase * 500);
+        pontosFidelidade = (valorBase * 500);
+        if(this.multiplicador_ativo){
+            return ((int) (acelerador_pts.multiplicarPts(pontosFidelidade)/500) * 500);
+        }
         return pontosFidelidade;
     }
 
+    /**
+     * Método responsavél por Ativar e Desativar o Multiplicador
+     * @return status do multiplicador
+     */
     public boolean ativar_multiplicador(){
-        if(this.acelerador_pts != null)
-            this.multiplicador_ativo = true;
+        if(this.acelerador_pts != null){
+            if(this.multiplicador_ativo == false)
+                this.multiplicador_ativo = true;
+            else
+                this.multiplicador_ativo = false;       
+        }
         return this.multiplicador_ativo;    
     }
 
