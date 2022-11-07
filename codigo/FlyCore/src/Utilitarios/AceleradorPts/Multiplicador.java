@@ -6,10 +6,6 @@ public abstract class Multiplicador{
 
     protected double precoMensal=0d;
 
-    /**
-     * @param precoMensal
-     */
-
     protected double setPrecoMensal(double preco){
             try{
                 this.precoMensal = preco;
