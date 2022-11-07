@@ -4,7 +4,7 @@ public abstract class Multiplicador{
     
     protected String tipo = "";
 
-    protected double precoMensal=0d;
+    protected  static double precoMensal=0d;
 
     protected double setPrecoMensal(double preco){
             try{
