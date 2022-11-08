@@ -21,7 +21,7 @@ public class BilheteTest {
     public void setUp(){
          bhParaSp = new Trecho("Belo Horizonte", "São Paulo");
          dataVoo = new Data(06, 05, 2003);
-         bhParaSpVoo = new Voo(bhParaSp, dataVoo, 0);
+         bhParaSpVoo = new Voo(bhParaSp, dataVoo, 100);
          bilhete = new Bilhete();
     }
     
@@ -52,5 +52,16 @@ public class BilheteTest {
         assertTrue(bilhete.inserirVoo(bhParaSpVoo));
 
         assertFalse(bilhete.removerVoo(4521457));// id "aleatório"
+    }
+
+    @Test 
+    public void calcular_Preco_encontrarMaiorValorVoo(){
+        bilhete.inserirVoo(bhParaSpVoo);
+        Trecho tr2 = new Trecho("Belo Horizonte", "São Paulo");
+        Data data2 = new Data(06, 05, 2003);
+        Voo voo2 = new Voo(tr2, data2, 250.0);
+        bilhete.inserirVoo(voo2);
+
+      assertEquals(300d, bilhete.calcularPreco());
     }
 }

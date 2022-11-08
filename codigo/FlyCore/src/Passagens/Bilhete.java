@@ -1,6 +1,10 @@
 package Passagens;
+import java.util.Comparator;
 import java.util.LinkedList;
 import java.util.Objects;
+import java.util.Optional;
+import java.util.stream.Collector;
+import java.util.stream.Collectors;
 
 public class Bilhete {
     protected final int idBilhete;
@@ -78,22 +82,9 @@ public class Bilhete {
      * @return Voo com maior preço
      */
     protected Voo encontrarVooMaiorValor() {
-        try {
-            Voo vooComMaiorPreco = this.voos.get(0);
-            double precoAtual = 0d;
-
-            for (int i = 0; i < this.voos.size() - 1; i++) {
-                precoAtual = this.voos.get(i).getPreco();
-                if (precoAtual < this.voos.get(i + 1).getPreco()) {
-                    vooComMaiorPreco = this.voos.get(i + 1);
-                }
-            }
-
-            return vooComMaiorPreco;
-        } catch (IndexOutOfBoundsException e) {
-            return null;
+           Voo maior_valor =  this.voos.stream().collect(Collectors.maxBy(Comparator.comparingDouble(Voo::getPreco))).orElse(null);
+            return maior_valor;
         }
-    }
 
     /**
      * Soma o preço de voos restantes

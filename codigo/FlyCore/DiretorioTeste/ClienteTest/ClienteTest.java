@@ -1,5 +1,6 @@
 package ClienteTest;
 
+import org.junit.Test;
 import org.junit.jupiter.api.BeforeEach;
 
 import Passagens.Bilhete;
@@ -17,6 +18,11 @@ public class ClienteTest {
          Voo voo_1 = new Voo(tr1, data1, 250);
          Bilhete blh1 = new Bilhete();
          blh1.inserirVoo(voo_1);
+    }
+
+    @Test
+    public void comprarBilhetes(){
+        
     }
     
 }
