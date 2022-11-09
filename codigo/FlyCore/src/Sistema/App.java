@@ -388,6 +388,7 @@ public class App {
                 break;
             }
             if (opcao != 0) {
+                
                 pausa();
             } else {
                 System.out.println("Obrigado por usar o Fly Core. Volte sempre!");

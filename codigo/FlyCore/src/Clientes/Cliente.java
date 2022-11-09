@@ -3,19 +3,21 @@ package Clientes;
 import java.util.LinkedList;
 
 import Passagens.Bilhete;
+import Utilitarios.AceleradorPts.Multiplicador;
 public class Cliente {
 
     private String nome = "";
-    private int NUM_DOCUMENTO = 0;
+    private long NUM_DOCUMENTO = 0;
     private int pontuacaoCliente =0;
     private LinkedList<Bilhete> bilhetesCliente = new LinkedList<Bilhete>();
+    public Multiplicador acelardor_pts = new Multiplicador();
 
     /**
      * Construtor cliente, recebe o nome e o numero do documento.
      * @param nomeCliente
      * @param numDoc
      */
-    public Cliente(String nomeCliente, int numDoc) {
+    public Cliente(String nomeCliente, long numDoc) {
         this.nome = nomeCliente;
         this.NUM_DOCUMENTO = numDoc;
         this.pontuacaoCliente = 0;
