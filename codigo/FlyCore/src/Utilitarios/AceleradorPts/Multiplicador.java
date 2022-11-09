@@ -2,17 +2,15 @@ package Utilitarios.AceleradorPts;
 
 public class Multiplicador implements Imulti{
 
-    private boolean preto = false;
-    private boolean prata = true;
+    private String tipo = " ";
     private static double precoPrata=0d;
     private static double precoPreto=0d;
     private boolean ativo = false;
     private double valor = 0d;
     
     
-    public Multiplicador(){
-        this.prata = true;
-        this.valor = 1.25;
+    public Multiplicador(String tipo){
+        this.tipo = tipo;
     }
 
     public double setPrecoPrata(double valor){
@@ -28,10 +26,7 @@ public class Multiplicador implements Imulti{
     }
 
     public String getTipo(){
-        if(this.prata)
-            return "prata";
-        else
-            return "preto";    
+        return this.tipo;
     }
 
     public boolean isAtivo(){
@@ -52,14 +47,17 @@ public int multiplicar(int pontuacao) {
 }
 @Override
 public String trocar() {
-    if(!this.prata){
-        this.prata= true;
-        this.valor = 1.25;
-    }
-    else{
-        this.preto = true;
-        this.valor = 1.5; 
-    }   
+   switch (this.tipo) {
+    case "preto":
+            this.tipo = "prata";
+            this.valor = 1.25;
+        break;
+    case "prata":
+            this.tipo = "preto";    
+            this.valor = 1.5;
+    default:
+        break;
+   }
     return this.getTipo();
 }
 }
