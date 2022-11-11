@@ -65,7 +65,7 @@ public class Cliente {
         return pontuacaoTotal;
     } 
 
-    public void comprarAcelerador(Emulti opt){
+    public void setAcelerador(Emulti opt){
         if(opt == Emulti.PRATA)
             this.acelardor_pts = new MultiplicadorPrata();
         else if(opt == Emulti.PRETO){
