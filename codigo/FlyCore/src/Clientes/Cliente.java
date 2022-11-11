@@ -3,14 +3,17 @@ package Clientes;
 import java.util.LinkedList;
 
 import Passagens.Bilhete;
+import Utilitarios.AceleradorPts.IMultiplicavel;
 import Utilitarios.AceleradorPts.Multiplicador;
+import Utilitarios.AceleradorPts.MultiplicadorPrata;
+import Utilitarios.AceleradorPts.MultiplicadorPreto;
 public class Cliente {
 
     private String nome = "";
     private long NUM_DOCUMENTO = 0;
     private int pontuacaoCliente =0;
     private LinkedList<Bilhete> bilhetesCliente = new LinkedList<Bilhete>();
-    public Multiplicador acelardor_pts = new Multiplicador();
+    public IMultiplicavel acelardor_pts;
 
     /**
      * Construtor cliente, recebe o nome e o numero do documento.
@@ -50,4 +53,5 @@ public class Cliente {
         }
         return pontuacaoTotal;
     } 
+
 }
