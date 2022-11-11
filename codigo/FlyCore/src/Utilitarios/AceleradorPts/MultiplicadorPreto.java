@@ -21,9 +21,13 @@ public class MultiplicadorPreto implements IMultiplicavel {
 
     @Override
     public boolean on_off() {
-        this.ativo = !this.ativo;
+        if(this.ativo)
+         this.ativo = false;
+        else
+        this.ativo = true;
+        
         return this.ativo;
-    }
+     }
     @Override
     public double getPreco() {
         return MultiplicadorPreto.preco;

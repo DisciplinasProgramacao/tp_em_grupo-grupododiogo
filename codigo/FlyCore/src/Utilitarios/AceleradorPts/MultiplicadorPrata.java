@@ -5,7 +5,7 @@ public class MultiplicadorPrata implements IMultiplicavel{
     private static final String tipo = "prata";
     private static double preco=0d;
     private boolean ativo = false;
-    private  static  final double valor = 1.50;
+    private  static  final double valor = 1.25;
     
     public MultiplicadorPrata(){
         this.ativo = false;
@@ -21,8 +21,12 @@ public class MultiplicadorPrata implements IMultiplicavel{
 
     @Override
     public boolean on_off() {
-        this.ativo = !this.ativo;
-        return this.ativo;
+       if(this.ativo)
+        this.ativo = false;
+       else
+       this.ativo = true;
+       
+       return this.ativo;
     }
 
     @Override

@@ -13,7 +13,8 @@ public class Cliente {
     private long NUM_DOCUMENTO = 0;
     private int pontuacaoCliente =0;
     private LinkedList<Bilhete> bilhetesCliente = new LinkedList<Bilhete>();
-    public IMultiplicavel acelardor_pts;
+    public IMultiplicavel acelardor_pts = new MultiplicadorPrata();
+    ;
 
     /**
      * Construtor cliente, recebe o nome e o numero do documento.
@@ -48,19 +49,12 @@ public class Cliente {
     public int verificarPontuacao(){
         int pontuacaoTotal = 0;
         //Vericiar pontuação caso multipliucador ativo
-        if(this.acelardor_pts != null && this.acelardor_pts.isAtivo()){
+        if(this.acelardor_pts != null){
+            System.out.println("Not Null amigao");
             for (Bilhete bilhete : this.bilhetesCliente) {
                 int pontuacao = bilhete.calcularPontuacao();
                 pontuacaoTotal += this.acelardor_pts.multiplicar(pontuacao);
             }
-        }
-        //Verificar pontuação caso Multiplicador desativado ou Nulo
-        else{
-            for (Bilhete bl : this.bilhetesCliente){
-                    int pts = bl.calcularPontuacao();
-                    pontuacaoTotal += pts;
-            }
-            
         }
         return pontuacaoTotal;
     } 

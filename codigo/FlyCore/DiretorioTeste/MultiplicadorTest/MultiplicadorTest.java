@@ -1,46 +1,33 @@
 package MultiplicadorTest;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import org.junit.Test;
-import org.junit.jupiter.api.BeforeAll;
 
-import Clientes.Cliente;
-import Passagens.Bilhete;
-import Passagens.Trecho;
-import Passagens.Voo;
-import Utilitarios.Data;
-import Utilitarios.AceleradorPts.Emulti;
+
+import Utilitarios.AceleradorPts.IMultiplicavel;
 import Utilitarios.AceleradorPts.MultiplicadorPrata;
 import Utilitarios.AceleradorPts.MultiplicadorPreto;
 
 public class MultiplicadorTest {
-
-    private Cliente usr = new Cliente("", 0);
-    private Trecho trch = new Trecho("", "");
-    private Voo voo;
-    private Bilhete blhte = new Bilhete();
-    @BeforeAll
-    public void criari_classes_util(){
-        this.usr = new Cliente("Leonardo", 1555);
-        this.trch = new Trecho("São Paulo", "Belo Horizonte");
-        this.voo  = new Voo(trch, null, 600);
-        this.blhte.inserirVoo(voo);
-        usr.comprarBilhete(blhte);
-        MultiplicadorPrata.setPreco(250d);
-        MultiplicadorPreto.setPreco(350d);
-    }
+    //MP = PRATA ; MPE = PRETO
+    private IMultiplicavel mp = new MultiplicadorPrata(); 
+    private IMultiplicavel mpe = new MultiplicadorPreto();
 
     @Test
     public void multiplicarPTSdesativado(){
-        usr.setAcelerador(Emulti.PRATA);
-        assertEquals(usr.acelardor_pts.multiplicar(usr.verificarPontuacao()) , usr.verificarPontuacao());
+        MultiplicadorPrata.setPreco(250d);
+        assertEquals(this.mp.multiplicar(200), 200);//retorna o proprio número quando desligado
+        assertEquals(this.mpe.multiplicar(300), 300 );
+        assertEquals(250d, this.mp.getPreco());
     }
     @Test
     public void multiplicarPTSativado(){
-        usr.setAcelerador(Emulti.PRATA);
-        usr.acelardor_pts.on_off();
-        assertEquals(usr.acelardor_pts.multiplicar(usr.verificarPontuacao()), usr.verificarPontuacao());
+        this.mp.on_off();
+        this.mpe.on_off();
+       assertEquals(mp.multiplicar(500), 625); // x1,25
+       assertEquals(mpe.multiplicar(500), 750);// x1,5
     }
     
 }
