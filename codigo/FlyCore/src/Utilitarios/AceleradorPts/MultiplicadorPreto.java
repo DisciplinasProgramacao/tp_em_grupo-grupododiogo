@@ -13,7 +13,10 @@ public class MultiplicadorPreto implements IMultiplicavel {
 
     @Override
     public int multiplicar(int pts) {
-        return (int) (int ) (pts*MultiplicadorPreto.valor);
+        int total = pts; 
+        if(this.ativo)
+            total = (int) (int ) (pts*MultiplicadorPreto.valor);
+        return total;
     }
 
     @Override
@@ -21,14 +24,6 @@ public class MultiplicadorPreto implements IMultiplicavel {
         this.ativo = !this.ativo;
         return this.ativo;
     }
-
-    @Override
-    public double setPreco(double preco) {
-        if(preco > 0)
-            MultiplicadorPreto.preco = preco;    
-        return preco;
-    }
-
     @Override
     public double getPreco() {
         return MultiplicadorPreto.preco;
@@ -37,5 +32,14 @@ public class MultiplicadorPreto implements IMultiplicavel {
     @Override
     public Object trocar() {
         return new MultiplicadorPrata();
+    }
+    @Override
+    public String getTipo() {
+        return MultiplicadorPreto.tipo;
+    }
+    public static double setPreco(double val){
+        if(val >0)
+            MultiplicadorPreto.preco = val;
+        return val;
     }
 }

@@ -24,13 +24,5 @@ public class ClienteTest {
         blh1 = new Bilhete();
         blh1.inserirVoo(voo_1);
     }
-
-    @Test
-    public void criar_multiplicador(){
-        
-        cl.comprarBilhete(blh1);
-        cl.acelardor_pts.ativar();
-        assertEquals(cl.acelardor_pts.getTipo(), "prata");
-    }
     
 }

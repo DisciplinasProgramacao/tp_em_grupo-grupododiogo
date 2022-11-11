@@ -4,9 +4,6 @@ import java.util.LinkedList;
 
 import Passagens.Bilhete;
 import Utilitarios.AceleradorPts.IMultiplicavel;
-import Utilitarios.AceleradorPts.Multiplicador;
-import Utilitarios.AceleradorPts.MultiplicadorPrata;
-import Utilitarios.AceleradorPts.MultiplicadorPreto;
 public class Cliente {
 
     private String nome = "";

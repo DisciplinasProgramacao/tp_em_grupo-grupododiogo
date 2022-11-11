@@ -6,9 +6,9 @@ public interface IMultiplicavel {
 
     public boolean on_off();
 
-    public double setPreco(double preco);
-
     public double getPreco();
 
     public Object trocar();
+
+    public String getTipo();
 }
