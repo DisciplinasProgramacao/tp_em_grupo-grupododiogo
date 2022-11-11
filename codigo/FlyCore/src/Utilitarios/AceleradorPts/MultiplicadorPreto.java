@@ -28,11 +28,6 @@ public class MultiplicadorPreto implements IMultiplicavel {
     public double getPreco() {
         return MultiplicadorPreto.preco;
     }
-
-    @Override
-    public Object trocar() {
-        return new MultiplicadorPrata();
-    }
     @Override
     public String getTipo() {
         return MultiplicadorPreto.tipo;
@@ -41,5 +36,8 @@ public class MultiplicadorPreto implements IMultiplicavel {
         if(val >0)
             MultiplicadorPreto.preco = val;
         return val;
+    }
+    public boolean isAtivo() {
+        return this.ativo;
     }
 }

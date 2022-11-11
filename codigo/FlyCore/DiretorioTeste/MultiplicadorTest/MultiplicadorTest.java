@@ -34,7 +34,6 @@ public class MultiplicadorTest {
     public void multiplicarPTSdesativado(){
         usr.acelardor_pts = new MultiplicadorPrata();
         assertEquals(usr.acelardor_pts.multiplicar(usr.verificarPontuacao()), usr.verificarPontuacao());
-
     }
     
 }

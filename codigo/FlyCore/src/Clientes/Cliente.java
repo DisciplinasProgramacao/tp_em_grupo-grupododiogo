@@ -3,7 +3,10 @@ package Clientes;
 import java.util.LinkedList;
 
 import Passagens.Bilhete;
+import Utilitarios.AceleradorPts.Emulti;
 import Utilitarios.AceleradorPts.IMultiplicavel;
+import Utilitarios.AceleradorPts.MultiplicadorPrata;
+import Utilitarios.AceleradorPts.MultiplicadorPreto;
 public class Cliente {
 
     private String nome = "";
@@ -44,11 +47,29 @@ public class Cliente {
      */
     public int verificarPontuacao(){
         int pontuacaoTotal = 0;
-        for (Bilhete bilhete : this.bilhetesCliente) {
-            int pontuacao = bilhete.calcularPontuacao();
-            pontuacaoTotal += pontuacao;
+        //Vericiar pontuação caso multipliucador ativo
+        if(this.acelardor_pts != null && this.acelardor_pts.isAtivo()){
+            for (Bilhete bilhete : this.bilhetesCliente) {
+                int pontuacao = bilhete.calcularPontuacao();
+                pontuacaoTotal += this.acelardor_pts.multiplicar(pontuacao);
+            }
+        }
+        //Verificar pontuação caso Multiplicador desativado ou Nulo
+        else{
+            for (Bilhete bl : this.bilhetesCliente){
+                    int pts = bl.calcularPontuacao();
+                    pontuacaoTotal += pts;
+            }
+            
         }
         return pontuacaoTotal;
     } 
 
+    public void comprarAcelerador(Emulti opt){
+        if(opt == Emulti.PRATA)
+            this.acelardor_pts = new MultiplicadorPrata();
+        else if(opt == Emulti.PRETO){
+            this.acelardor_pts = new MultiplicadorPreto();
+        }
+    }
 }

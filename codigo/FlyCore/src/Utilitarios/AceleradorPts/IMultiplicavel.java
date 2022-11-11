@@ -8,7 +8,7 @@ public interface IMultiplicavel {
 
     public double getPreco();
 
-    public Object trocar();
-
     public String getTipo();
+
+    public boolean isAtivo();
 }
