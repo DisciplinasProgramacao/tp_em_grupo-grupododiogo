@@ -10,6 +10,7 @@ import Passagens.Bilhete;
 import Passagens.Trecho;
 import Passagens.Voo;
 import Utilitarios.Data;
+import Utilitarios.AceleradorPts.Emulti;
 import Utilitarios.AceleradorPts.MultiplicadorPrata;
 import Utilitarios.AceleradorPts.MultiplicadorPreto;
 
@@ -32,7 +33,13 @@ public class MultiplicadorTest {
 
     @Test
     public void multiplicarPTSdesativado(){
-        usr.acelardor_pts = new MultiplicadorPrata();
+        usr.setAcelerador(Emulti.PRATA);
+        assertEquals(usr.acelardor_pts.multiplicar(usr.verificarPontuacao()) , usr.verificarPontuacao());
+    }
+    @Test
+    public void multiplicarPTSativado(){
+        usr.setAcelerador(Emulti.PRATA);
+        usr.acelardor_pts.on_off();
         assertEquals(usr.acelardor_pts.multiplicar(usr.verificarPontuacao()), usr.verificarPontuacao());
     }
     
