@@ -2,8 +2,6 @@ package Passagens;
 import java.util.Comparator;
 import java.util.LinkedList;
 import java.util.Objects;
-import java.util.Optional;
-import java.util.stream.Collector;
 import java.util.stream.Collectors;
 
 public class Bilhete {

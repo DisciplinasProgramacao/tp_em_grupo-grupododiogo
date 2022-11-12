@@ -36,7 +36,7 @@ public class Cliente {
             this.bilhetesCliente.add(bilheteCompra);
             return true;
         }
-        catch (Exception e) {
+        catch (NullPointerException e) {
             return false;
         }
     }

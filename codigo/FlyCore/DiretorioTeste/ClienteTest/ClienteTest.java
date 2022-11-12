@@ -14,7 +14,6 @@ public class ClienteTest {
 
     @Test
     public void test_multiplicador_nulo(){
-
         Trecho tr1 = new Trecho("Belo Horizonte", "São Paulo");
         Data data1 = new Data(06, 05, 2003);
         Voo voo_1 = new Voo(tr1, data1, 500);
@@ -36,5 +35,9 @@ public class ClienteTest {
         cl.acelardor_pts.on_off();
         assertEquals(cl.getPontuacao(), 750);
     }
-    
+    @Test 
+    public void getPontuacaoSemBilhete(){
+        assertEquals(0, cl.getPontuacao());
+        cl.comprarBilhete(blh1);
+    }
 }
