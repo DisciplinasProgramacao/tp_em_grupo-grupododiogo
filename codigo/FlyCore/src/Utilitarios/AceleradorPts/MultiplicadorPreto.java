@@ -40,6 +40,7 @@ public class MultiplicadorPreto implements IMultiplicavel {
             MultiplicadorPreto.preco = val;
         return val;
     }
+    @Override
     public boolean isAtivo() {
         return this.ativo;
     }

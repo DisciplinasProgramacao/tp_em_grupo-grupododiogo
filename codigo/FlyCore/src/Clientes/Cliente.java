@@ -1,14 +1,11 @@
 package Clientes;
-
 import java.util.LinkedList;
-
-import org.junit.jupiter.params.shadow.com.univocity.parsers.conversions.IntegerConversion;
-
 import Passagens.Bilhete;
 import Utilitarios.AceleradorPts.Emulti;
 import Utilitarios.AceleradorPts.IMultiplicavel;
 import Utilitarios.AceleradorPts.MultiplicadorPrata;
 import Utilitarios.AceleradorPts.MultiplicadorPreto;
+
 public class Cliente {
 
     private String nome = "";

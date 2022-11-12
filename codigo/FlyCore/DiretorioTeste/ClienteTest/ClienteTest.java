@@ -1,17 +1,12 @@
 package ClienteTest;
-
 import static org.junit.jupiter.api.Assertions.assertEquals;
-
 import org.junit.Test;
-import org.junit.jupiter.api.BeforeEach;
-
 import Clientes.Cliente;
 import Passagens.Bilhete;
 import Passagens.Trecho;
 import Passagens.Voo;
 import Utilitarios.Data;
 import Utilitarios.AceleradorPts.Emulti;
-
 public class ClienteTest {
 
     public Bilhete blh1 = new Bilhete();;
