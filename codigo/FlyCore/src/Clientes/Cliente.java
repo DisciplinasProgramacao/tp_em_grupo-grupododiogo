@@ -2,6 +2,8 @@ package Clientes;
 
 import java.util.LinkedList;
 
+import org.junit.jupiter.params.shadow.com.univocity.parsers.conversions.IntegerConversion;
+
 import Passagens.Bilhete;
 import Utilitarios.AceleradorPts.Emulti;
 import Utilitarios.AceleradorPts.IMultiplicavel;
@@ -46,14 +48,28 @@ public class Cliente {
      * Calcula a pontuaçao de fidelidade total do cliente.
      * @return pontuaçao de fidelidade
      */
-    public int verificarPontuacao() throws NullPointerException{
+    public int getPontuacao(){
         int pontuacaoTotal = 0;
 
+        try{
             for (Bilhete bilhete : this.bilhetesCliente) {
-                int pontuacao = bilhete.calcularPontuacao();
-                pontuacaoTotal += this.acelardor_pts.multiplicar(pontuacao);
+                pontuacaoTotal += this.acelardor_pts.multiplicar(bilhete.calcularPontuacao());
             }
-        return pontuacaoTotal;
+           
+        }
+        catch(NullPointerException e){
+                pontuacaoTotal = verificarPontuacaoPadrao();
+                e.printStackTrace();
+            }
+        return  pontuacaoTotal;      
+    } 
+
+    private int verificarPontuacaoPadrao(){
+        int pts = 0;
+            for (Bilhete bilhete : this.bilhetesCliente) {
+                pts +=  bilhete.calcularPontuacao();
+            }
+        return pts;
     } 
 
     public void setAcelerador(Emulti opt){

@@ -13,16 +13,18 @@ import Utilitarios.Data;
 
 public class ClienteTest {
 
-    public Bilhete blh1;
+    public Bilhete blh1 = new Bilhete();;
     public Cliente cl = new Cliente("", 6550);
 
-    @BeforeEach
-    public void setUp(){
-         Trecho tr1 = new Trecho("Belo Horizonte", "São Paulo");
-         Data data1 = new Data(06, 05, 2003);
-         Voo voo_1 = new Voo(tr1, data1, 250);
-        blh1 = new Bilhete();
+    @Test
+    public void test_multiplicador_nulo(){
+
+        Trecho tr1 = new Trecho("Belo Horizonte", "São Paulo");
+        Data data1 = new Data(06, 05, 2003);
+        Voo voo_1 = new Voo(tr1, data1, 500);
         blh1.inserirVoo(voo_1);
+        cl.comprarBilhete(blh1);
+        assertEquals(cl.getPontuacao(), 500);
     }
     
 }
