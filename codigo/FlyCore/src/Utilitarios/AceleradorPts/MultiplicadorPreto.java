@@ -10,13 +10,12 @@ public class MultiplicadorPreto implements IMultiplicavel {
     public MultiplicadorPreto(){
         this.ativo = false;
     }
-
     @Override
     public int multiplicar(int pts) {
         int total = pts; 
         if(this.ativo)
             total = (int) (int ) (pts*MultiplicadorPreto.valor);
-        return total;
+        return total;//retorna os pts recebidos caso esteja inativo
     }
 
     @Override

@@ -46,16 +46,13 @@ public class Cliente {
      * Calcula a pontuaçao de fidelidade total do cliente.
      * @return pontuaçao de fidelidade
      */
-    public int verificarPontuacao(){
+    public int verificarPontuacao() throws NullPointerException{
         int pontuacaoTotal = 0;
-        //Vericiar pontuação caso multipliucador ativo
-        if(this.acelardor_pts != null){
-            System.out.println("Not Null amigao");
+
             for (Bilhete bilhete : this.bilhetesCliente) {
                 int pontuacao = bilhete.calcularPontuacao();
                 pontuacaoTotal += this.acelardor_pts.multiplicar(pontuacao);
             }
-        }
         return pontuacaoTotal;
     } 
 
