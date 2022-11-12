@@ -52,13 +52,11 @@ public class Cliente {
             for (Bilhete bilhete : this.bilhetesCliente) {
                 pontuacaoTotal += this.acelardor_pts.multiplicar(bilhete.calcularPontuacao());
             }
-            return  pontuacaoTotal;  
-           
         }
         catch(NullPointerException e){
                 pontuacaoTotal = verificarPontuacaoPadrao();
-                return pontuacaoTotal;
             }
+        return pontuacaoTotal;
     } 
 
     private int verificarPontuacaoPadrao(){
