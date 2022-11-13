@@ -2,10 +2,10 @@ package Utilitarios.AceleradorPts;
 
 public class MultiplicadorPrata implements IMultiplicavel {
 
-    private static final String tipo = "prata";
-    private static double preco=0d;
+    private static final String TIPO = "prata";
+    private static double preco = 0d;
     private boolean ativo = false;
-    private  static  final double valor = 1.25;
+    private static final double VALOR = 1.25;
     
     public MultiplicadorPrata() {
         this.ativo = false;
@@ -15,7 +15,7 @@ public class MultiplicadorPrata implements IMultiplicavel {
     public int multiplicar(int pts) {
         int total = pts; 
         if(this.ativo)
-            total = (int) (int ) (pts*MultiplicadorPrata.valor);
+            total = (int) (int ) (pts*MultiplicadorPrata.VALOR);
         return total;
     }
 
@@ -36,7 +36,7 @@ public class MultiplicadorPrata implements IMultiplicavel {
 
     @Override
     public String getTipo() {
-        return MultiplicadorPrata.tipo;
+        return MultiplicadorPrata.TIPO;
     }
 
     public static double setPreco(double val) {

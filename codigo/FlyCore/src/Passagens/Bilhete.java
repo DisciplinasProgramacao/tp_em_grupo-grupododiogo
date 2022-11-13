@@ -7,7 +7,7 @@ import java.util.stream.Collectors;
 public class Bilhete {
     protected final int idBilhete;
     protected LinkedList<Voo> voos = new LinkedList<Voo>();
-    protected double precoBilhete =0;
+    protected double precoBilhete = 0;
     protected String tipo;
     /**
      * Construtor do bilhete, atribuindo um hashCode como id e o tipo do bilhete
@@ -75,6 +75,29 @@ public class Bilhete {
         return pontosFidelidade;
     }
 
+    
+    /**
+     * @param indexVoo
+     * @return Voo encontrado.
+     */
+    public Voo buscarVoo(int indexVoo) {
+        return this.voos.get(indexVoo);
+    }
+
+    /**
+     * @param idVoo
+     * @return Index do voo na lista de voos. Caso o voo não exista na lista, retorna
+     * -1.
+     */
+    public int buscarIndexVoo(int idVoo) {
+        for (int i = 0; i < this.voos.size(); i++) {
+            if (this.voos.get(i).getIdVoo() == idVoo) {
+                return i;
+            }
+        }
+        return -1;
+    }
+
     /**
      * Encontra o voo com o maior preço contido no bilhete
      * @return Voo com maior preço
@@ -121,37 +144,6 @@ public class Bilhete {
         return infoBilhete.toString();
     }
 
-
-    /**
-     * @param indexVoo
-     * @return Voo encontrado.
-     */
-    public Voo buscarVoo(int indexVoo) {
-        return this.voos.get(indexVoo);
-    }
-
-    /**
-     * @param idVoo
-     * @return Index do voo na lista de voos. Caso o voo não exista na lista, retorna
-     * -1.
-     */
-    public int buscarIndexVoo(int idVoo) {
-        for (int i = 0; i < this.voos.size(); i++) {
-            if (this.voos.get(i).getIdVoo() == idVoo) {
-                return i;
-            }
-        }
-        return -1;
-    }
-
-    /**
-     * Retorna id do bilhete
-     * @return int idBilhete
-     */
-    public int getIdBilhete() {
-        return this.idBilhete;
-    }
-
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -163,5 +155,9 @@ public class Bilhete {
     @Override
     public int hashCode() {
         return Objects.hash(voos, precoBilhete, tipo);
+    }
+
+    public int getIdBilhete() {
+        return this.idBilhete;
     }
 }

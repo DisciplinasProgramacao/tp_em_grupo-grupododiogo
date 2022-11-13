@@ -9,10 +9,10 @@ import Utilitarios.AceleradorPts.MultiplicadorPreto;
 public class Cliente {
 
     private String nome = "";
-    private long NUM_DOCUMENTO = 0;
+    private long numDocumento = 0;
     private int pontuacaoCliente = 0;
     private LinkedList<Bilhete> bilhetesCliente = new LinkedList<Bilhete>();
-    public IMultiplicavel acelardorPts;
+    private IMultiplicavel acelardorPts;
     ;
 
     /**
@@ -22,7 +22,7 @@ public class Cliente {
      */
     public Cliente(String nomeCliente, long numDoc) {
         this.nome = nomeCliente;
-        this.NUM_DOCUMENTO = numDoc;
+        this.numDocumento = numDoc;
         this.pontuacaoCliente = 0;
     }
 
@@ -82,5 +82,9 @@ public class Cliente {
      */
     public void ordenarBilhetes() {
         bilhetesCliente.sort((b1, b2) -> (b1.buscarVoo(0).getData().maisRecenteQue(b2.buscarVoo(0).getData())));
+    }
+
+    public IMultiplicavel getAcelardorPts() {
+        return this.acelardorPts;
     }
 }

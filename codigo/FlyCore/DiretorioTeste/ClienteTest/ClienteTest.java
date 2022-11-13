@@ -33,7 +33,7 @@ public class ClienteTest {
         //Teste com acelerador innicializado porém desativado!
         assertEquals(cl.getPontuacao(), 500);
         //Teste com acelerador ativado
-        cl.acelardorPts.on_off();
+        cl.getAcelardorPts().on_off();
         assertEquals(cl.getPontuacao(), 750);
     }
     @Test 

@@ -22,7 +22,7 @@ public class BilheteFidelidade extends Bilhete {
      * @return 0 pontos de fidelidade
      */
     @Override
-    public int calcularPontuacao(){
+    public int calcularPontuacao() {
         return 0;
     }
 }

@@ -59,26 +59,14 @@ public class Voo {
         }
     }
 
-    /**
-     * Retorna o id do voo
-     * @return int idVoo
-     */
     public int getIdVoo() {
         return this.idVoo;
     }
 
-    /**
-     * Retorna o preco do voo
-     * @return int preco
-     */
     public double getPreco() {
         return this.preco;
     }
 
-    /**
-     * Retorna a data do voo
-     * @return Data dataVoo
-     */
     public Data getData() {
         return this.dataVoo;
     }
