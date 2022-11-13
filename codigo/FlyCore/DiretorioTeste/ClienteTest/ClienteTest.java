@@ -7,6 +7,7 @@ import Passagens.Trecho;
 import Passagens.Voo;
 import Utilitarios.Data;
 import Utilitarios.AceleradorPts.Emulti;
+
 public class ClienteTest {
 
     public Bilhete blh1 = new Bilhete();;
@@ -32,7 +33,7 @@ public class ClienteTest {
         //Teste com acelerador innicializado porém desativado!
         assertEquals(cl.getPontuacao(), 500);
         //Teste com acelerador ativado
-        cl.acelardor_pts.on_off();
+        cl.acelardorPts.on_off();
         assertEquals(cl.getPontuacao(), 750);
     }
     @Test 

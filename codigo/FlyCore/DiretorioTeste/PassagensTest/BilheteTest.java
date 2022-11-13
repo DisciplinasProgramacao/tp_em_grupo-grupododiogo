@@ -34,9 +34,10 @@ public class BilheteTest {
     public void toStringInfoEInserirVoo() {
         assertTrue(bilhete.inserirVoo(bhParaSpVoo));
 
-        assertEquals("=========== Bilhete número: "+bilhete.getIdBilhete()+"===========\n"+
-        "=========== Voo Número: "+bhParaSpVoo.getIdVoo()+"\n Data do Voo: "+dataVoo.dataFormatada()+"\n"+
-        bhParaSp.getIdTrecho() + " de Belo Horizonte para São Paulo", bilhete.toString());
+        assertEquals("=========== Bilhete Comum número: " + bilhete.getIdBilhete() + " ===========\n"+
+        "=========== Voo Número: " + bhParaSpVoo.getIdVoo() + " ===========" + "\nData do Voo: " + dataVoo.dataFormatada() + "\nPreço do voo: " + bhParaSpVoo.getPreco() +
+        "\nTrecho " + bhParaSp.getIdTrecho() + " de Belo Horizonte para São Paulo.\n\n" +
+        "\nPreço total do bilhete: " + bilhete.calcularPreco() + "\n\nLembre-se de anotar o número do bilhete e dos voos, eles serão necessários depois ;)", bilhete.toString());
     }
 
     @Test

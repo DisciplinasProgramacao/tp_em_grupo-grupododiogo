@@ -1,11 +1,8 @@
 package MultiplicadorTest;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import org.junit.Test;
-import org.junit.jupiter.api.BeforeAll;
-import org.junit.jupiter.api.BeforeEach;
 
 import Utilitarios.AceleradorPts.IMultiplicavel;
 import Utilitarios.AceleradorPts.MultiplicadorPrata;
@@ -23,6 +20,7 @@ public class MultiplicadorTest {
         assertEquals(this.mpe.multiplicar(300), 300 );
         assertEquals(250d, this.mp.getPreco());
     }
+
     @Test
     public void multiplicarPTSativado(){
         this.mp.on_off();
@@ -30,8 +28,8 @@ public class MultiplicadorTest {
        assertEquals(mp.multiplicar(500), 625); // x1,25
        assertEquals(mpe.multiplicar(500), 750);// x1,5
     }
+    
     @Test
-
     public void gets() {
         MultiplicadorPrata.setPreco(250);
         MultiplicadorPreto.setPreco(350);

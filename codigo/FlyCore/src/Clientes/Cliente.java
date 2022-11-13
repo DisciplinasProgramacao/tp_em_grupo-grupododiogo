@@ -10,9 +10,9 @@ public class Cliente {
 
     private String nome = "";
     private long NUM_DOCUMENTO = 0;
-    private int pontuacaoCliente =0;
+    private int pontuacaoCliente = 0;
     private LinkedList<Bilhete> bilhetesCliente = new LinkedList<Bilhete>();
-    public IMultiplicavel acelardor_pts = new MultiplicadorPrata();
+    public IMultiplicavel acelardorPts;
     ;
 
     /**
@@ -45,21 +45,21 @@ public class Cliente {
      * Calcula a pontuaçao de fidelidade total do cliente.
      * @return pontuaçao de fidelidade
      */
-    public int getPontuacao(){
+    public int getPontuacao() {
         int pontuacaoTotal = 0;
 
-        try{
+        try {
             for (Bilhete bilhete : this.bilhetesCliente) {
-                pontuacaoTotal += this.acelardor_pts.multiplicar(bilhete.calcularPontuacao());
+                pontuacaoTotal += this.acelardorPts.multiplicar(bilhete.calcularPontuacao());
             }
         }
-        catch(NullPointerException e){
+        catch(NullPointerException e) {
                 pontuacaoTotal = verificarPontuacaoPadrao();
             }
         return pontuacaoTotal;
     } 
 
-    private int verificarPontuacaoPadrao(){
+    private int verificarPontuacaoPadrao() {
         int pts = 0;
             for (Bilhete bilhete : this.bilhetesCliente) {
                 pts +=  bilhete.calcularPontuacao();
@@ -67,11 +67,11 @@ public class Cliente {
         return pts;
     } 
 
-    public void setAcelerador(Emulti opt){
+    public void setAcelerador(Emulti opt) {
         if(opt == Emulti.PRATA)
-            this.acelardor_pts = new MultiplicadorPrata();
+            this.acelardorPts = new MultiplicadorPrata();
         else if(opt == Emulti.PRETO){
-            this.acelardor_pts = new MultiplicadorPreto();
+            this.acelardorPts = new MultiplicadorPreto();
         }
     }
 }

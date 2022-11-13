@@ -1,13 +1,13 @@
 package Utilitarios.AceleradorPts;
 
-public class MultiplicadorPrata implements IMultiplicavel{
+public class MultiplicadorPrata implements IMultiplicavel {
 
     private static final String tipo = "prata";
     private static double preco=0d;
     private boolean ativo = false;
     private  static  final double valor = 1.25;
     
-    public MultiplicadorPrata(){
+    public MultiplicadorPrata() {
         this.ativo = false;
     }
 
@@ -33,15 +33,18 @@ public class MultiplicadorPrata implements IMultiplicavel{
     public double getPreco() {
         return MultiplicadorPrata.preco;
     }
+
     @Override
     public String getTipo() {
         return MultiplicadorPrata.tipo;
     }
-    public static double setPreco(double val){
-        if(val >0)
+
+    public static double setPreco(double val) {
+        if(val > 0)
             MultiplicadorPrata.preco = val;
         return val;
     }
+    
     @Override
     public boolean isAtivo() {
         return this.ativo;
