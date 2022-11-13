@@ -169,9 +169,41 @@ public class Data{
           "/" + String.format("%02d",this.mes)+ 
           "/" + String.format("%4d",this.ano));
     }
-    
-
 
     
+
+    /**
+    * Compara duas datas (ordem decrescente)
+    * @return retorna 1 se a data comparada for mais recente,
+    * -1 se não for e 0 caso sejam as datas sejam iguais
+    */
+    public int maisRecenteQue(Data outraData) {
+        if (this.ano > outraData.ano) {
+            return -1;
+        }
+
+        if (this.ano == outraData.ano) {
+            if (this.mes > outraData.mes) {
+                return -1;
+            }
+
+            if (this.mes == outraData.mes) {
+                if (this.dia > outraData.dia) {
+                    return -1;
+                }
+
+                if (this.dia == outraData.dia) {
+                    return 0;
+                }
+
+                return 1;
+            }
+
+            return 1;
+        }
+
+		return 1;
+    }
+
 }
 

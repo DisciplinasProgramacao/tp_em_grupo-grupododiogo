@@ -12,17 +12,17 @@ import static org.junit.jupiter.api.Assertions.*;
 
 public class BilheteTest {
 
-    public Trecho bhParaSp;
+    public Trecho bhParaSpTrecho;
     public Data dataVoo;
     public Voo bhParaSpVoo;
     public Bilhete bilhete;
 
     @BeforeEach
-    public void setUp(){
-         bhParaSp = new Trecho("Belo Horizonte", "São Paulo");
-         dataVoo = new Data(06, 05, 2003);
-         bhParaSpVoo = new Voo(bhParaSp, dataVoo, 100);
-         bilhete = new Bilhete();
+    public void setUp() {
+        bhParaSpTrecho = new Trecho("Belo Horizonte", "São Paulo");
+        dataVoo = new Data(06, 05, 2003);
+        bhParaSpVoo = new Voo(bhParaSpTrecho, dataVoo, 100);
+        bilhete = new Bilhete();
     }
     
     @Test
@@ -36,7 +36,7 @@ public class BilheteTest {
 
         assertEquals("=========== Bilhete Comum número: " + bilhete.getIdBilhete() + " ===========\n"+
         "=========== Voo Número: " + bhParaSpVoo.getIdVoo() + " ===========" + "\nData do Voo: " + dataVoo.dataFormatada() + "\nPreço do voo: " + bhParaSpVoo.getPreco() +
-        "\nTrecho " + bhParaSp.getIdTrecho() + " de Belo Horizonte para São Paulo.\n\n" +
+        "\nTrecho " + bhParaSpTrecho.getIdTrecho() + " de Belo Horizonte para São Paulo.\n\n" +
         "\nPreço total do bilhete: " + bilhete.calcularPreco() + "\n\nLembre-se de anotar o número do bilhete e dos voos, eles serão necessários depois ;)", bilhete.toString());
     }
 
@@ -49,7 +49,6 @@ public class BilheteTest {
 
     @Test
     public void removerVooInexistenteTest() {
-
         assertTrue(bilhete.inserirVoo(bhParaSpVoo));
 
         assertFalse(bilhete.removerVoo(4521457));// id "aleatório"

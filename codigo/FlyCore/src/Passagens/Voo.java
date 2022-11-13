@@ -24,9 +24,9 @@ public class Voo {
         this.idVoo = this.hashCode();
         this.preco = precoVoo;
     }
-//#endregion
+//#endregion Construtor do Voo
 
-//#region Metodos uteis do Voo+
+//#region Metodos uteis do Voo
     /**
      * Método que recebe um novo Trecho e substitui o Trecho atual do Voo
      * @param novoTrecho Novo Trecho do Voo
@@ -60,7 +60,7 @@ public class Voo {
     }
 
     /**
-     * Retorna id do voo
+     * Retorna o id do voo
      * @return int idVoo
      */
     public int getIdVoo() {
@@ -68,13 +68,21 @@ public class Voo {
     }
 
     /**
-     * Retorna preco do voo
+     * Retorna o preco do voo
      * @return int preco
      */
     public double getPreco() {
-        return preco;
+        return this.preco;
     }
-    //#endregion
+
+    /**
+     * Retorna a data do voo
+     * @return Data dataVoo
+     */
+    public Data getData() {
+        return this.dataVoo;
+    }
+//#endregion Metodos uteis do Voo
 
 //#region Override's da Classe
     @Override
@@ -97,6 +105,5 @@ public class Voo {
     public int hashCode() {
         return Objects.hash(trechoVoo, dataVoo, preco);
     }
-
-    //endregion
+//#endregion Override's da Classe
 }

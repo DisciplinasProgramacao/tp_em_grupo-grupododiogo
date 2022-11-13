@@ -68,10 +68,19 @@ public class Cliente {
     } 
 
     public void setAcelerador(Emulti opt) {
-        if(opt == Emulti.PRATA)
+        if (opt == Emulti.PRATA) {
             this.acelardorPts = new MultiplicadorPrata();
-        else if(opt == Emulti.PRETO){
+        }
+        else if (opt == Emulti.PRETO) {
             this.acelardorPts = new MultiplicadorPreto();
         }
+    }
+
+    /**
+     * Ordena os bilhetes do usuário em ordem de voo mais recente
+     * @return void
+     */
+    public void ordenarBilhetes() {
+        bilhetesCliente.sort((b1, b2) -> (b1.buscarVoo(0).getData().maisRecenteQue(b2.buscarVoo(0).getData())));
     }
 }
