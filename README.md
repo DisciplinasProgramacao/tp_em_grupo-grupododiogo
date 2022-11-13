@@ -77,36 +77,98 @@ construtores nem métodos get/set no modelo.
 # Diagramas de classe
 ```mermaid
 classDiagram
+class MultiplicadorPreto {
+ -static final String TIPO = "preto"
+ -static double preco
+ -boolean ativo
+ -static final double VALOR = 1.50
+ +multiplicar(int pts) int
+ +on_off() boolean
+ +getPreco() double
+ +getTipo() String
+ +setPreco(double val) double
+ +isAtivo() boolean
+}
+
+class MultiplicadorPrata {
+ -static final String TIPO = "prata"
+ -static double preco
+ -boolean ativo
+ -static final double VALOR = 1.25
+ +multiplicar(int pts) int
+ +on_off() boolean
+ +getPreco() double
+ +getTipo() String
+ +setPreco(double val) double
+ +isAtivo() boolean
+}
+
+class Emulti {
+ <<unum>>
+ PRATA
+ PRETO
+}
+
+class IMultiplicavel {
+ <<Interface>>
+ +multiplicar(int pts) int
+ +on_off() boolean
+ +getPreco() double
+ +getTipo() String
+ +isAtivo() boolean
+}
+
 class Cliente {
--String NOME
--int NUM_DOCUMENTO
--int pontuacaoCliente
--LinkeedList<Bilhete> bilhetesCliente
-+comprarBilhete(Bilhete bilheteCompra) boolean
-+verificarPontuacao() int
+ -String nome
+ -int numDocumento
+ -int pontuacaoCliente
+ -LinkeedList<Bilhete> bilhetesCliente
+ -IMultiplicavel acelardorPts
+ +comprarBilhete(Bilhete bilheteCompra) boolean
+ +getPontuacao() int
+ -verificarPontuacaoPadrao() int
+ +setAcelerador(Emulti opt) void
+ +ordenarBilhetes() void
 }
 
 class Bilhete {
- -int IDBILHETE
- -LinkedList~Voo~ Voos
+ #int IDBILHETE
+ #LinkedList~Voo~ Voos
+ #double PrecoBilhete
+ #String tipo
  +inserirVoo(Voo novoVoo) boolean
  +removerVoo(int idVoo) boolean
  +calcularPrecoFinal() double
  +calcularPontuacao() int
+ +buscarVoo(int indexVoo) Voo
+ +buscarIndexVoo(int idVoo) int
+ #encontrarVooMaiorValor() Voo
+ #somarPrecoVoosRestantes() double
  +toString() String
- -buscarIndexVoo(int idVoo) int
- -buscarVoo(int indexVoo) Voo
- -maiorValorVoos() double
+ +equals(Object obj) boolean
+ +hashCode() int
+}
+
+class BilheteFidelidade {
+ +calcularPreco() double
+ +calcularPontuacao() int
+}
+
+class BilhetePromocional {
+ +calcularPreco() double
+ +calcularPontuacao() int
 }
 
 class Voo {
  -int IDVOO
  -Trecho Trecho
  -Data dataVoo
+ -double preco
  +alterarTrecho(Trecho novoTrecho) boolean
  +alterarData(Data novaData) boolean
  +toString() String
  +equals(Object obj) boolean
+ +hashCode() int
 }
 
 class Trecho {
@@ -114,10 +176,19 @@ class Trecho {
  -String cidadeOrigem
  -String cidadeDestino
  +toString() String
+ +equals(Object obj) boolean
+ +hashCode() int
 }
 
+MultiplicadorPreto -- Cliente
+MultiplicadorPrata -- Cliente
+Emulti -- Cliente
+IMultiplicavel <|.. MultiplicadorPreto
+IMultiplicavel <|.. MultiplicadorPrata
 Cliente -- Bilhete
 Bilhete o-- Voo
+Bilhete <|-- BilheteFidelidade
+Bilhete <|-- BilhetePromocional
 Voo o-- Trecho
 end
 ```
