@@ -24,7 +24,10 @@ package Utilitarios;
  * SOFTWARE.
  */
 
- /** Classe data simples para fundamentos de POO */
+import java.text.SimpleDateFormat;
+import java.util.Date;
+
+/** Classe data simples para fundamentos de POO */
 public class Data{
     
 
@@ -80,10 +83,15 @@ public class Data{
     }
 
     /**
-     * Construtor para data padrão: 01/01/1990
+     * Construtor para data padrão: dataAtual
      */
     public Data(){
-        this.init(1,1,1990);
+        Date dataAtual = new Date();
+        int dia = Integer.parseInt(new SimpleDateFormat("d").format(dataAtual));
+        int mes = Integer.parseInt(new SimpleDateFormat("M").format(dataAtual));
+        int ano = Integer.parseInt(new SimpleDateFormat("Y").format(dataAtual));
+
+        this.init(dia,mes,ano);
     }        
     //#endregion
 
@@ -203,6 +211,10 @@ public class Data{
         }
 
 		return 1;
+    }
+
+    public void tirar1Ano(){
+        this.ano = this.ano - 1;
     }
 
 }

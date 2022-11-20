@@ -1,4 +1,6 @@
 package Passagens;
+import Utilitarios.Data;
+
 import java.util.Comparator;
 import java.util.LinkedList;
 import java.util.Objects;
@@ -9,6 +11,7 @@ public class Bilhete {
     protected LinkedList<Voo> voos = new LinkedList<Voo>();
     protected double precoBilhete = 0;
     protected String tipo;
+    protected Data dataDeCompra;
     /**
      * Construtor do bilhete, atribuindo um hashCode como id e o tipo do bilhete
      */
@@ -124,6 +127,10 @@ public class Bilhete {
         return precoDescontado;
     }
 
+    public void inserirDataCompra(){
+        this.dataDeCompra = new Data();
+    }
+
     /** 
      * @return String com as informações de todos os Voos do bilhete.
      */
@@ -160,4 +167,6 @@ public class Bilhete {
     public int getIdBilhete() {
         return this.idBilhete;
     }
+    public Data getDataCompra() { return this.dataDeCompra;}
+
 }

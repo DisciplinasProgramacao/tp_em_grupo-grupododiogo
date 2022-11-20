@@ -11,7 +11,7 @@ import Utilitarios.AceleradorPts.Emulti;
 public class ClienteTest {
 
     public Bilhete blh1 = new Bilhete();;
-    public Cliente cl = new Cliente("", 6550);
+    public Cliente cl = new Cliente("", "35657145658");
 
     @Test
     public void test_multiplicador_nulo(){
@@ -40,5 +40,21 @@ public class ClienteTest {
     public void getPontuacaoSemBilhete(){
         assertEquals(0, cl.getPontuacao());
         cl.comprarBilhete(blh1);
+    }
+
+    @Test
+    public void bilhetePontuacao(){
+        Trecho tr1 = new Trecho("Belo Horizonte", "São Paulo");
+        Data data1 = new Data(06, 05, 2022);
+        Voo voo_1 = new Voo(tr1, data1, 3000000);
+        blh1.inserirVoo(voo_1);
+        cl.comprarBilhete(blh1);
+
+        assertEquals(288, cl.calcularNumeroBilhetesPromocionais());
+    }
+
+    @Test
+    public void bilhetePontuacaoZerada(){
+        assertEquals(0, cl.calcularNumeroBilhetesPromocionais());
     }
 }

@@ -1,28 +1,30 @@
 package Clientes;
+
 import java.util.LinkedList;
 import Passagens.Bilhete;
 import Utilitarios.AceleradorPts.Emulti;
 import Utilitarios.AceleradorPts.IMultiplicavel;
 import Utilitarios.AceleradorPts.MultiplicadorPrata;
 import Utilitarios.AceleradorPts.MultiplicadorPreto;
+import Utilitarios.Data;
 
 public class Cliente {
 
     private String nome = "";
-    private long numDocumento = 0;
+    private String cpf = "";
     private int pontuacaoCliente = 0;
     private LinkedList<Bilhete> bilhetesCliente = new LinkedList<Bilhete>();
     private IMultiplicavel acelardorPts;
-    ;
+    private int numeroBilhetesPromocionais = 0;
 
     /**
      * Construtor cliente, recebe o nome e o numero do documento.
      * @param nomeCliente
-     * @param numDoc
+     * @param numCpf
      */
-    public Cliente(String nomeCliente, long numDoc) {
+    public Cliente(String nomeCliente, String numCpf) {
         this.nome = nomeCliente;
-        this.numDocumento = numDoc;
+        this.cpf = numCpf;
         this.pontuacaoCliente = 0;
     }
 
@@ -34,6 +36,7 @@ public class Cliente {
     public boolean comprarBilhete(Bilhete bilheteCompra) {
         try {
             this.bilhetesCliente.add(bilheteCompra);
+            bilheteCompra.inserirDataCompra();
             return true;
         }
         catch (NullPointerException e) {
@@ -65,7 +68,7 @@ public class Cliente {
                 pts +=  bilhete.calcularPontuacao();
             }
         return pts;
-    } 
+    }
 
     public void setAcelerador(Emulti opt) {
         if (opt == Emulti.PRATA) {
@@ -74,6 +77,23 @@ public class Cliente {
         else if (opt == Emulti.PRETO) {
             this.acelardorPts = new MultiplicadorPreto();
         }
+    }
+
+    public int calcularNumeroBilhetesPromocionais(){
+        Data dataAtual = new Data();
+        dataAtual.tirar1Ano();
+
+        int valorTotal = this.bilhetesCliente.stream().filter(b -> b.getDataCompra().maisRecenteQue(dataAtual) == -1).mapToInt(Bilhete::calcularPontuacao).sum();
+
+        double valorAux = valorTotal / 10500;
+        int numeroBilhetes = (int)valorAux;
+
+        this.numeroBilhetesPromocionais = numeroBilhetes;
+        return this.numeroBilhetesPromocionais;
+    }
+
+    public void setNumeroBilhetesPromocionais (int valor) {
+        this.numeroBilhetesPromocionais = valor - 1;
     }
 
     /**
