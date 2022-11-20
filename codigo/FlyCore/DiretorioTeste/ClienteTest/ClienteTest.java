@@ -55,6 +55,6 @@ public class ClienteTest {
 
     @Test
     public void bilhetePontuacaoZerada(){
-        assertEquals(00, cl.calcularNumeroBilhetesPromocionais());
+        assertEquals(0, cl.calcularNumeroBilhetesPromocionais());
     }
 }
