@@ -2,11 +2,8 @@ package Clientes;
 
 import java.util.LinkedList;
 import Passagens.Bilhete;
-import Utilitarios.AceleradorPts.Emulti;
-import Utilitarios.AceleradorPts.IMultiplicavel;
-import Utilitarios.AceleradorPts.MultiplicadorPrata;
-import Utilitarios.AceleradorPts.MultiplicadorPreto;
 import Utilitarios.Data;
+import Utilitarios.AceleradorPts.IMultiplicavel;
 
 public class Cliente {
 
