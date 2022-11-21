@@ -6,7 +6,7 @@ import Passagens.Bilhete;
 import Passagens.Trecho;
 import Passagens.Voo;
 import Utilitarios.Data;
-import Utilitarios.AceleradorPts.Emulti;
+import Utilitarios.AceleradorPts.MultiplicadorPreto;
 
 public class ClienteTest {
 
@@ -28,8 +28,9 @@ public class ClienteTest {
         Data data1 = new Data(06, 05, 2003);
         Voo voo_1 = new Voo(tr1, data1, 500);
         blh1.inserirVoo(voo_1);
-        cl.comprarBilhete(blh1);    
-        cl.setAcelerador(Emulti.PRETO);
+        cl.comprarBilhete(blh1);
+        MultiplicadorPreto mp = new MultiplicadorPreto(); 
+        cl.setAcelerador(mp);
         //Teste com acelerador innicializado porém desativado!
         assertEquals(cl.getPontuacao(), 500);
         //Teste com acelerador ativado
