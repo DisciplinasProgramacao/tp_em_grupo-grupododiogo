@@ -103,12 +103,7 @@ public class Cliente {
     }
 
     public void setAcelerador(IMultiplicavel multi) {
-       try{
         this.acelardorPts = multi;
-       }
-       catch(ClassCastException e){
-        System.out.println("Multiplicador Invalido");
-       }
     }
     /**
      * Calcula o número de bilhetes grátis que um cliente pode ganhar,
