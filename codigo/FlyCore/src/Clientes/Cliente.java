@@ -1,6 +1,12 @@
 package Clientes;
 
+import java.util.ArrayDeque;
+import java.util.Comparator;
+import java.util.Deque;
 import java.util.LinkedList;
+import java.util.Queue;
+import java.util.TreeSet;
+
 import Passagens.Bilhete;
 import Utilitarios.Data;
 import Utilitarios.AceleradorPts.IMultiplicavel;
@@ -10,7 +16,7 @@ public class Cliente {
     private String nome = "";
     private String cpf = "";
     private int pontuacaoCliente = 0;
-    private LinkedList<Bilhete> bilhetesCliente = new LinkedList<Bilhete>();
+    private Deque<Bilhete> bilhetesCliente = new ArrayDeque<>();
     private IMultiplicavel acelardorPts;
     private int numeroBilhetesPromocionais = 0;
 
@@ -32,8 +38,8 @@ public class Cliente {
      */
     public boolean comprarBilhete(Bilhete bilheteCompra) {
         try {
-            this.bilhetesCliente.add(bilheteCompra);
             bilheteCompra.inserirDataCompra();
+            this.bilhetesCliente.add(bilheteCompra);
             return true;
         }
         catch (NullPointerException e) {
@@ -43,6 +49,9 @@ public class Cliente {
 
     /**
      * Calcula a pontuaçao de fidelidade total do cliente.
+     * A principio o método tenta utilizar o multiplicador do cliente para realizar o calculo,
+     * caso não consiga por não ter um Multiplicador relacionado será desviado o fluxo e chamado
+     * um método auxiliar para calcular a pontuação total padrão.
      * @return pontuaçao de fidelidade
      */
     public int getPontuacao() {
@@ -58,7 +67,10 @@ public class Cliente {
             }
         return pontuacaoTotal;
     } 
-
+    /**
+     * Método privado para soma padrão da pontuação de bilhetes relacionado a um Cliente.
+     * @return int pts --> pontuação total do cliente
+     */
     private int verificarPontuacaoPadrao() {
         int pts = 0;
             for (Bilhete bilhete : this.bilhetesCliente) {
@@ -75,7 +87,11 @@ public class Cliente {
         System.out.println("Multiplicador Invalido");
        }
     }
-
+    /**
+     * Calcula o número de bilhetes grátis que um cliente pode ganhar
+     * Verifica a pontuação na lista de bilhetes em um periodo de um ano referente a data da atual 
+     * @return int numeroBilhetes --> número de bilhetes promocionais para o cliente.
+     */
     public int calcularNumeroBilhetesPromocionais(){
         Data dataAtual = new Data();
         dataAtual.tirar1Ano();
@@ -91,14 +107,6 @@ public class Cliente {
 
     public void setNumeroBilhetesPromocionais (int valor) {
         this.numeroBilhetesPromocionais = valor - 1;
-    }
-
-    /**
-     * Ordena os bilhetes do usuário em ordem de voo mais recente
-     * @return void
-     */
-    public void ordenarBilhetes() {
-        bilhetesCliente.sort((b1, b2) -> (b1.buscarVoo(0).getData().maisRecenteQue(b2.buscarVoo(0).getData())));
     }
 
     public IMultiplicavel getAcelardorPts() {
