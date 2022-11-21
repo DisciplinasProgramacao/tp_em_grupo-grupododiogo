@@ -163,6 +163,7 @@ public class Bilhete {
     public int hashCode() {
         return Objects.hash(voos, precoBilhete, tipo);
     }
+
     public int getIdBilhete() {
         return this.idBilhete;
     }

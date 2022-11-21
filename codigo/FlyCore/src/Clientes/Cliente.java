@@ -12,23 +12,49 @@ public class Cliente {
     private String nome = "";
     private String cpf = "";
     private int pontuacaoCliente = 0;
+    private String senha="";
     private Deque<Bilhete> bilhetesCliente = new ArrayDeque<>();
     private IMultiplicavel acelardorPts;
     private int numeroBilhetesPromocionais = 0;
 
     /**
-     * Construtor cliente, recebe o nome e o numero do documento.
+     * Construtor cliente, recebe o nome,numero do documento e senha.
      * @param nomeCliente
      * @param numCpf
      */
-    public Cliente(String nomeCliente, String numCpf) {
+    public Cliente(String nomeCliente, String numCpf, String senha) {
         this.nome = nomeCliente;
-        this.cpf = numCpf;
+        this.cpf = validarCpf(cpf);
+        this.senha = validarSenha(senha);
         this.pontuacaoCliente = 0;
     }
 
     /**
-     * Comprar um bilhete adicionando na lista de bilhetes.
+     * Validação basica do cpf (Tamnho != 11) ou Letras na string serão tratadas
+     * @param cpf cpf digitado no construtor
+     * @return String --> "00000000000" caso não siga as especificações || cpf de parametro caso validado
+     */
+    private String validarCpf(String cpf){
+        cpf = cpf.strip();
+        if(cpf.length() != 11 || cpf.contains(cpf)){
+            return "00000000000";
+        }
+        return cpf;
+    }
+    /**
+     * Faz a validação da senha para caso contenha apenas espaços vazios
+     * ou seja menor que 3 em tamanho tera seu padrao para --> "123" 
+     * @param senhaUSR senha digitada no construtor
+     * @return String senha final do cliente após validação
+     */
+    private String validarSenha(String senhaUSR){
+        if(senhaUSR.length()<3 || senhaUSR.isBlank()){
+            return "123";
+        }
+        return senhaUSR;
+    }
+    /**
+     * Comprar um bilhete adicionando na pilha de Bilhetes.
      * @param bilheteCompra
      * @return false/true
      */
@@ -84,8 +110,8 @@ public class Cliente {
        }
     }
     /**
-     * Calcula o número de bilhetes grátis que um cliente pode ganhar
-     * Verifica a pontuação na lista de bilhetes em um periodo de um ano referente a data da atual 
+     * Calcula o número de bilhetes grátis que um cliente pode ganhar,
+     * Verifica a pontuação na Pilha de bilhetes em um periodo referente a um ano apartir a data da atual 
      * @return int numeroBilhetes --> número de bilhetes promocionais para o cliente.
      */
     public int calcularNumeroBilhetesPromocionais(){

@@ -11,7 +11,7 @@ import Utilitarios.AceleradorPts.MultiplicadorPreto;
 public class ClienteTest {
 
     public Bilhete blh1 = new Bilhete();;
-    public Cliente cl = new Cliente("", "35657145658");
+    public Cliente cl = new Cliente("Le", "35657145658", "teste");
 
     @Test
     public void test_multiplicador_nulo(){
