@@ -11,7 +11,7 @@ import Utilitarios.AceleradorPts.MultiplicadorPreto;
 public class ClienteTest {
 
     public Bilhete blh1 = new Bilhete();;
-    public Cliente cl = new Cliente("Le", "35657145658", "teste");
+    public Cliente cl = new Cliente("Le", "21a32sv", "teste");
 
     @Test
     public void test_multiplicador_nulo(){
@@ -57,5 +57,21 @@ public class ClienteTest {
     @Test
     public void bilhetePontuacaoZerada(){
         assertEquals(0, cl.calcularNumeroBilhetesPromocionais());
+    }
+    @Test
+    public void cpfVazio(){
+        Cliente nc = new Cliente("leonardo", "", " ");
+
+        assertEquals(nc.getCpf(), "00000000000");
+    }
+    @Test 
+    public void senhaComEspaçamento(){
+        Cliente nc = new Cliente("leonardo", "12345678", "1 3 4 5 ");
+        assertEquals(nc.getSenha(), "1345");
+    }
+    @Test
+    public void senhaTamnhoErrado(){
+        Cliente nc = new Cliente("leonardo", "", "a1");
+        assertEquals(nc.getSenha(), "123");
     }
 }

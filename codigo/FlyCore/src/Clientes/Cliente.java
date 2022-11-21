@@ -22,24 +22,24 @@ public class Cliente {
      * @param nomeCliente
      * @param numCpf
      */
-    public Cliente(String nomeCliente, String numCpf, String senha) {
+    public Cliente(String nomeCliente, String numCpf, String senhaCadastro) {
         this.nome = nomeCliente;
-        this.cpf = validarCpf(cpf);
-        this.senha = validarSenha(senha);
+        this.cpf = validarCpf(numCpf);
+        this.senha = validarSenha(senhaCadastro);
         this.pontuacaoCliente = 0;
     }
 
     /**
-     * Validação basica do cpf (Tamnho != 11) ou Letras na string serão tratadas
+     * Validação basica do cpf (Tamnho != 11) será tratado apenas.
      * @param cpf cpf digitado no construtor
      * @return String --> "00000000000" caso não siga as especificações || cpf de parametro caso validado
      */
-    private String validarCpf(String cpf){
-        cpf = cpf.strip();
-        if(cpf.length() != 11 || cpf.contains(cpf)){
+    private String validarCpf(String cpfd){
+        cpf = cpf.replaceAll(" ", "");
+        if(cpfd.length() != 11){
             return "00000000000";
         }
-        return cpf;
+        return cpfd;
     }
     /**
      * Faz a validação da senha para caso contenha apenas espaços vazios
@@ -48,7 +48,8 @@ public class Cliente {
      * @return String senha final do cliente após validação
      */
     private String validarSenha(String senhaUSR){
-        if(senhaUSR.length()<3 || senhaUSR.isBlank()){
+        senhaUSR = senhaUSR.replaceAll(" ", "");
+        if(senhaUSR.length()<3 || senhaUSR.isBlank() || senhaUSR.isEmpty()){
             return "123";
         }
         return senhaUSR;
@@ -134,4 +135,6 @@ public class Cliente {
     public IMultiplicavel getAcelardorPts() {
         return this.acelardorPts;
     }
+    public String getCpf(){return this.cpf;}
+    public String getSenha(){return this.senha;}
 }
