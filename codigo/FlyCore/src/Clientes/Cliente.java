@@ -70,13 +70,13 @@ public class Cliente {
         return pts;
     }
 
-    public void setAcelerador(Emulti opt) {
-        if (opt == Emulti.PRATA) {
-            this.acelardorPts = new MultiplicadorPrata();
-        }
-        else if (opt == Emulti.PRETO) {
-            this.acelardorPts = new MultiplicadorPreto();
-        }
+    public void setAcelerador(IMultiplicavel multi) {
+       try{
+        this.acelardorPts = multi;
+       }
+       catch(ClassCastException e){
+        System.out.println("Multiplicador Invalido");
+       }
     }
 
     public int calcularNumeroBilhetesPromocionais(){
