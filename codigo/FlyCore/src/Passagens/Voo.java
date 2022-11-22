@@ -14,7 +14,6 @@ public class Voo {
     private Trecho trechoVoo;
     private Data dataVoo;
     private double preco;
-    private Set<Cliente> passageiros = new HashSet<>();
 //#endregion
     private boolean add;
 
@@ -76,15 +75,6 @@ public class Voo {
     public Data getData() {
         return this.dataVoo;
     }
-
-    /**
-     * Adiciona cliente ao HashSet "passageiros" do Voo.
-     * @param cl cliente que será alocado ao voo
-     */
-    public void addPassageiros(Cliente cl){
-        add = passageiros.add(cl);
-    }
-
     //#endregion Metodos uteis do Voo
 
 //#region Override's da Classe
