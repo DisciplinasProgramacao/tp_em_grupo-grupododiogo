@@ -2,11 +2,7 @@ package Passagens;
 
 import Utilitarios.Data;
 
-import java.util.HashSet;
 import java.util.Objects;
-import java.util.Set;
-
-import Clientes.Cliente;
 
 public class Voo {
 //#region Atributos Do Voo
