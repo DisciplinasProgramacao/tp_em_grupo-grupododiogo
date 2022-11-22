@@ -5,6 +5,7 @@ import java.util.Comparator;
 import java.util.LinkedList;
 import java.util.Objects;
 import java.util.stream.Collectors;
+import Passagens.Voo;
 
 public class Bilhete {
     protected final int idBilhete;
@@ -27,18 +28,19 @@ public class Bilhete {
      * @return true em caso de sucesso.
      */
     public boolean inserirVoo(Voo novoVoo) {
-        this.voos.add(novoVoo);
-        return true;
+        
+        return this.voos.add(novoVoo);
     }
 
     /** Remove voo da lista de voos contidos no bilhete.
      * @param idVoo
      * @return true caso consiga remover o voo com sucesso da lista. Caso isso não ocorra, retorna false.
      */
-    public boolean removerVoo(int idVoo) {
+    public boolean removerVoo(Voo vooRemover) {
         try {
-            this.voos.remove(buscarIndexVoo(idVoo));
-            return true;
+            
+            return this.voos.remove(vooRemover);
+         
         }
         catch (IndexOutOfBoundsException e) {
             return false;
@@ -80,25 +82,11 @@ public class Bilhete {
 
     
     /**
-     * @param indexVoo
+     * @param Voo voo que deseja buscar
      * @return Voo encontrado.
      */
-    public Voo buscarVoo(int indexVoo) {
-        return this.voos.get(indexVoo);
-    }
-
-    /**
-     * @param idVoo
-     * @return Index do voo na lista de voos. Caso o voo não exista na lista, retorna
-     * -1.
-     */
-    public int buscarIndexVoo(int idVoo) {
-        for (int i = 0; i < this.voos.size(); i++) {
-            if (this.voos.get(i).getIdVoo() == idVoo) {
-                return i;
-            }
-        }
-        return -1;
+    public int buscarVoo(Voo vooBuscado) {
+        return this.voos.indexOf(vooBuscado);
     }
 
     /**
@@ -142,8 +130,8 @@ public class Bilhete {
             return "Nenhum voo cadastrado";
         }
 
-        for (int i = 0; i < this.voos.size(); i++) {
-            infoBilhete.append(buscarVoo(i).toString());
+        for (Voo vooBi : this.voos) {
+            infoBilhete.append(vooBi.toString());
         }
 
         infoBilhete.append("\nPreço total do bilhete: " + this.calcularPreco());

@@ -44,14 +44,12 @@ public class BilheteTest {
     public void removerVooTest() {
         assertTrue(bilhete.inserirVoo(bhParaSpVoo));
 
-        assertTrue(bilhete.removerVoo(bhParaSpVoo.getIdVoo()));
+        assertTrue(bilhete.removerVoo(bhParaSpVoo));
     }
 
     @Test
     public void removerVooInexistenteTest() {
-        assertTrue(bilhete.inserirVoo(bhParaSpVoo));
-
-        assertFalse(bilhete.removerVoo(4521457));// id "aleatório"
+        assertFalse(bilhete.removerVoo(bhParaSpVoo));// id "aleatório"
     }
 
     @Test 
@@ -63,5 +61,16 @@ public class BilheteTest {
         bilhete.inserirVoo(voo2);
 
       assertEquals(300d, bilhete.calcularPreco());
+    }
+    @Test
+    public void buscarVoo(){
+        bilhete.inserirVoo(bhParaSpVoo);
+
+        assertEquals(bilhete.buscarVoo(bhParaSpVoo), 0);
+    }
+    @Test
+    public void buscarVooBilheteVazio(){
+
+        assertEquals(bilhete.buscarVoo(bhParaSpVoo), -1);;
     }
 }

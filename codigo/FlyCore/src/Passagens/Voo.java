@@ -11,7 +11,6 @@ public class Voo {
     private Data dataVoo;
     private double preco;
 //#endregion
-    private boolean add;
 
 //#region Construtor do Voo
     /**
