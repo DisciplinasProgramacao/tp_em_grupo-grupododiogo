@@ -2,7 +2,11 @@ package Passagens;
 
 import Utilitarios.Data;
 
+import java.util.HashSet;
 import java.util.Objects;
+import java.util.Set;
+
+import Clientes.Cliente;
 
 public class Voo {
 //#region Atributos Do Voo
@@ -10,7 +14,9 @@ public class Voo {
     private Trecho trechoVoo;
     private Data dataVoo;
     private double preco;
+    private Set<Cliente> passageiros = new HashSet<>();
 //#endregion
+    private boolean add;
 
 //#region Construtor do Voo
     /**
@@ -70,7 +76,16 @@ public class Voo {
     public Data getData() {
         return this.dataVoo;
     }
-//#endregion Metodos uteis do Voo
+
+    /**
+     * Adiciona cliente ao HashSet "passageiros" do Voo.
+     * @param cl cliente que será alocado ao voo
+     */
+    public void addPassageiros(Cliente cl){
+        add = passageiros.add(cl);
+    }
+
+    //#endregion Metodos uteis do Voo
 
 //#region Override's da Classe
     @Override
