@@ -66,8 +66,9 @@ public class ClienteTest {
     }
     @Test 
     public void senhaComEspaçamento(){
-        Cliente nc = new Cliente("leonardo", "12345678", "1 3 4 5 ");
+        Cliente nc = new Cliente("leonardo", "12 345 678 9 10", "1 3 4 5 ");
         assertEquals(nc.getSenha(), "1345");
+        assertEquals(nc.getCpf(), "12345678910");
     }
     @Test
     public void senhaTamnhoErrado(){

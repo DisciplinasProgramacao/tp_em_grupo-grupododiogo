@@ -36,7 +36,7 @@ public class Cliente {
      * @return String --> "00000000000" caso não siga as especificações || cpf de parametro caso validado
      */
     private String validarCpf(String cpfd){
-        cpf = cpf.replaceAll(" ", "");
+        cpfd = cpfd.replaceAll(" ", "");
         if(cpfd.length() != 11){
             return "00000000000";
         }
