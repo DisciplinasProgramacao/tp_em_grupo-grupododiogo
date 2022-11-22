@@ -1,7 +1,10 @@
 package Sistema;
 
+import java.util.HashSet;
 import java.util.InputMismatchException;
+import java.util.LinkedList;
 import java.util.Scanner;
+import java.util.Set;
 
 import javax.xml.crypto.dsig.keyinfo.RetrievalMethod;
 
@@ -13,7 +16,10 @@ import Passagens.Voo;
 import Utilitarios.CidadesTrecho;
 
 public class Application {
-    static Scanner teclado = new Scanner(System.in);
+    private static Scanner teclado = new Scanner(System.in);
+    private static LinkedList<Voo> voosSistema = new LinkedList<>();
+    private static LinkedList<Trecho> trechosSistema = new LinkedList<>();
+    private static Set<Cliente> clientesSistema = new HashSet<>();
     // #region utilidades
     /**
      * "Limpa" a tela (códigos de terminal VT-100)
