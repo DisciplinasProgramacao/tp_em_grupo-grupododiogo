@@ -111,7 +111,7 @@ public class Application {
             return -1;
         }
     }
-    private static IMultiplicavel gerarMultiplicador(Cliente cl){
+    private static IMultiplicavel gerarMultiplicador(){
         //implementar 
         int optMulti = escolherMultiplicador();
         switch(optMulti){
