@@ -2,6 +2,7 @@ package Clientes;
 
 import java.util.ArrayDeque;
 import java.util.Deque;
+import java.util.LinkedList;
 import java.util.Objects;
 
 import Passagens.Bilhete;
@@ -14,7 +15,7 @@ public class Cliente {
     private String cpf = "";
     private int pontuacaoCliente = 0;
     private String senha="";
-    private Deque<Bilhete> bilhetesCliente = new ArrayDeque<>();
+    private Deque<Bilhete> bilhetesCliente = new LinkedList<>();
     private IMultiplicavel acelardorPts;
     private int numeroBilhetesPromocionais = 0;
 

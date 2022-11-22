@@ -5,7 +5,6 @@ import java.util.Comparator;
 import java.util.LinkedList;
 import java.util.Objects;
 import java.util.stream.Collectors;
-import Passagens.Voo;
 
 public class Bilhete {
     protected final int idBilhete;
