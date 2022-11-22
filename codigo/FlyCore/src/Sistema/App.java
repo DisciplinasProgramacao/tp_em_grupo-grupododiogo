@@ -260,7 +260,7 @@ public class App {
     }
     //#endregion
 
-    public static void main(String[] args) throws Exception {
+    public static void teste() throws Exception {
 
         /*PROTÓTIPO DE SISTEMA (não existe ainda gerenciamento de cliente)*/
 
@@ -312,7 +312,7 @@ public class App {
                                 int idVooEscolhidoParaRemocao = teclado.nextInt();
                                 teclado.nextLine();
                                 
-                                if (novoBilhete.removerVoo(idVooEscolhidoParaRemocao)) {
+                                if (novoBilhete.removerVoo()) {
                                     System.out.println("Voo removido com sucesso");
                                 } else {
                                     System.out.println("Não foi possível remover o voo. Por favor, verifique o id inserido.");
