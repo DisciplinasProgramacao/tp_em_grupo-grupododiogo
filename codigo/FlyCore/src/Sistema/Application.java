@@ -202,8 +202,47 @@ public class Application {
             return -1;
         }
     }
+ 
+    private static void executarMenuPassagens(){
+
+        int optMenuPassagens = menuPassagens();
+        switch(optMenuPassagens){
+            case 1:
+                cadastradoTrecho();
+            break;
+            case 2:
+                cadastrarVoo();
+            break;
+            
+            case 0:
+                return;
+           default:
+           System.out.println("Insira uma Opção valida");     
+        }
+  
+    }
     
     public static void main(String[] args) {
+
+        int optMenuPrincipal = 0;
+        do{
+            optMenuPrincipal = menuPrincipal();//primeira entrada do usuario
+            switch(optMenuPrincipal){
+                case 0:
+                    optMenuPrincipal= 0;
+                break;
+                case 1:
+                    executarMenuPassagens();
+                break;
+                case 2:
+
+                break;
+                case 3:
+
+                break;
+            }
+        }
+        while(optMenuPrincipal!=0)
     }
     
 }
