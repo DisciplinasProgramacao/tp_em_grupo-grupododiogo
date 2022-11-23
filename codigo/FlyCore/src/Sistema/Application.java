@@ -46,9 +46,7 @@ public class Application {
     private static boolean adicionarTrechoAlista(Trecho novoTrecho){
         if(!trechosSistema.contains(novoTrecho))
               return  trechosSistema.add(novoTrecho);
-        else{
-            return false;
-        }       
+        return false;    
     }
     private static String escolherCidadesTrecho(String escolha) {
         limparTela();
@@ -133,6 +131,13 @@ public class Application {
     //#endregion
 
     //#region Clientes
+    private static boolean addClienteAoMapa(Cliente novoCliente){
+        if(!clientesSistema.containsKey(novoCliente.hashCode())){
+           clientesSistema.put(novoCliente.hashCode(), novoCliente);
+            return true;
+        }
+        return false;
+    }
     private static Cliente cadastrarCliente(){
         //implementar
     }
@@ -241,7 +246,13 @@ public class Application {
         switch(optMenuClientes){
             case 1:
                 Cliente nvCl = cadastrarCliente();
-                clientesSistema.put(nvCl.hashCode(), nvCl);
+                boolean addCliente = false;
+                addCliente = addClienteAoMapa(nvCl);
+                if(addCliente)
+                    System.out.println("Cliente add com Sucesso");
+                else{
+                    System.out.println("Cliente já cadastrado");
+                }    
             break;
             case 2:
 
