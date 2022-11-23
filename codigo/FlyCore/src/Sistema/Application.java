@@ -56,8 +56,6 @@ public class Application {
             System.out.println((posicaoCidade + 1) + " - " + cidade);
             posicaoCidade ++;
         }
-
-        System.out.println("0 - Cancelar");
         System.out.print("Escolha a cidade de " + escolha + ": ");
         try {
             int opcao = teclado.nextInt();
@@ -217,7 +215,7 @@ public class Application {
             break;
             
             case 0:
-                return;
+                break;
            default:
            System.out.println("Insira uma Opção valida");     
         }
@@ -253,7 +251,7 @@ public class Application {
                 break;
                 case 1:
                     executarMenuPassagens();
-                break;
+                continue;
                 case 2:
 
                 break;
