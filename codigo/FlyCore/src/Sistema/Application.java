@@ -64,6 +64,10 @@ public class Application {
         } catch (InputMismatchException e) {
             return "";
         }
+        catch(IndexOutOfBoundsException x){
+            System.out.println("Escolha uma opção valida: "+x);
+            return "";
+        }
     }
     private static Trecho cadastradoTrecho() {
         String cidadeOrigem = "";
@@ -85,11 +89,7 @@ public class Application {
         //Implementar método 
         return new Data();
     }
-    private static Voo cadastrarVoo(){
-        Trecho novoTrecho = cadastradoTrecho();
-
-        Data dataVoo = cadastrarData();
-        
+    private static Voo cadastrarVoo(Trecho novoTrecho, Data dataVoo){
         return new Voo(novoTrecho, dataVoo, 500d);
     }
     //endregion
@@ -208,7 +208,7 @@ public class Application {
         int optMenuPassagens = menuPassagens();
         switch(optMenuPassagens){
             case 1:
-                cadastradoTrecho();
+                trechosSistema.add(cadastradoTrecho());
             break;
             case 2:
                 cadastrarVoo();
