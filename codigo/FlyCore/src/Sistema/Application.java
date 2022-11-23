@@ -131,6 +131,17 @@ public class Application {
     //#endregion
 
     //#region Clientes
+    private static Cliente buscarCliente(String cpfCliente){
+        Cliente clienteBusca = new Cliente("", cpfCliente, "");
+        try{
+        Cliente clienteEncontrado = clientesSistema.get(clienteBusca.hashCode());
+            return clienteEncontrado;
+        }
+        catch(NullPointerException nulo){
+            System.out.println("Erro cliente nulo: " + nulo);
+        }
+        return clienteBusca; // retorna Cliente apenas com cpf caso não seja encontrado
+    }
     private static boolean addClienteAoMapa(Cliente novoCliente){
         if(!clientesSistema.containsKey(novoCliente.hashCode())){
            clientesSistema.put(novoCliente.hashCode(), novoCliente);
