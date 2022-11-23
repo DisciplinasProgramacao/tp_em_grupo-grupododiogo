@@ -14,9 +14,9 @@ public class Trecho {
      * @return void
      */
     public Trecho(String cidadeOrigem, String cidadeDestino) {
-        this.idTrecho      = this.hashCode();
         this.cidadeOrigem  = cidadeOrigem;
         this.cidadeDestino = cidadeDestino;
+        this.idTrecho      = this.hashCode();
     }
 
     /**
@@ -59,7 +59,9 @@ public class Trecho {
 
     @Override
     public int hashCode() {
-        return Objects.hash(cidadeOrigem, cidadeDestino);
+        int juncaoCidades = ' '; 
+       juncaoCidades = this.cidadeOrigem.charAt(idTrecho)+this.cidadeDestino.charAt(1);
+        return juncaoCidades;
     }
 
     public int getIdTrecho() {
