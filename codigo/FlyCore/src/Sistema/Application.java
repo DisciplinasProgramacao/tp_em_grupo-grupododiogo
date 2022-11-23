@@ -1,8 +1,10 @@
 package Sistema;
 
+import java.util.HashMap;
 import java.util.HashSet;
 import java.util.InputMismatchException;
 import java.util.LinkedList;
+import java.util.Map;
 import java.util.Scanner;
 import java.util.Set;
 
@@ -19,7 +21,7 @@ public class Application {
     private static Scanner teclado = new Scanner(System.in);
     private static LinkedList<Voo> voosSistema = new LinkedList<>();
     private static LinkedList<Trecho> trechosSistema = new LinkedList<>();
-    private static Set<Cliente> clientesSistema = new HashSet<>();
+    private static Map<Integer, Cliente> clientesSistema = new HashMap<>();
     // #region utilidades
     /**
      * "Limpa" a tela (códigos de terminal VT-100)
@@ -211,7 +213,7 @@ public class Application {
                 trechosSistema.add(cadastradoTrecho());
             break;
             case 2:
-                cadastrarVoo();
+               // cadastrarVoo();
             break;
             
             case 0:
@@ -226,7 +228,8 @@ public class Application {
         int optMenuClientes = menuClientes();
         switch(optMenuClientes){
             case 1:
-                clientesSistema.add(cadastrarCliente());
+                Cliente nvCl = cadastrarCliente();
+                clientesSistema.put(nvCl.hashCode(), nvCl);
             break;
             case 2:
 
@@ -259,7 +262,7 @@ public class Application {
                 break;
             }
         }
-        while(optMenuPrincipal!=0)
+        while(optMenuPrincipal!=0);
     }
     
 }

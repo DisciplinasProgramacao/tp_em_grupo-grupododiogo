@@ -136,6 +136,8 @@ public class Cliente {
     public String getSenha(){return this.senha;}
     @Override
     public int hashCode() {
-        return Objects.hash(cpf);
+        long cpf = Long.parseLong(this.cpf);
+        int hash = (int) cpf;
+        return hash;
     }
 }
