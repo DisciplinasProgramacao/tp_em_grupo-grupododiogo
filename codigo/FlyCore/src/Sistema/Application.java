@@ -126,7 +126,7 @@ public class Application {
     //#endregion
 
     //#region Clientes
-    private static void cadastrarCliente(){
+    private static Cliente cadastrarCliente(){
         //implementar
     }
     //#endregion
@@ -222,6 +222,23 @@ public class Application {
   
     }
     
+    private static void executarMenuCliente(){
+        int optMenuClientes = menuClientes();
+        switch(optMenuClientes){
+            case 1:
+                clientesSistema.add(cadastrarCliente());
+            break;
+            case 2:
+
+            break;
+            
+            case 0:
+                return;
+           default:
+           System.out.println("Insira uma Opção valida");     
+        }
+
+    }
     public static void main(String[] args) {
 
         int optMenuPrincipal = 0;
