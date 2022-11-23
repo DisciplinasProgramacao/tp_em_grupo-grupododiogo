@@ -56,12 +56,22 @@ public class Trecho {
         Trecho trecho = (Trecho) o;
         return idTrecho == trecho.idTrecho && cidadeOrigem.equals(trecho.cidadeOrigem) && cidadeDestino.equals(trecho.cidadeDestino);
     }
+    private int somarValoresCharString(char[] a, char[] b){
+        int somaA =0, somaB =0;
+        for(char e : a){
+            somaA += (int) e;
+        }
+        for(char f: b){
+            somaB += (int) f;
+        }
+        return somaA+somaB;
+    }
 
     @Override
     public int hashCode() {
-        int juncaoCidades = ' '; 
-       juncaoCidades = this.cidadeOrigem.charAt(idTrecho)+this.cidadeDestino.charAt(1);
-        return juncaoCidades;
+        char[] origem = this.cidadeOrigem.toCharArray();
+        char [] destino = this.cidadeDestino.toCharArray();
+        return somarValoresCharString(origem, destino);
     }
 
     public int getIdTrecho() {

@@ -35,9 +35,7 @@ public class ApplicationTest {
     @Test 
 
     public void testeBuscarTrechosEmLista(){
-
         Trecho nTrecho = new Trecho("guarulhos", "navegantes");    
-        
         trechos_teste.add(nTrecho);
         Trecho nTrechoBusca = new Trecho("guarulhos", "navegantes");
         assertEquals(trechos_teste.contains(nTrechoBusca), true);
