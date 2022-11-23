@@ -132,7 +132,7 @@ public class Application {
 
     //#region Clientes
     private static Cliente buscarCliente(String cpfCliente){
-        Cliente clienteBusca = new Cliente("", cpfCliente, "");
+        Cliente clienteBusca = new Cliente("", cpfCliente);
         try{
         Cliente clienteEncontrado = clientesSistema.get(clienteBusca.hashCode());
             return clienteEncontrado;
