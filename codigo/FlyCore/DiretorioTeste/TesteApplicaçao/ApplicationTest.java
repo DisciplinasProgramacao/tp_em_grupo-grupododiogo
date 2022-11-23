@@ -20,10 +20,10 @@ public class ApplicationTest {
     @Test
     public void testeHashSetClientes_Busca(){
         
-        Cliente cl = new Cliente("Leonardo", "55068321842", "123");
+        Cliente cl = new Cliente("Leonardo", "55068321842");
         clientes_teste.put(cl.hashCode(), cl);
         //Busca:
-        Cliente clBusca = new Cliente("", "55068321842", "");
+        Cliente clBusca = new Cliente("", "55068321842");
         //testando contains do HashSet
         assertEquals(cl.hashCode(), clBusca.hashCode());
         assertEquals(clientes_teste.containsKey(clBusca.hashCode()), true);

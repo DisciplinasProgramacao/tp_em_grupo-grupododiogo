@@ -14,7 +14,6 @@ public class Cliente {
     private String nome = "";
     private String cpf = "";
     private int pontuacaoCliente = 0;
-    private String senha="";
     private Deque<Bilhete> bilhetesCliente = new LinkedList<>();
     private IMultiplicavel acelardorPts;
     private int numeroBilhetesPromocionais = 0;
@@ -24,10 +23,9 @@ public class Cliente {
      * @param nomeCliente
      * @param numCpf
      */
-    public Cliente(String nomeCliente, String numCpf, String senhaCadastro) {
+    public Cliente(String nomeCliente, String numCpf) {
         this.nome = nomeCliente;
         this.cpf = validarCpf(numCpf);
-        this.senha = validarSenha(senhaCadastro);
         this.pontuacaoCliente = 0;
     }
 
@@ -42,19 +40,6 @@ public class Cliente {
             return "00000000000";
         }
         return cpfd;
-    }
-    /**
-     * Faz a validação da senha para caso contenha apenas espaços vazios
-     * ou seja menor que 3 em tamanho tera seu padrao para --> "123" 
-     * @param senhaUSR senha digitada no construtor
-     * @return String senha final do cliente após validação
-     */
-    private String validarSenha(String senhaUSR){
-        senhaUSR = senhaUSR.replaceAll(" ", "");
-        if(senhaUSR.length()<3 || senhaUSR.isBlank() || senhaUSR.isEmpty()){
-            return "123";
-        }
-        return senhaUSR;
     }
     /**
      * Comprar um bilhete adicionando na pilha de Bilhetes.
@@ -132,8 +117,8 @@ public class Cliente {
     public IMultiplicavel getAcelardorPts() {
         return this.acelardorPts;
     }
-    public String getCpf(){return this.cpf;}
-    public String getSenha(){return this.senha;}
+    public String getCpf(){return this.cpf;};
+    public String getNome(){return this.nome;};
     @Override
     public int hashCode() {
         long cpf = Long.parseLong(this.cpf);
