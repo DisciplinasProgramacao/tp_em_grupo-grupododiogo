@@ -43,6 +43,13 @@ public class Application {
     //#endregion
 
     //#region Trecho
+    private static boolean adicionarTrechoAlista(Trecho novoTrecho){
+        if(!trechosSistema.contains(novoTrecho))
+              return  trechosSistema.add(novoTrecho);
+        else{
+            return false;
+        }       
+    }
     private static String escolherCidadesTrecho(String escolha) {
         limparTela();
         System.out.println();
@@ -208,7 +215,14 @@ public class Application {
         int optMenuPassagens = menuPassagens();
         switch(optMenuPassagens){
             case 1:
-                trechosSistema.add(cadastradoTrecho());
+                    Trecho novoTrecho= cadastradoTrecho();
+                    boolean trechoAdd = false;
+                    trechoAdd = adicionarTrechoAlista(novoTrecho);
+                    if(trechoAdd)
+                        System.out.println(" Trecho Add com Sucesso");
+                    else{
+                        System.out.println(" Trecho já cadastrado !");
+                    }    
             break;
             case 2:
                // cadastrarVoo();
