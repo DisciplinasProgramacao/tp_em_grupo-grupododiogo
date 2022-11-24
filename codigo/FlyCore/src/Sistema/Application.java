@@ -134,7 +134,7 @@ public class Application {
     //#endregion
 
     private static boolean validarNome(String nome){
-        if(nome.matches("[0-9]*"))
+        if(nome.matches("[0-9]*") || nome.isEmpty())
             return false;
         return true;
     }
@@ -321,7 +321,7 @@ public class Application {
             case 1:
                 Cliente nvCl = cadastrarCliente();
                 boolean addCliente = false;
-                if(!nvCl.getCpf().equals("00000000000")){
+                if(!nvCl.getCpf().equals("00000000000") && !nvCl.getNome().isEmpty() && !nvCl.getNome().isBlank()){
                     try{
                         addCliente = addClienteAoMapa(nvCl);
                         if(addCliente)
