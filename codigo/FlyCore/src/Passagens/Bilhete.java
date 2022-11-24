@@ -1,13 +1,24 @@
 package Passagens;
+import Utilitarios.Data;
+
+import java.util.Comparator;
 import java.util.LinkedList;
+import java.util.Objects;
+import java.util.stream.Collectors;
 
 public class Bilhete {
     protected final int idBilhete;
     protected LinkedList<Voo> voos = new LinkedList<Voo>();
-    protected double precoBilhete = 0d;
-
+    protected double precoBilhete = 0;
+    protected String tipo;
+    protected Data dataDeCompra;
+    /**
+     * Construtor do bilhete, atribuindo um hashCode como id e o tipo do bilhete
+     */
     public Bilhete() {
         this.idBilhete = this.hashCode();
+        this.precoBilhete = calcularPreco();
+        this.tipo = "Comum";
     }
 
     /**
@@ -16,27 +27,26 @@ public class Bilhete {
      * @return true em caso de sucesso.
      */
     public boolean inserirVoo(Voo novoVoo) {
-        this.voos.add(novoVoo);
-        return true;
+        
+        return this.voos.add(novoVoo);
     }
 
-    /**
+    /** Remove voo da lista de voos contidos no bilhete.
      * @param idVoo
-     * @return true caso consiga remover o voo com sucesso da lista. Caso isso não ocorra, 
-     * retorna false. 
+     * @return true caso consiga remover o voo com sucesso da lista. Caso isso não ocorra, retorna false.
      */
-    public boolean removerVoo(int idVoo) {
+    public boolean removerVoo(Voo vooRemover) {
         try {
-            this.voos.remove(buscarIndexVoo(idVoo));
-            return true;
+            
+            return this.voos.remove(vooRemover);
+         
         }
         catch (IndexOutOfBoundsException e) {
             return false;
         }
     }
 
-    /**
-     *
+    /** Calcula o preço de um bilhete
      * @return double precoFinal do bilhete
      */
     public double calcularPreco() {
@@ -56,39 +66,43 @@ public class Bilhete {
         }
         return precoFinal;
     }
-
-    /**
-     * @return pontos de fidelidade
-     */
-    public int calcularPontuacao(){
-        double valorAux = this.precoBilhete / 500;
+    
+    /** Calcula os pontos de fidelidade de um bilhete
+    * @return pontos de fidelidade
+    */
+    public int calcularPontuacao() {
+        int pontosFidelidade=0;
+      
+        double valorAux = this.calcularPreco() / 500;
         int valorBase = (int)valorAux;
-
-        int pontosFidelidade = (valorBase * 500);
-
+        pontosFidelidade = (valorBase * 500);
         return pontosFidelidade;
     }
 
-
-    private Voo encontrarVooMaiorValor() {
-        try {
-            Voo vooComMaiorPreco = this.voos.get(0);
-            double precoAtual = 0d;
-
-            for (int i = 0; i < this.voos.size() - 1; i++) {
-                precoAtual = this.voos.get(i).getPreco();
-                if (precoAtual < this.voos.get(i + 1).getPreco()) {
-                    vooComMaiorPreco = this.voos.get(i + 1);
-                }
-            }
-
-            return vooComMaiorPreco;
-        } catch (IndexOutOfBoundsException e) {
-            return null;
-        }
+    
+    /**
+     * @param Voo voo que deseja buscar
+     * @return Voo encontrado.
+     */
+    public int buscarVoo(Voo vooBuscado) {
+        return this.voos.indexOf(vooBuscado);
     }
 
-    private double somarPrecoVoosRestantes(Voo maiorVoo) {
+    /**
+     * Encontra o voo com o maior preço contido no bilhete
+     * @return Voo com maior preço
+     */
+    protected Voo encontrarVooMaiorValor() {
+           Voo maior_valor =  this.voos.stream().collect(Collectors.maxBy(Comparator.comparingDouble(Voo::getPreco))).orElse(null);
+            return maior_valor;
+        }
+
+    /**
+     * Soma o preço de voos restantes
+     * @param maiorVoo
+     * @return precoDescontado
+     */
+    protected double somarPrecoVoosRestantes(Voo maiorVoo) {
         double precoDescontado = 0d, somaVoo = 0d;
         for (Voo voosBilhete: this.voos) {
             if (!voosBilhete.equals(maiorVoo)) {
@@ -100,51 +114,46 @@ public class Bilhete {
         return precoDescontado;
     }
 
+    public void inserirDataCompra(){
+        this.dataDeCompra = new Data();
+    }
+
     /** 
      * @return String com as informações de todos os Voos do bilhete.
      */
     @Override
     public String toString() {
         StringBuilder infoBilhete = new StringBuilder();
-        infoBilhete.append("=========== Bilhete número: "+this.idBilhete+"===========\n");
+        infoBilhete.append("=========== Bilhete " + this.tipo + " número: "+this.idBilhete+" ===========\n");
         if (this.voos.isEmpty()) {
             return "Nenhum voo cadastrado";
         }
 
-        for (int i = 0; i < this.voos.size(); i++) {
-            infoBilhete.append(buscarVoo(i).toString());
+        for (Voo vooBi : this.voos) {
+            infoBilhete.append(vooBi.toString());
         }
+
+        infoBilhete.append("\nPreço total do bilhete: " + this.calcularPreco());
+        infoBilhete.append("\n\nLembre-se de anotar o número do bilhete e dos voos, eles serão necessários depois ;)");
         return infoBilhete.toString();
     }
 
-    /**
-     * @param indexVoo
-     * @return Voo encontrado.
-     */
-    private Voo buscarVoo(int indexVoo) {
-        return this.voos.get(indexVoo);
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Bilhete bilhete = (Bilhete) o;
+        return idBilhete == bilhete.idBilhete && Double.compare(bilhete.precoBilhete, precoBilhete) == 0 && voos.equals(bilhete.voos) && tipo.equals(bilhete.tipo);
     }
 
-    /**
-     * @param idVoo
-     * @return retorna o index do voo na lista de voos. Caso o voo não exista na lista, retorna
-     * -1.
-     */
-    private int buscarIndexVoo(int idVoo) {
-        for (int i = 0; i < this.voos.size(); i++) {
-            if (this.voos.get(i).getIdVoo() == idVoo) {
-                return i;
-            }
-        }
-        return -1;
+    @Override
+    public int hashCode() {
+        return Objects.hash(voos, precoBilhete, tipo);
     }
 
-    /**
-     * Retorna id do bilhete
-     * @return int idBilhete
-     */
     public int getIdBilhete() {
         return this.idBilhete;
     }
-}
+    public Data getDataCompra() { return this.dataDeCompra;}
 
+}

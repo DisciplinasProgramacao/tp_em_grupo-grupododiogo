@@ -1,5 +1,7 @@
 package Passagens;
 
+import java.util.Objects;
+
 public class Trecho {
 
     private final int idTrecho;
@@ -12,9 +14,9 @@ public class Trecho {
      * @return void
      */
     public Trecho(String cidadeOrigem, String cidadeDestino) {
-        this.idTrecho      = this.hashCode();
         this.cidadeOrigem  = cidadeOrigem;
         this.cidadeDestino = cidadeDestino;
+        this.idTrecho      = this.hashCode();
     }
 
     /**
@@ -44,8 +46,33 @@ public class Trecho {
      */
     @Override
     public String toString() {
-        return this.idTrecho + " de " + this.cidadeOrigem + " para " + this.cidadeDestino;
-    } 
+        return "Trecho " + this.idTrecho + " de " + this.cidadeOrigem + " para " + this.cidadeDestino + ".\n\n";
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Trecho trecho = (Trecho) o;
+        return idTrecho == trecho.idTrecho && cidadeOrigem.equals(trecho.cidadeOrigem) && cidadeDestino.equals(trecho.cidadeDestino);
+    }
+    private int somarValoresCharString(char[] a, char[] b){
+        int somaA =0, somaB =0;
+        for(char e : a){
+            somaA += (int) e;
+        }
+        for(char f: b){
+            somaB += (int) f;
+        }
+        return somaA+somaB;
+    }
+
+    @Override
+    public int hashCode() {
+        char[] origem = this.cidadeOrigem.toCharArray();
+        char [] destino = this.cidadeDestino.toCharArray();
+        return somarValoresCharString(origem, destino);
+    }
 
     public int getIdTrecho() {
         return this.idTrecho;

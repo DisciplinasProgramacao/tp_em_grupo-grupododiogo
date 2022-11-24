@@ -2,6 +2,8 @@ package Passagens;
 
 import Utilitarios.Data;
 
+import java.util.Objects;
+
 public class Voo {
 //#region Atributos Do Voo
     private final int idVoo;
@@ -13,7 +15,7 @@ public class Voo {
 //#region Construtor do Voo
     /**
      * O id do voo será único e será gerado através de um hash code pelo proprio sistema
-     * @param trecho Recebe Trecho que está ligado ao vooo
+     * @param trecho Recebe Trecho que está ligado ao voo
      * @param data Recebe a Data referente ao voo
      */
     public Voo(Trecho trecho, Data data, double precoVoo) {
@@ -22,7 +24,7 @@ public class Voo {
         this.idVoo = this.hashCode();
         this.preco = precoVoo;
     }
-//#endregion
+//#endregion Construtor do Voo
 
 //#region Metodos uteis do Voo
     /**
@@ -57,28 +59,26 @@ public class Voo {
         }
     }
 
-    /**
-     * Retorna id do voo
-     * @return int idVoo
-     */
     public int getIdVoo() {
         return this.idVoo;
     }
 
-    /**
-     * Retorna preco do voo
-     * @return int preco
-     */
     public double getPreco() {
-        return preco;
+        return this.preco;
     }
-    //#endregion
+
+    public Data getData() {
+        return this.dataVoo;
+    }
+    //#endregion Metodos uteis do Voo
 
 //#region Override's da Classe
     @Override
     public String toString() {
         StringBuilder infoVoo = new StringBuilder();
-        infoVoo.append("=========== Voo Número: "+this.idVoo+"\n Data do Voo: "+this.dataVoo.dataFormatada()+"\n");
+        infoVoo.append("=========== Voo Número: " + this.idVoo + " ===========" +
+        "\nData do Voo: " + this.dataVoo.dataFormatada() +
+        "\nPreço do voo: " + this.preco + "\n");
         infoVoo.append(this.trechoVoo.toString());
         return infoVoo.toString();
     }
@@ -86,10 +86,12 @@ public class Voo {
     @Override
     public boolean equals(Object obj) {
         Voo nv = (Voo) obj;
-        if(this.idVoo == nv.idVoo)
-            return true;
-        else
-            return false;
+        return this.idVoo == nv.idVoo;
     }
-//endregion
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(trechoVoo, dataVoo, preco);
+    }
+//#endregion Override's da Classe
 }

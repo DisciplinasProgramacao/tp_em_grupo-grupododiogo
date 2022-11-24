@@ -34,7 +34,7 @@ public class VooTest {
 
     @Test
     public void toStringInfo() {
-        assertEquals("=========== Voo Número: " + bhParaSpVoo.getIdVoo() + "\n Data do Voo: 06/05/2003" + "\n" + Integer.toString(bhParaSp.getIdTrecho()) + " de Belo Horizonte para São Paulo", bhParaSpVoo.toString());
+        assertEquals("=========== Voo Número: " +  bhParaSpVoo.getIdVoo() + " ===========" + "\nData do Voo: 06/05/2003" + "\nPreço do voo: " + bhParaSpVoo.getPreco() + "\nTrecho " + Integer.toString(bhParaSp.getIdTrecho()) + " de Belo Horizonte para São Paulo.\n\n", bhParaSpVoo.toString());
     }
 
     @Test
@@ -45,21 +45,21 @@ public class VooTest {
     @Test
     public void alterarTrechoTest() {
     
-        assertEquals("=========== Voo Número: " + bhParaSpVoo.getIdVoo() + "\n Data do Voo: 06/05/2003" + "\n" + Integer.toString(bhParaSp.getIdTrecho()) + " de Belo Horizonte para São Paulo", bhParaSpVoo.toString());
+        assertEquals("=========== Voo Número: " + bhParaSpVoo.getIdVoo() + " ===========" + "\nData do Voo: 06/05/2003" + "\nPreço do voo: " + bhParaSpVoo.getPreco() + "\nTrecho " + Integer.toString(bhParaSp.getIdTrecho()) + " de Belo Horizonte para São Paulo.\n\n", bhParaSpVoo.toString());
 
         bhParaSpVoo.alterarTrecho(bhParaRj);
 
-        assertEquals("=========== Voo Número: " + bhParaSpVoo.getIdVoo() + "\n Data do Voo: 06/05/2003" + "\n" + Integer.toString(bhParaRj.getIdTrecho()) + " de Belo Horizonte para Rio de Janeiro", bhParaSpVoo.toString());
+        assertEquals("=========== Voo Número: " + bhParaSpVoo.getIdVoo() + " ===========" +"\nData do Voo: 06/05/2003" + "\nPreço do voo: " + bhParaSpVoo.getPreco() + "\nTrecho " + Integer.toString(bhParaRj.getIdTrecho()) + " de Belo Horizonte para Rio de Janeiro.\n\n", bhParaSpVoo.toString());
     }
 
     @Test
     public void alterarDataTest() {
     
-        assertEquals("=========== Voo Número: " + bhParaSpVoo.getIdVoo() + "\n Data do Voo: 06/05/2003" + "\n" + Integer.toString(bhParaSp.getIdTrecho()) + " de Belo Horizonte para São Paulo", bhParaSpVoo.toString());
+        assertEquals("=========== Voo Número: " + bhParaSpVoo.getIdVoo() + " ===========" + "\nData do Voo: 06/05/2003"  + "\nPreço do voo: " + bhParaSpVoo.getPreco() + "\nTrecho " + Integer.toString(bhParaSp.getIdTrecho()) + " de Belo Horizonte para São Paulo.\n\n", bhParaSpVoo.toString());
     
         Data novaDataVoo = new Data(12, 9, 2004);
         bhParaSpVoo.alterarData(novaDataVoo);
 
-        assertEquals("=========== Voo Número: " + bhParaSpVoo.getIdVoo() + "\n Data do Voo: 12/09/2004" + "\n" + Integer.toString(bhParaSp.getIdTrecho()) + " de Belo Horizonte para São Paulo", bhParaSpVoo.toString());
+        assertEquals("=========== Voo Número: " + bhParaSpVoo.getIdVoo() + " ===========" + "\nData do Voo: 12/09/2004" + "\nPreço do voo: " + bhParaSpVoo.getPreco() + "\nTrecho " + Integer.toString(bhParaSp.getIdTrecho()) + " de Belo Horizonte para São Paulo.\n\n", bhParaSpVoo.toString());
     }
 }

@@ -1,38 +1,128 @@
 package Clientes;
 
+import java.util.ArrayDeque;
+import java.util.Deque;
 import java.util.LinkedList;
+import java.util.Objects;
 
 import Passagens.Bilhete;
+import Utilitarios.Data;
+import Utilitarios.AceleradorPts.IMultiplicavel;
+
 public class Cliente {
 
     private String nome = "";
-    private int NUM_DOCUMENTO = 0;
-    private int pontuacaoCliente;
-    private LinkedList<Bilhete> bilhetesCliente = new LinkedList<Bilhete>();
+    private String cpf = "";
+    private int pontuacaoCliente = 0;
+    private Deque<Bilhete> bilhetesCliente = new LinkedList<>();
+    private IMultiplicavel acelardorPts;
+    private int numeroBilhetesPromocionais = 0;
 
-    public Cliente(String nomeCliente, int numDoc) {
+    /**
+     * Construtor cliente, recebe o nome,numero do documento e senha.
+     * @param nomeCliente
+     * @param numCpf
+     */
+    public Cliente(String nomeCliente, String numCpf) {
         this.nome = nomeCliente;
-        this.NUM_DOCUMENTO = numDoc;
+        this.cpf = validarCpf(numCpf);
         this.pontuacaoCliente = 0;
     }
 
-    public boolean comparaBilhete(Bilhete bilheteCompra) {
+    /**
+     * Validação basica do cpf (Tamnho != 11) será tratado apenas.
+     * @param cpf cpf digitado no construtor
+     * @return String --> "00000000000" caso não siga as especificações || cpf de parametro caso validado
+     */
+    private String validarCpf(String cpfd){
+        cpfd = cpfd.replaceAll(" ", "");
+        if(cpfd.length() != 11){
+            return "00000000000";
+        }
+        return cpfd;
+    }
+    /**
+     * Comprar um bilhete adicionando na pilha de Bilhetes.
+     * @param bilheteCompra
+     * @return false/true
+     */
+    public boolean comprarBilhete(Bilhete bilheteCompra) {
         try {
+            bilheteCompra.inserirDataCompra();
             this.bilhetesCliente.add(bilheteCompra);
-            //Restam implementações na classe bilhete para finalizar método
             return true;
         }
-        catch (Exception e) {
+        catch (NullPointerException e) {
             return false;
         }
     }
 
-    public int verificarPontuacao(){
+    /**
+     * Calcula a pontuaçao de fidelidade total do cliente.
+     * A principio o método tenta utilizar o multiplicador do cliente para realizar o calculo,
+     * caso não consiga por não ter um Multiplicador relacionado será desviado o fluxo e chamado
+     * um método auxiliar para calcular a pontuação total padrão.
+     * @return pontuaçao de fidelidade
+     */
+    public int getPontuacao() {
         int pontuacaoTotal = 0;
-        for (Bilhete bilhete : bilhetesCliente) {
-            int pontuacao = bilhete.calcularPontuacao();
-            pontuacaoTotal += pontuacao;
+
+        try {
+            for (Bilhete bilhete : this.bilhetesCliente) {
+                pontuacaoTotal += this.acelardorPts.multiplicar(bilhete.calcularPontuacao());
+            }
         }
+        catch(NullPointerException e) {
+                pontuacaoTotal = verificarPontuacaoPadrao();
+            }
         return pontuacaoTotal;
     } 
+    /**
+     * Método privado para soma padrão da pontuação de bilhetes relacionado a um Cliente.
+     * @return int pts --> pontuação total do cliente
+     */
+    private int verificarPontuacaoPadrao() {
+        int pts = 0;
+            for (Bilhete bilhete : this.bilhetesCliente) {
+                pts +=  bilhete.calcularPontuacao();
+            }
+        return pts;
+    }
+
+    public void setAcelerador(IMultiplicavel multi) {
+        this.acelardorPts = multi;
+    }
+    /**
+     * Calcula o número de bilhetes grátis que um cliente pode ganhar,
+     * Verifica a pontuação na Pilha de bilhetes em um periodo referente a um ano apartir a data da atual 
+     * @return int numeroBilhetes --> número de bilhetes promocionais para o cliente.
+     */
+    public int calcularNumeroBilhetesPromocionais(){
+        Data dataAtual = new Data();
+        dataAtual.tirar1Ano();
+
+        int valorTotal = this.bilhetesCliente.stream().filter(b -> b.getDataCompra().maisRecenteQue(dataAtual) == -1).mapToInt(Bilhete::calcularPontuacao).sum();
+
+        double valorAux = valorTotal / 10500;
+        int numeroBilhetes = (int)valorAux;
+
+        this.numeroBilhetesPromocionais = numeroBilhetes;
+        return this.numeroBilhetesPromocionais;
+    }
+
+    public void setNumeroBilhetesPromocionais (int valor) {
+        this.numeroBilhetesPromocionais = valor - 1;
+    }
+
+    public IMultiplicavel getAcelardorPts() {
+        return this.acelardorPts;
+    }
+    public String getCpf(){return this.cpf;};
+    public String getNome(){return this.nome;};
+    @Override
+    public int hashCode() {
+        long cpf = Long.parseLong(this.cpf);
+        int hash = (int) cpf;
+        return hash;
+    }
 }

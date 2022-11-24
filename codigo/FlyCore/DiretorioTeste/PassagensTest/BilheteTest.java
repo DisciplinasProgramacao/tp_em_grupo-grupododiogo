@@ -12,17 +12,17 @@ import static org.junit.jupiter.api.Assertions.*;
 
 public class BilheteTest {
 
-    public Trecho bhParaSp;
+    public Trecho bhParaSpTrecho;
     public Data dataVoo;
     public Voo bhParaSpVoo;
     public Bilhete bilhete;
 
     @BeforeEach
-    public void setUp(){
-         bhParaSp = new Trecho("Belo Horizonte", "São Paulo");
-         dataVoo = new Data(06, 05, 2003);
-         bhParaSpVoo = new Voo(bhParaSp, dataVoo, 0);
-         bilhete = new Bilhete();
+    public void setUp() {
+        bhParaSpTrecho = new Trecho("Belo Horizonte", "São Paulo");
+        dataVoo = new Data(06, 05, 2003);
+        bhParaSpVoo = new Voo(bhParaSpTrecho, dataVoo, 100);
+        bilhete = new Bilhete();
     }
     
     @Test
@@ -34,23 +34,43 @@ public class BilheteTest {
     public void toStringInfoEInserirVoo() {
         assertTrue(bilhete.inserirVoo(bhParaSpVoo));
 
-        assertEquals("=========== Bilhete número: "+bilhete.getIdBilhete()+"===========\n"+
-        "=========== Voo Número: "+bhParaSpVoo.getIdVoo()+"\n Data do Voo: "+dataVoo.dataFormatada()+"\n"+
-        bhParaSp.getIdTrecho() + " de Belo Horizonte para São Paulo", bilhete.toString());
+        assertEquals("=========== Bilhete Comum número: " + bilhete.getIdBilhete() + " ===========\n"+
+        "=========== Voo Número: " + bhParaSpVoo.getIdVoo() + " ===========" + "\nData do Voo: " + dataVoo.dataFormatada() + "\nPreço do voo: " + bhParaSpVoo.getPreco() +
+        "\nTrecho " + bhParaSpTrecho.getIdTrecho() + " de Belo Horizonte para São Paulo.\n\n" +
+        "\nPreço total do bilhete: " + bilhete.calcularPreco() + "\n\nLembre-se de anotar o número do bilhete e dos voos, eles serão necessários depois ;)", bilhete.toString());
     }
 
     @Test
     public void removerVooTest() {
         assertTrue(bilhete.inserirVoo(bhParaSpVoo));
 
-        assertTrue(bilhete.removerVoo(bhParaSpVoo.getIdVoo()));
+        assertTrue(bilhete.removerVoo(bhParaSpVoo));
     }
 
     @Test
     public void removerVooInexistenteTest() {
+        assertFalse(bilhete.removerVoo(bhParaSpVoo));// id "aleatório"
+    }
 
-        assertTrue(bilhete.inserirVoo(bhParaSpVoo));
+    @Test 
+    public void calcular_Preco_encontrarMaiorValorVoo(){
+        bilhete.inserirVoo(bhParaSpVoo);
+        Trecho tr2 = new Trecho("Belo Horizonte", "São Paulo");
+        Data data2 = new Data(06, 05, 2003);
+        Voo voo2 = new Voo(tr2, data2, 250.0);
+        bilhete.inserirVoo(voo2);
 
-        assertFalse(bilhete.removerVoo(4521457));// id "aleatório"
+      assertEquals(300d, bilhete.calcularPreco());
+    }
+    @Test
+    public void buscarVoo(){
+        bilhete.inserirVoo(bhParaSpVoo);
+
+        assertEquals(bilhete.buscarVoo(bhParaSpVoo), 0);
+    }
+    @Test
+    public void buscarVooBilheteVazio(){
+
+        assertEquals(bilhete.buscarVoo(bhParaSpVoo), -1);;
     }
 }

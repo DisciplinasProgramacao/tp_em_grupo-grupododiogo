@@ -21,18 +21,18 @@ public class TrechoTest {
 
     @Test
     public void toStringInfo() {
-        assertEquals(Integer.toString(bhParaSp.getIdTrecho()) + " de Belo Horizonte para São Paulo", bhParaSp.toString());
+        assertEquals("Trecho " + Integer.toString(bhParaSp.getIdTrecho()) + " de Belo Horizonte para São Paulo.\n\n", bhParaSp.toString());
     }
 
     @Test
     public void setarCidadeDestino() {
         bhParaSp.setCidadeDestino("Rio de Janeiro");
-        assertEquals(Integer.toString(bhParaSp.getIdTrecho()) + " de Belo Horizonte para Rio de Janeiro", bhParaSp.toString());
+        assertEquals("Trecho " + Integer.toString(bhParaSp.getIdTrecho()) + " de Belo Horizonte para Rio de Janeiro.\n\n", bhParaSp.toString());
     }
 
     @Test
     public void setarCidadeOrigem() {
         bhParaSp.setCidadeOrigem("Rio de Janeiro");
-        assertEquals(Integer.toString(bhParaSp.getIdTrecho()) + " de Rio de Janeiro para São Paulo", bhParaSp.toString());
+        assertEquals("Trecho " + Integer.toString(bhParaSp.getIdTrecho()) + " de Rio de Janeiro para São Paulo.\n\n", bhParaSp.toString());
     }
 }
