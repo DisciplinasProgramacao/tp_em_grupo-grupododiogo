@@ -139,6 +139,7 @@ public class Application {
         return true;
     }
     private static boolean validarCpf(String cpf){
+        cpf = cpf.toLowerCase();
         if(cpf.matches("[a-z]*") || cpf.length()!=11)
             return false;
         return true;    
@@ -165,6 +166,9 @@ public class Application {
     }
     catch(NullPointerException e){
             throw e;
+    }
+    catch(NumberFormatException e){
+        throw e;
     }
     }
     private static String receberDadosClienteCadastro(){
@@ -327,8 +331,10 @@ public class Application {
                             System.out.println("\nCliente já cadastrado!");
                         }
                     }
-                    catch (NullPointerException e){System.out.println("Erro ao inerir Cliente (null)");}
-                }else{System.out.println("Dados invalidos/Cliente não cadastrado");}   
+                    catch (NullPointerException e){System.out.println("\nErro ao inerir Cliente (null)");}
+                    catch(NumberFormatException e){System.out.println("\nErro ao formatar HashCode cliente: "+e);}
+                }
+                else{System.out.println("Dados invalidos/Cliente não cadastrado");}   
 
             break;
             case 2:
