@@ -133,6 +133,16 @@ public class Application {
     }
     //#endregion
 
+    private static boolean validarNome(String nome){
+        if(nome.matches("[0-9]*"))
+            return false;
+        return true;
+    }
+    private static boolean validarCpf(String cpf){
+        if(cpf.matches("[a-z]*") || cpf.length()!=11)
+            return false;
+        return true;    
+    }
     //#region Clientes
     private static Cliente buscarCliente(String cpfCliente){
         Cliente clienteBusca = new Cliente("", cpfCliente);
@@ -146,14 +156,59 @@ public class Application {
         return clienteBusca; // retorna Cliente apenas com cpf caso não seja encontrado
     }
     private static boolean addClienteAoMapa(Cliente novoCliente){
+       try{
         if(!clientesSistema.containsKey(novoCliente.hashCode())){
            clientesSistema.put(novoCliente.hashCode(), novoCliente);
             return true;
         }
         return false;
     }
+    catch(NullPointerException e){
+            throw e;
+    }
+    }
+    private static String receberDadosClienteCadastro(){
+        Scanner sc = new Scanner(System.in);
+        String nome= "", cpf = "";
+        System.out.println("\nEntre com o Nome do Cliente: ");
+        try{
+            nome = sc.nextLine();
+            if(!validarNome(nome)){
+                System.out.println("Nome Invalido! ");
+                pausa();
+                limparTela();
+            }
+        
+        System.out.println("\nInsira o CPF do cliente? ");
+        cpf = sc.nextLine();
+            
+            if(!validarCpf(cpf)){
+                System.out.println("\n CPF INVALIDO!");
+                pausa();
+                limparTela();
+            }
+            String dadosCliente = nome +";"+cpf;
+            return dadosCliente;
+        }
+        catch(InputMismatchException e){System.out.println(e); throw e;}
+        
+    }
     private static Cliente cadastrarCliente(){
-        //implementar
+        String dadosCliente ="";
+        dadosCliente = receberDadosClienteCadastro();
+        String[] separandoDados = dadosCliente.split(";");
+        try{
+            Cliente novoCliente = new Cliente(separandoDados[0], separandoDados[1]);
+            return novoCliente;
+        }
+        catch(NullPointerException e){
+            System.out.println("Erro ao encontrar classe Clientes");
+           throw e;
+        }
+        catch(IndexOutOfBoundsException e){
+            System.out.println("Erro ao colher dados do Cliente");
+            throw e;
+        }
     }
     //#endregion
 
@@ -262,12 +317,19 @@ public class Application {
             case 1:
                 Cliente nvCl = cadastrarCliente();
                 boolean addCliente = false;
-                addCliente = addClienteAoMapa(nvCl);
-                if(addCliente)
-                    System.out.println("Cliente add com Sucesso");
-                else{
-                    System.out.println("Cliente já cadastrado");
-                }    
+                if(!nvCl.getCpf().equals("00000000000")){
+                    try{
+                        addCliente = addClienteAoMapa(nvCl);
+                        if(addCliente)
+                            System.out.println("\nCliente add com Sucesso!");
+                        else{
+                            limparTela();
+                            System.out.println("\nCliente já cadastrado!");
+                        }
+                    }
+                    catch (NullPointerException e){System.out.println("Erro ao inerir Cliente (null)");}
+                }else{System.out.println("Dados invalidos/Cliente não cadastrado");}   
+
             break;
             case 2:
 
@@ -290,11 +352,13 @@ public class Application {
                     optMenuPrincipal= 0;
                 break;
                 case 1:
+                limparTela();
                     executarMenuPassagens();
                 continue;
                 case 2:
-
-                break;
+                    limparTela();
+                    executarMenuCliente();
+                continue;
                 case 3:
                 break;
                 case -1:
