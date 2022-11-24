@@ -211,7 +211,7 @@ public class Application {
         }
         catch(IndexOutOfBoundsException e){
             System.out.println("Erro ao colher dados do Cliente");
-            throw e;
+            return new Cliente("", "");
         }
     }
     //#endregion
