@@ -67,10 +67,13 @@ public class Application {
             teclado.nextLine();
             return CidadesTrecho.getCidadesOrigem().get(opcao - 1);
         } catch (InputMismatchException e) {
+            System.out.println("\nEscolha uma opção valida: ");
+            pausa();
             return "";
         }
         catch(IndexOutOfBoundsException x){
-            System.out.println("Escolha uma opção valida: "+x);
+           System.out.println("\nEscolha uma opção valida: ");
+           pausa();
             return "";
         }
     }
@@ -169,6 +172,7 @@ public class Application {
             teclado.nextLine();
             return opcao;
         } catch (InputMismatchException e) {
+            pausa();
             return -1;
         }
     }
@@ -235,9 +239,9 @@ public class Application {
                     boolean trechoAdd = false;
                     trechoAdd = adicionarTrechoAlista(novoTrecho);
                     if(trechoAdd)
-                        System.out.println(" Trecho Add com Sucesso");
+                        System.out.println("\n Trecho Add com Sucesso");
                     else{
-                        System.out.println(" Trecho já cadastrado !");
+                        System.out.println("\n Trecho já cadastrado !");
                     }    
             break;
             case 2:
@@ -292,7 +296,9 @@ public class Application {
 
                 break;
                 case 3:
-
+                break;
+                case -1:
+                    System.out.println("\n Entre com uma Opção Válida!");
                 break;
             }
         }
