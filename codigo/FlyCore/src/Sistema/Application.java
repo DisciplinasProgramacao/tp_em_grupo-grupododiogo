@@ -1,7 +1,9 @@
 package Sistema;
 
+import java.rmi.NotBoundException;
 import java.util.HashMap;
 import java.util.HashSet;
+import java.util.Hashtable;
 import java.util.InputMismatchException;
 import java.util.LinkedList;
 import java.util.Map;
@@ -21,7 +23,7 @@ import Utilitarios.CidadesTrecho;
 public class Application {
     private static Scanner teclado = new Scanner(System.in);//Leitor para INTEGER
     private static Scanner sc = new Scanner(System.in);//leitor String
-    private static LinkedList<Voo> voosSistema = new LinkedList<>();
+    private static Map<Integer, Voo> voosSistema = new Hashtable<>();
     private static LinkedList<Trecho> trechosSistema = new LinkedList<>();
     private static Map<Integer, Cliente> clientesSistema = new HashMap<>();
     // #region utilidades
@@ -111,6 +113,12 @@ public class Application {
     //endregion
 
     //#region Voo
+    private static boolean adicionarVooAlista(Voo novoVoo){
+        if(!voosSistema.containsKey(novoVoo.hashCode())){
+        voosSistema.put(novoVoo.hashCode(), novoVoo);
+        return true;}
+        return false;
+    }
     private static double cadastrarPreco(){
         Scanner sc = new Scanner (System.in);
 
@@ -503,7 +511,7 @@ public class Application {
    
     private static void executarMenuCadastroVoos(){
         int optMenuCadastroVoo = 0;
-        Trecho trechoVooCadastro = null;
+        Trecho trechoVooCadastro = null ;
         Data dataVooCadastro = new Data();
         double precoVooCadastro = 0d;
         do{
@@ -532,10 +540,12 @@ public class Application {
                             Voo novoVoo = cadastrarVoo(trechoVooCadastro, dataVooCadastro, precoVooCadastro);
                             System.out.println("\n INFO VOO: \n");
                             System.out.println(novoVoo.toString());
+                            if(adicionarVooAlista(novoVoo)){
+                                System.out.println("\nVoo Cadastrado!");
+                            }else{System.out.println("\nVoo Número: "+novoVoo.getIdVoo()+" Já cadastrado!");}
                         }catch(NullPointerException nulo){
                             System.out.println("\n Voo não cadastrado \n Trecho Invalido!");
-                        }
-                        
+                        }        
                 break;
                 default:
                     System.out.println("Opção Invalida!");
