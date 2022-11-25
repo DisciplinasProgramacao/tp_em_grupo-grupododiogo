@@ -329,6 +329,7 @@ public class Application {
         System.out.println("1 - Cadastrar Trechos");
         System.out.println("2 -  Cadastrar Voos");
         System.out.println("3 - Cadastrar Datas");
+        System.out.println("4 - Ver Voos Cadastrados");
         System.out.println("0 - Cancelar");
         System.out.print("Digite sua opção: ");
         try {
@@ -477,6 +478,11 @@ public class Application {
                 executarMenuCadastroVoos();
             break;
             
+            case 4:
+                    limparTela();
+                    exibirVoos();
+                    pausa();
+            break;
             case 0:
                 break;
            default:
@@ -592,10 +598,6 @@ public class Application {
                     executarMenuCliente();
                 continue;
                 case 3:
-                    limparTela();
-                    exibirVoos();
-                    pausa();
-                    
                 break;
                 case -1:
                     System.out.println("\n Entre com uma Opção Válida!");
