@@ -377,8 +377,9 @@ public class Application {
     }
 
     private static void executarMenuPassagens(){
-
-        int optMenuPassagens = menuPassagens();
+        int optMenuPassagens = 0;
+        do{
+        optMenuPassagens = menuPassagens();
         switch(optMenuPassagens){
             case 1:
                     Trecho novoTrecho= cadastradoTrecho();
@@ -399,11 +400,13 @@ public class Application {
            default:
            System.out.println("Insira uma Opção valida");     
         }
-  
+    }while(optMenuPassagens!=0);
     }
     
     private static void executarMenuCliente(){
-        int optMenuClientes = menuClientes();
+        int optMenuClientes = 0;
+        do{
+        optMenuClientes= menuClientes();
         switch(optMenuClientes){
             case 1:
                 Cliente nvCl = cadastrarCliente();
@@ -439,7 +442,7 @@ public class Application {
            default:
            System.out.println("Insira uma Opção valida");     
         }
-
+    }while(optMenuClientes!=0);
     }
     public static void main(String[] args) {
 
