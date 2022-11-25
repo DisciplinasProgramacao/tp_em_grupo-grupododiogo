@@ -341,7 +341,27 @@ public class Application {
             return -1;
         }
     }
- //#endregion
+    
+    private static int menuCadastroVoos(){
+        System.out.println();
+        System.out.println("FLY CORE");
+        System.out.println("==========================");
+        System.out.println("1 - Escolher Trecho");
+        System.out.println("2 - Escolher Data");
+        System.out.println("3 - Cadastrar Voo");
+        System.out.println("0 - Cancelar");
+        System.out.print("Digite sua opção: ");
+        try {
+            int opcao = teclado.nextInt();
+            teclado.nextLine();
+            return opcao;
+        } catch (InputMismatchException e) {
+            return -1;
+        }
+    }
+    //#endregion
+
+    //#region Execução Menus
     private static void executarMenuMultiplicador(Cliente clienteBusca){    
         int optMenuMulti = 0;
         do{
@@ -447,6 +467,25 @@ public class Application {
         }
     }while(optMenuClientes!=0);
     }
+   
+    private static void executarMenuCadastroVoos(){
+        int optMenuCadastroVoo = 0;
+        do{
+            optMenuCadastroVoo = menuCadastroVoos();
+            switch(optMenuCadastroVoo){
+                case 0:
+
+                break;
+                case 1:
+
+                break;
+                default:
+                    System.out.println("Opção Invalida!");
+                    pausa();
+            }
+        }while(optMenuCadastroVoo!=0);
+    }
+    //#endregion
     public static void main(String[] args) {
 
         int optMenuPrincipal = 0;
@@ -472,5 +511,7 @@ public class Application {
             }
         }
         while(optMenuPrincipal!=0);
+        teclado.close();
+        sc.close();
     }
 }
