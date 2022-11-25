@@ -372,6 +372,7 @@ public class Application {
             case 0: break;
             default:
             System.out.println("Insira uma opção valida");
+            pausa();
         }
     }while(optMenuMulti!=0);
     }
@@ -398,7 +399,8 @@ public class Application {
             case 0:
                 break;
            default:
-           System.out.println("Insira uma Opção valida");     
+           System.out.println("Insira uma Opção valida");    
+                    pausa();
         }
     }while(optMenuPassagens!=0);
     }
@@ -440,7 +442,8 @@ public class Application {
             case 0:
                 return;
            default:
-           System.out.println("Insira uma Opção valida");     
+           System.out.println("Insira uma Opção valida");
+           pausa();  
         }
     }while(optMenuClientes!=0);
     }
