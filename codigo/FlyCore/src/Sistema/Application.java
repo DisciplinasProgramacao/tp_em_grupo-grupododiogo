@@ -8,6 +8,7 @@ import java.util.Map;
 import java.util.Scanner;
 import java.util.Set;
 
+import javax.xml.catalog.Catalog;
 import javax.xml.crypto.dsig.keyinfo.RetrievalMethod;
 
 import Utilitarios.*;
@@ -78,7 +79,7 @@ public class Application {
             return "";
         }
     }
-    private static Trecho cadastradoTrecho() {
+    private static Trecho formarTrecho() {
         String cidadeOrigem = "";
         do {
             cidadeOrigem = escolherCidadesTrecho("Origem");
@@ -91,15 +92,46 @@ public class Application {
 
         return new Trecho(cidadeOrigem, cidadeDestino);
     }
+    private static Trecho escolherTrechoVoo(){
+        limparTela();
+        System.out.println();
+        System.out.println();
+        System.out.println("FLY CORE");
+        System.out.println("==========================");
+        Trecho trechoEscolhido = formarTrecho();
+        if(!trechosSistema.contains(trechoEscolhido)){
+            System.out.println("\nTrecho não cadastrado");
+            trechoEscolhido = null;
+        }
+        else{
+            System.out.println("\nOK Trecho escolhido!");
+        }
+        return trechoEscolhido;
+    }
     //endregion
 
     //#region Voo
+    private static double cadastrarPreco(){
+        Scanner sc = new Scanner (System.in);
+
+        double preco=0d;
+        limparTela();
+        System.out.println("Entre com o Preço do Voo: ");
+        try{
+            preco = sc.nextDouble();
+        }
+        catch(InputMismatchException e){
+            System.out.println("insira opção valida!");
+            preco = -1d;
+        }
+        return preco;
+    }
     private static Data cadastrarData(){
         //Implementar método 
         return new Data();
     }
-    private static Voo cadastrarVoo(Trecho novoTrecho, Data dataVoo){
-        return new Voo(novoTrecho, dataVoo, 500d);
+    private static Voo cadastrarVoo(Trecho novoTrecho, Data dataVoo, double preco){
+        return new Voo(novoTrecho, dataVoo, preco);
     }
     //endregion
 
@@ -348,7 +380,8 @@ public class Application {
         System.out.println("==========================");
         System.out.println("1 - Escolher Trecho");
         System.out.println("2 - Escolher Data");
-        System.out.println("3 - Cadastrar Voo");
+        System.out.println("3 - Cadastrar preço");
+        System.out.println("4 - Cadastrar Voo ");
         System.out.println("0 - Cancelar");
         System.out.print("Digite sua opção: ");
         try {
@@ -403,7 +436,7 @@ public class Application {
         optMenuPassagens = menuPassagens();
         switch(optMenuPassagens){
             case 1:
-                    Trecho novoTrecho= cadastradoTrecho();
+                    Trecho novoTrecho= formarTrecho();
                     boolean trechoAdd = false;
                     trechoAdd = adicionarTrechoAlista(novoTrecho);
                     if(trechoAdd)
@@ -413,7 +446,7 @@ public class Application {
                     }    
             break;
             case 2:
-               // cadastrarVoo();
+                executarMenuCadastroVoos();
             break;
             
             case 0:
@@ -470,14 +503,39 @@ public class Application {
    
     private static void executarMenuCadastroVoos(){
         int optMenuCadastroVoo = 0;
+        Trecho trechoVooCadastro = null;
+        Data dataVooCadastro = new Data();
+        double precoVooCadastro = 0d;
         do{
             optMenuCadastroVoo = menuCadastroVoos();
             switch(optMenuCadastroVoo){
-                case 0:
-
+                case 0:      
                 break;
                 case 1:
+                    Trecho nv = escolherTrechoVoo();
+                        trechoVooCadastro = nv;
+                break;
+                case 2:
+                      
+                break;
+                case 3:
+                        double preco = cadastrarPreco();
+                        if(preco == -1){
+                            System.out.println("Entrada invalida para o preço!");
+                        }
+                        else{precoVooCadastro = preco;}
+                break;
 
+                case 4:
+                    
+                        try{
+                            Voo novoVoo = cadastrarVoo(trechoVooCadastro, dataVooCadastro, precoVooCadastro);
+                            System.out.println("\n INFO VOO: \n");
+                            System.out.println(novoVoo.toString());
+                        }catch(NullPointerException nulo){
+                            System.out.println("\n Voo não cadastrado \n Trecho Invalido!");
+                        }
+                        
                 break;
                 default:
                     System.out.println("Opção Invalida!");
