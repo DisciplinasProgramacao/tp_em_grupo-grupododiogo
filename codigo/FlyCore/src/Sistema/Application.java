@@ -576,10 +576,12 @@ public class Application {
                         try{
                             Voo novoVoo = formarVoo(trechoVooCadastro, dataVooCadastro, precoVooCadastro);
                             System.out.println("\n INFO VOO: \n");
+                            if(precoVooCadastro>0d){
                             if(adicionarVooAlista(novoVoo)){
                                 System.out.println("\nVoo Cadastrado!");
                                 System.out.println(buscarVoo(novoVoo).toString());
                             }else{System.out.println("\nVoo Número: "+novoVoo.getIdVoo()+" Já cadastrado!");}
+                            }else{System.out.println("\n Não é possivel cadastrar um Voo com o preço igual a zero");}
                         }catch(NullPointerException nulo){
                             System.out.println("\n Voo não cadastrado \n Trecho Invalido!");
                         }        
