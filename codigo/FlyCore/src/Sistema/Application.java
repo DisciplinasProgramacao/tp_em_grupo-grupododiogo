@@ -1,9 +1,7 @@
 package Sistema;
 
-import java.nio.file.WatchService;
-import java.rmi.NotBoundException;
+
 import java.util.HashMap;
-import java.util.HashSet;
 import java.util.Hashtable;
 import java.util.InputMismatchException;
 import java.util.LinkedList;
@@ -112,6 +110,12 @@ public class Application {
     //endregion
 
     //#region Voo
+    private static Voo buscarVoo(Voo vooBusca){
+        if(!voosSistema.containsKey(vooBusca.hashCode())){
+                return null;
+        }
+        return voosSistema.get(vooBusca.hashCode());
+    }
     private static boolean adicionarVooAlista(Voo novoVoo){
         if(!voosSistema.containsKey(novoVoo.hashCode())){
         voosSistema.put(novoVoo.hashCode(), novoVoo);
@@ -137,7 +141,7 @@ public class Application {
         //Implementar método 
         return new Data();
     }
-    private static Voo cadastrarVoo(Trecho novoTrecho, Data dataVoo, double preco){
+    private static Voo formarVoo(Trecho novoTrecho, Data dataVoo, double preco){
         return new Voo(novoTrecho, dataVoo, preco);
     }
     //endregion
@@ -551,11 +555,11 @@ public class Application {
                 case 4:
                     
                         try{
-                            Voo novoVoo = cadastrarVoo(trechoVooCadastro, dataVooCadastro, precoVooCadastro);
+                            Voo novoVoo = formarVoo(trechoVooCadastro, dataVooCadastro, precoVooCadastro);
                             System.out.println("\n INFO VOO: \n");
-                            System.out.println(novoVoo.toString());
                             if(adicionarVooAlista(novoVoo)){
                                 System.out.println("\nVoo Cadastrado!");
+                                System.out.println(voosSistema.get(novoVoo.hashCode()).toString());
                             }else{System.out.println("\nVoo Número: "+novoVoo.getIdVoo()+" Já cadastrado!");}
                         }catch(NullPointerException nulo){
                             System.out.println("\n Voo não cadastrado \n Trecho Invalido!");
