@@ -1,5 +1,6 @@
 package Sistema;
 
+import java.nio.file.WatchService;
 import java.rmi.NotBoundException;
 import java.util.HashMap;
 import java.util.HashSet;
@@ -71,15 +72,16 @@ public class Application {
             teclado.nextLine();
             return CidadesTrecho.getCidadesOrigem().get(opcao - 1);
         } catch (InputMismatchException e) {
-            System.out.println("\nEscolha uma opção valida: ");
             pausa();
+            System.out.println("\nEscolha uma opção valida: ");
             return "";
         }
         catch(IndexOutOfBoundsException x){
-           System.out.println("\nEscolha uma opção valida: ");
-           pausa();
-            return "";
+            pausa();
+           System.out.println("\nEscolha uma opção valida: "); 
+           return "";
         }
+        
     }
     private static Trecho formarTrecho() {
         String cidadeOrigem = "";
@@ -292,6 +294,7 @@ public class Application {
 
    //#region Menus
     private static int menuPrincipal() {
+        limparTela();
         System.out.println();
         System.out.println();
         System.out.println("FLY CORE");
@@ -312,11 +315,13 @@ public class Application {
     }
 
     private static int menuPassagens(){
+        limparTela();
         System.out.println();
         System.out.println("FLY CORE");
         System.out.println("==========================");
         System.out.println("1 - Cadastrar Trechos");
         System.out.println("2 -  Cadastrar Voos");
+        System.out.println("3 - Cadastrar Datas");
         System.out.println("0 - Cancelar");
         System.out.print("Digite sua opção: ");
         try {
@@ -329,6 +334,7 @@ public class Application {
     }
 
     private static int menuClientes(){
+        limparTela();
         System.out.println();
         System.out.println("FLY CORE");
         System.out.println("==========================");
@@ -346,6 +352,7 @@ public class Application {
     }
 
     private static int menuMultiplicador(){
+        limparTela();
         System.out.println();
         System.out.println("FLY CORE");
         System.out.println("==========================");
@@ -360,7 +367,7 @@ public class Application {
             return opcao;
         } catch (InputMismatchException e) {
             return -1;
-        }   
+        }
     }
 
     private static int menuADM(){
@@ -383,6 +390,9 @@ public class Application {
     }
     
     private static int menuCadastroVoos(){
+        pausa();
+        limparTela();
+        limparTela();
         System.out.println();
         System.out.println("FLY CORE");
         System.out.println("==========================");
@@ -421,13 +431,15 @@ public class Application {
                             }
                             if(clAtualizado){System.out.println("\nCliente Atualizado!");}
                             }
-            }catch(NullPointerException e){ System.out.println("\nCliente não ncontrado");}
+            }catch(NullPointerException e){ System.out.println("\nCliente não encontrado");}
+            pausa();
+            break;
             case 2:
                     try{
-                       System.out.print("Multiplicador Status ="+((clienteBusca.ativarMulti())? "Ligado": "Desligado"));  
+                       System.out.print("Multiplicador "+((clienteBusca.ativarMulti())? "Ligado": "Desligado"));  
                     }
                     catch(NullPointerException e){System.out.print("\nNão possui Multiplicador Cadastrado!");}
-
+             pausa();  
             case 3:
 
             case 0: break;
@@ -451,7 +463,8 @@ public class Application {
                         System.out.println("\n Trecho Add com Sucesso");
                     else{
                         System.out.println("\n Trecho já cadastrado !");
-                    }    
+                    }
+                    pausa();    
             break;
             case 2:
                 executarMenuCadastroVoos();
@@ -478,10 +491,13 @@ public class Application {
                     try{
                         clienteSalvo = addClienteAoMapa(nvCl);
                         if(!clienteSalvo){System.out.println("\nCliente Já Cadastrado");}
-                        else{System.out.println("\nCliente Cadastrado com Sucesso!");}    
+                        else{System.out.println("\nCliente Cadastrado com Sucesso!");}
+                       ;
                     }
+
                     catch (NullPointerException e){System.out.println("\nErro ao inerir Cliente (null)");}
                     catch(NumberFormatException e){System.out.println("\nErro ao formatar HashCode cliente: "+e);}
+                    pausa();
                 }
                 else{System.out.println("Dados invalidos/Cliente não cadastrado");}   
 
@@ -499,6 +515,7 @@ public class Application {
                }
                else{System.out.println("Cliente Invalido!");}     
              }
+             pausa();
         break;
             case 0:
                 return;
@@ -553,9 +570,8 @@ public class Application {
             }
         }while(optMenuCadastroVoo!=0);
     }
-    //#endregion
-    public static void main(String[] args) {
-
+   
+    private static void executarMenuPrincipal(){
         int optMenuPrincipal = 0;
         do{
             optMenuPrincipal = menuPrincipal();//primeira entrada do usuario
@@ -579,6 +595,10 @@ public class Application {
             }
         }
         while(optMenuPrincipal!=0);
+    }
+    //#endregion
+    public static void main(String[] args) {
+        executarMenuPrincipal();
         teclado.close();
         sc.close();
     }
