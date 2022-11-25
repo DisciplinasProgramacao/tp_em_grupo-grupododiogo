@@ -110,6 +110,8 @@ public class Application {
         System.out.println("==========================");
         System.out.println("1 - Multi Prata");
         System.out.println("2 - Multi Preto");
+        System.out.println("3 - Ativar/Desativar");
+        System.out.println("4 - Status Multiplicador");
         System.out.println("0 - Cancelar");
         System.out.print("Digite sua opção: ");
         try {
@@ -171,9 +173,9 @@ public class Application {
     private static boolean addClienteAoMapa(Cliente novoCliente){
        try{
         if(!clientesSistema.containsKey(novoCliente.hashCode())){
-           clientesSistema.put(novoCliente.hashCode(), novoCliente);
-            return true;
-        }
+            clientesSistema.put(novoCliente.hashCode(), novoCliente);
+             return true;
+         }
         return false;
     }
     catch(NullPointerException e){
@@ -182,6 +184,18 @@ public class Application {
     catch(NumberFormatException e){
         throw e;
     }
+    }
+    private static boolean atualizarClienteMapa(Cliente novoCliente){
+        try{
+            if(clientesSistema.containsKey(novoCliente.hashCode())){
+                clientesSistema.replace(novoCliente.hashCode(), novoCliente);
+                return true;
+            }
+           else{return false;}
+        }catch(NullPointerException e){
+            System.out.println("Erro:"+e);
+            return false;
+        }
     }
     private static String receberDadosClienteCadastro(){
       
@@ -236,7 +250,7 @@ public class Application {
     }catch(NullPointerException e){System.out.println("Erro ao alocar acelerador de PTS"+e); return false;}
 
    }
-    //#endregion
+   //#endregion
 
     private static int menuPrincipal() {
         System.out.println();
@@ -342,16 +356,12 @@ public class Application {
         switch(optMenuClientes){
             case 1:
                 Cliente nvCl = cadastrarCliente();
-                boolean addCliente = false;
+                boolean clienteSalvo = false;
                 if(!nvCl.getCpf().equals("00000000000") && !nvCl.getNome().isEmpty() && !nvCl.getNome().isBlank()){
                     try{
-                        addCliente = addClienteAoMapa(nvCl);
-                        if(addCliente)
-                            System.out.println("\nCliente add com Sucesso!");
-                        else{
-                            limparTela();
-                            System.out.println("\nCliente já cadastrado!");
-                        }
+                        clienteSalvo = addClienteAoMapa(nvCl);
+                        if(!clienteSalvo){System.out.println("\nCliente Já Cadastrado");}
+                        else{System.out.println("\nCliente Cadastrado com Sucesso!");}    
                     }
                     catch (NullPointerException e){System.out.println("\nErro ao inerir Cliente (null)");}
                     catch(NumberFormatException e){System.out.println("\nErro ao formatar HashCode cliente: "+e);}
@@ -367,11 +377,18 @@ public class Application {
                     }
                     else{
                        Cliente clienteBusca = buscarCliente(cpfBusca);
+                       boolean multiSetado= false, clAtualizado = false;
                        try{
                         if(!clienteBusca.getNome().isEmpty()){
                              IMultiplicavel multiplicadorEscolhido =  gerarMultiplicador();
-                                    alocarMultiplicadorCliente(clienteBusca, multiplicadorEscolhido);
-                       }
+                                    multiSetado =  alocarMultiplicadorCliente(clienteBusca, multiplicadorEscolhido);
+                                    if(multiSetado)
+                                    {
+                                        System.out.println("\nMultiplicador Setado!");
+                                        clAtualizado =  atualizarClienteMapa(clienteBusca);
+                                    }
+                                    if(clAtualizado){System.out.println("\nCliente Atualizado!");}
+                                    }
                     }catch(NullPointerException e){ System.out.println("Cliente não ncontrado");}
                 }
                 break;
