@@ -91,7 +91,7 @@ public class Voo {
 
     @Override
     public int hashCode() {
-        return Objects.hash(trechoVoo, dataVoo);
+        return Math.abs(Objects.hash(trechoVoo, dataVoo, preco));
     }
 //#endregion Override's da Classe
 }
