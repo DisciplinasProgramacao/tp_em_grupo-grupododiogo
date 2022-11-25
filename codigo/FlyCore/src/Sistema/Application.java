@@ -110,8 +110,6 @@ public class Application {
         System.out.println("==========================");
         System.out.println("1 - Multi Prata");
         System.out.println("2 - Multi Preto");
-        System.out.println("3 - Ativar/Desativar");
-        System.out.println("4 - Status Multiplicador");
         System.out.println("0 - Cancelar");
         System.out.print("Digite sua opção: ");
         try {
@@ -152,7 +150,7 @@ public class Application {
     //#region Clientes
     private static String receberCPFbusca(){
         String cpf ="";
-        System.out.println("\nInsira o CPF do Cliente que deseja buscar: ");
+        System.out.println("\nInsira o CPF do Cliente que deseja C: ");
         cpf = sc.nextLine();
         if(!validarCpf(cpf)){
                 return "";
@@ -252,6 +250,7 @@ public class Application {
    }
    //#endregion
 
+   //#region Menus
     private static int menuPrincipal() {
         System.out.println();
         System.out.println();
@@ -306,6 +305,24 @@ public class Application {
         }     
     }
 
+    private static int menuMultiplicador(){
+        System.out.println();
+        System.out.println("FLY CORE");
+        System.out.println("==========================");
+        System.out.println("1 - Add Multiplicador");
+        System.out.println("2 - Ativar/ Desativar Multiplicador" );
+        System.out.println("3 - Status");
+        System.out.println("0 - sair");
+        System.out.print("Digite sua opção: ");
+        try {
+            int opcao = teclado.nextInt();
+            teclado.nextLine();
+            return opcao;
+        } catch (InputMismatchException e) {
+            return -1;
+        }   
+    }
+
     private static int menuADM(){
         System.out.println();
         System.out.println("FLY CORE");
@@ -324,7 +341,39 @@ public class Application {
             return -1;
         }
     }
- 
+ //#endregion
+    private static void executarMenuMultiplicador(Cliente clienteBusca){    
+        int optMenuMulti = menuMultiplicador();
+        switch(optMenuMulti){
+            case 1:
+            boolean multiSetado= false, clAtualizado = false;
+            try{
+                if(!clienteBusca.getNome().isEmpty()){
+                     IMultiplicavel multiplicadorEscolhido =  gerarMultiplicador();
+                            multiSetado =  alocarMultiplicadorCliente(clienteBusca, multiplicadorEscolhido);
+                            if(multiSetado)
+                            {
+                                System.out.println("\nMultiplicador Setado!");
+                                clAtualizado =  atualizarClienteMapa(clienteBusca);
+                            }
+                            if(clAtualizado){System.out.println("\nCliente Atualizado!");}
+                            }
+            }catch(NullPointerException e){ System.out.println("\nCliente não ncontrado");}
+            case 2:
+                    try{
+                       System.out.print("Multiplicador Status ="+((clienteBusca.ativarMulti())? "Ligado": "Desligado"));  
+                    }
+                    catch(NullPointerException e){System.out.print("\nNão possui Multiplicador Cadastrado!");}
+
+            case 3:
+
+            case 0: break;
+            default:
+            System.out.println("Insira uma opção valida");
+        }
+
+    }
+
     private static void executarMenuPassagens(){
 
         int optMenuPassagens = menuPassagens();
@@ -370,28 +419,19 @@ public class Application {
 
             break;
             case 2:
-                    String cpfBusca = "";
-                    cpfBusca = receberCPFbusca();
-                    if(cpfBusca.isEmpty()){
-                        System.out.println("Insira um CPF válido");
-                    }
-                    else{
-                       Cliente clienteBusca = buscarCliente(cpfBusca);
-                       boolean multiSetado= false, clAtualizado = false;
-                       try{
-                        if(!clienteBusca.getNome().isEmpty()){
-                             IMultiplicavel multiplicadorEscolhido =  gerarMultiplicador();
-                                    multiSetado =  alocarMultiplicadorCliente(clienteBusca, multiplicadorEscolhido);
-                                    if(multiSetado)
-                                    {
-                                        System.out.println("\nMultiplicador Setado!");
-                                        clAtualizado =  atualizarClienteMapa(clienteBusca);
-                                    }
-                                    if(clAtualizado){System.out.println("\nCliente Atualizado!");}
-                                    }
-                    }catch(NullPointerException e){ System.out.println("Cliente não ncontrado");}
-                }
-                break;
+            String cpfBusca = "";
+            cpfBusca = receberCPFbusca();
+            if(!validarCpf(cpfBusca)){
+                System.out.println("Insira um CPF válido");
+            }
+            else{
+               Cliente clienteBusca = buscarCliente(cpfBusca);
+               if(clienteBusca != null){
+                     executarMenuMultiplicador(clienteBusca);
+               }
+               else{System.out.println("Cliente Invalido!");}     
+             }
+        break;
             case 0:
                 return;
            default:
@@ -425,5 +465,4 @@ public class Application {
         }
         while(optMenuPrincipal!=0);
     }
-    
 }

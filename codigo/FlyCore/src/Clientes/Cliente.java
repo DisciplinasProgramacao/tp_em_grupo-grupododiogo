@@ -109,7 +109,12 @@ public class Cliente {
         this.numeroBilhetesPromocionais = numeroBilhetes;
         return this.numeroBilhetesPromocionais;
     }
-
+    public boolean ativarMulti(){
+        try{
+            return this.acelardorPts.on_off();
+        }
+        catch(NullPointerException e){throw e;}
+    }
     public void setNumeroBilhetesPromocionais (int valor) {
         this.numeroBilhetesPromocionais = valor - 1;
     }
