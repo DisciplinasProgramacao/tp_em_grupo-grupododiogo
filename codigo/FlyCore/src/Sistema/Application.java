@@ -134,13 +134,14 @@ public class Application {
     //#endregion
 
     private static boolean validarNome(String nome){
-        if(nome.matches("[0-9]*") || nome.isEmpty())
+        if(nome.matches("[0-9]+") || nome.isEmpty())
             return false;
         return true;
     }
     private static boolean validarCpf(String cpf){
         cpf = cpf.toLowerCase();
-        if(cpf.matches("[a-z]*") || cpf.length()!=11)
+        cpf = cpf.strip();
+        if(cpf.matches("[a-zA-Z]+") || cpf.length()!=11)
             return false;
         return true;    
     }
@@ -175,12 +176,14 @@ public class Application {
         Scanner sc = new Scanner(System.in);
         String nome= "", cpf = "";
         System.out.println("\nEntre com o Nome do Cliente: ");
+        String dadosCliente = "";
         try{
             nome = sc.nextLine();
             if(!validarNome(nome)){
                 System.out.println("Nome Invalido! ");
                 pausa();
                 limparTela();
+                return dadosCliente;
             }
         
         System.out.println("\nInsira o CPF do cliente? ");
@@ -191,7 +194,7 @@ public class Application {
                 pausa();
                 limparTela();
             }
-            String dadosCliente = nome +";"+cpf;
+            dadosCliente = nome +";"+cpf;
             return dadosCliente;
         }
         catch(InputMismatchException e){System.out.println(e); throw e;}
