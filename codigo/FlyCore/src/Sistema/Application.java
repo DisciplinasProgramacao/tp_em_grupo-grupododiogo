@@ -591,7 +591,8 @@ public class Application {
                     pausa();
             }
         }while(optMenuCadastroVoo!=0);
-        
+        trechoVooCadastro = null;
+        precoVooCadastro =0d;
     }
    
     private static void executarMenuPrincipal(){
