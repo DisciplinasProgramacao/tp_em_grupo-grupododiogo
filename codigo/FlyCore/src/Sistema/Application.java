@@ -18,7 +18,8 @@ import Passagens.Voo;
 import Utilitarios.CidadesTrecho;
 
 public class Application {
-    private static Scanner teclado = new Scanner(System.in);
+    private static Scanner teclado = new Scanner(System.in);//Leitor para INTEGER
+    private static Scanner sc = new Scanner(System.in);//leitor String
     private static LinkedList<Voo> voosSistema = new LinkedList<>();
     private static LinkedList<Trecho> trechosSistema = new LinkedList<>();
     private static Map<Integer, Cliente> clientesSistema = new HashMap<>();
@@ -128,6 +129,7 @@ public class Application {
             case 2:
                 return new MultiplicadorPreto();
             default:
+            System.out.println("Insira um opção valida");
             return null;
         }
     }
@@ -146,6 +148,15 @@ public class Application {
         return true;    
     }
     //#region Clientes
+    private static String receberCPFbusca(){
+        String cpf ="";
+        System.out.println("\nInsira o CPF do Cliente que deseja buscar: ");
+        cpf = sc.nextLine();
+        if(!validarCpf(cpf)){
+                return "";
+        }
+        return cpf;
+    }
     private static Cliente buscarCliente(String cpfCliente){
         Cliente clienteBusca = new Cliente("", cpfCliente);
         try{
@@ -173,7 +184,7 @@ public class Application {
     }
     }
     private static String receberDadosClienteCadastro(){
-        Scanner sc = new Scanner(System.in);
+      
         String nome= "", cpf = "";
         System.out.println("\nEntre com o Nome do Cliente: ");
         String dadosCliente = "";
@@ -217,6 +228,14 @@ public class Application {
             return new Cliente("", "");
         }
     }
+   private static boolean alocarMultiplicadorCliente(Cliente cl, IMultiplicavel ac){
+    if(ac == null){return false;};
+    try{
+        cl.setAcelerador(ac);
+        return true;
+    }catch(NullPointerException e){System.out.println("Erro ao alocar acelerador de PTS"+e); return false;}
+
+   }
     //#endregion
 
     private static int menuPrincipal() {
@@ -341,9 +360,21 @@ public class Application {
 
             break;
             case 2:
-
-            break;
-            
+                    String cpfBusca = "";
+                    cpfBusca = receberCPFbusca();
+                    if(cpfBusca.isEmpty()){
+                        System.out.println("Insira um CPF válido");
+                    }
+                    else{
+                       Cliente clienteBusca = buscarCliente(cpfBusca);
+                       try{
+                        if(!clienteBusca.getNome().isEmpty()){
+                             IMultiplicavel multiplicadorEscolhido =  gerarMultiplicador();
+                                    alocarMultiplicadorCliente(clienteBusca, multiplicadorEscolhido);
+                       }
+                    }catch(NullPointerException e){ System.out.println("Cliente não ncontrado");}
+                }
+                break;
             case 0:
                 return;
            default:
