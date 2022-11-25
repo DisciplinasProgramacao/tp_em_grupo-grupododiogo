@@ -343,7 +343,9 @@ public class Application {
     }
  //#endregion
     private static void executarMenuMultiplicador(Cliente clienteBusca){    
-        int optMenuMulti = menuMultiplicador();
+        int optMenuMulti = 0;
+        do{
+        optMenuMulti = menuMultiplicador();
         switch(optMenuMulti){
             case 1:
             boolean multiSetado= false, clAtualizado = false;
@@ -371,7 +373,7 @@ public class Application {
             default:
             System.out.println("Insira uma opção valida");
         }
-
+    }while(optMenuMulti!=0);
     }
 
     private static void executarMenuPassagens(){
