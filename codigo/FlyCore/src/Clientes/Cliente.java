@@ -130,4 +130,12 @@ public class Cliente {
         int hash = (int) cpf;
         return hash;
     }
+
+    @Override
+    public boolean equals(Object obj) {
+        Cliente nb = (Cliente) obj;
+        boolean equals = false;
+        equals = nb.hashCode() == this.hashCode();
+        return equals;
+    }
 }
