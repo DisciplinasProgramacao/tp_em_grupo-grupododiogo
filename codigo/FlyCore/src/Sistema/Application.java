@@ -47,8 +47,22 @@ public class Application {
     //#endregion
 
     //#region Trecho
+    private static String escolherCidadeOrigem(){  
+        String cidadeOrigem = "";
+        do {
+        cidadeOrigem = escolherCidadesTrecho("Origem");
+    } while (cidadeOrigem == "");
+    return cidadeOrigem;
+}
+    private static String escolherCidadeDestino(){
+        String cidadeDestino= "";
+        do {
+            cidadeDestino = escolherCidadesTrecho("Destino");
+        } while (cidadeDestino == "");
+        return cidadeDestino;
+    }    
     private static boolean adicionarTrechoAlista(Trecho novoTrecho){
-        if(!trechosSistema.contains(novoTrecho))
+        if(!trechosSistema.contains(novoTrecho) && novoTrecho!=null)
               return  trechosSistema.add(novoTrecho);
         return false;    
     }
@@ -84,17 +98,13 @@ public class Application {
     }
     private static Trecho formarTrecho() {
         String cidadeOrigem = "";
-        do {
-            cidadeOrigem = escolherCidadesTrecho("Origem");
-        } while (cidadeOrigem == "");
-
+        cidadeOrigem = escolherCidadeOrigem();
         String cidadeDestino = "";
-        do {
-            cidadeDestino = escolherCidadesTrecho("Destino");
-        } while (cidadeDestino == "");
-
-        return new Trecho(cidadeOrigem, cidadeDestino);
-    }
+        cidadeDestino = escolherCidadeDestino();
+        if(!cidadeDestino.equals(cidadeOrigem))
+            return new Trecho(cidadeOrigem, cidadeDestino);
+        return null;
+        }
     private static Trecho escolherTrechoVoo(){
         limparTela();
         System.out.println();
@@ -470,7 +480,7 @@ public class Application {
                     if(trechoAdd)
                         System.out.println("\n Trecho Add com Sucesso");
                     else{
-                        System.out.println("\n Trecho já cadastrado !");
+                        System.out.println("\n Trecho invalido ou já cadastrado!");
                     }
                     pausa();    
             break;
@@ -579,6 +589,7 @@ public class Application {
                     pausa();
             }
         }while(optMenuCadastroVoo!=0);
+        
     }
    
     private static void executarMenuPrincipal(){
