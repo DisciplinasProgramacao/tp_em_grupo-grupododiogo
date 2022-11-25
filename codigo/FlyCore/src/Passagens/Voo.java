@@ -66,7 +66,9 @@ public class Voo {
     public double getPreco() {
         return this.preco;
     }
-
+    public Trecho getTrecho(){
+        return this.trechoVoo;
+    }
     public Data getData() {
         return this.dataVoo;
     }
@@ -84,9 +86,11 @@ public class Voo {
     }
 
     @Override
-    public boolean equals(Object obj) {
-        Voo nv = (Voo) obj;
-        return this.idVoo == nv.idVoo;
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Voo voo = (Voo) o;
+        return idVoo == voo.getIdVoo() && dataVoo.equals(dataVoo) && preco == voo.getPreco();
     }
 
     @Override

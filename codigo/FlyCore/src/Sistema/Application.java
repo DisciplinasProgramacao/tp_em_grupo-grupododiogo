@@ -1,6 +1,7 @@
 package Sistema;
 
 
+import java.util.Collection;
 import java.util.HashMap;
 import java.util.Hashtable;
 import java.util.InputMismatchException;
@@ -19,9 +20,12 @@ import Utilitarios.CidadesTrecho;
 public class Application {
     private static Scanner teclado = new Scanner(System.in);//Leitor para INTEGER
     private static Scanner sc = new Scanner(System.in);//leitor String
-    private static Map<Integer, Voo> voosSistema = new Hashtable<>();
+    private static Map<Integer, Voo> voosSistema = new HashMap<>();
     private static LinkedList<Trecho> trechosSistema = new LinkedList<>();
     private static Map<Integer, Cliente> clientesSistema = new HashMap<>();
+    private static Trecho trechoVooCadastro = null ;
+    private static Data dataVooCadastro = new Data();
+    private static double precoVooCadastro = 0d;
     // #region utilidades
     /**
      * "Limpa" a tela (códigos de terminal VT-100)
@@ -117,9 +121,10 @@ public class Application {
         return voosSistema.get(vooBusca.hashCode());
     }
     private static boolean adicionarVooAlista(Voo novoVoo){
-        if(!voosSistema.containsKey(novoVoo.hashCode())){
+        if(!voosSistema.containsKey(novoVoo.hashCode()) && novoVoo.getTrecho().getIdTrecho()!=0){
         voosSistema.put(novoVoo.hashCode(), novoVoo);
-        return true;}
+        return true;
+    }
         return false;
     }
     private static double cadastrarPreco(){
@@ -292,7 +297,8 @@ public class Application {
 
    }
    //#endregion
-
+   private static void exibirVoos(){
+    voosSistema.values().stream().map(e ->e .toString()).forEach(System.out::print);}
    //#region Menus
     private static int menuPrincipal() {
         limparTela();
@@ -529,9 +535,7 @@ public class Application {
    
     private static void executarMenuCadastroVoos(){
         int optMenuCadastroVoo = 0;
-        Trecho trechoVooCadastro = null ;
-        Data dataVooCadastro = new Data();
-        double precoVooCadastro = 0d;
+        
         do{
             optMenuCadastroVoo = menuCadastroVoos();
             switch(optMenuCadastroVoo){
@@ -552,14 +556,13 @@ public class Application {
                         else{precoVooCadastro = preco;}
                 break;
 
-                case 4:
-                    
+                case 4:                 
                         try{
                             Voo novoVoo = formarVoo(trechoVooCadastro, dataVooCadastro, precoVooCadastro);
                             System.out.println("\n INFO VOO: \n");
                             if(adicionarVooAlista(novoVoo)){
                                 System.out.println("\nVoo Cadastrado!");
-                                System.out.println(voosSistema.get(novoVoo.hashCode()).toString());
+                                System.out.println(buscarVoo(novoVoo).toString());
                             }else{System.out.println("\nVoo Número: "+novoVoo.getIdVoo()+" Já cadastrado!");}
                         }catch(NullPointerException nulo){
                             System.out.println("\n Voo não cadastrado \n Trecho Invalido!");
@@ -589,6 +592,10 @@ public class Application {
                     executarMenuCliente();
                 continue;
                 case 3:
+                    limparTela();
+                    exibirVoos();
+                    pausa();
+                    
                 break;
                 case -1:
                     System.out.println("\n Entre com uma Opção Válida!");
