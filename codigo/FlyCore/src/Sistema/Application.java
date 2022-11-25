@@ -9,10 +9,7 @@ import java.util.InputMismatchException;
 import java.util.LinkedList;
 import java.util.Map;
 import java.util.Scanner;
-import java.util.Set;
 
-import javax.xml.catalog.Catalog;
-import javax.xml.crypto.dsig.keyinfo.RetrievalMethod;
 
 import Utilitarios.*;
 import Utilitarios.AceleradorPts.*;
@@ -53,7 +50,7 @@ public class Application {
               return  trechosSistema.add(novoTrecho);
         return false;    
     }
-    private static String escolherCidadesTrecho(String escolha) {
+    private static String escolherCidadesTrecho(String escolha) { 
         limparTela();
         System.out.println();
         System.out.println();
