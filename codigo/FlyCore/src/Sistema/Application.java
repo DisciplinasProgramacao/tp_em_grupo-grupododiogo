@@ -1,14 +1,10 @@
 package Sistema;
 
-
-import java.util.Collection;
 import java.util.HashMap;
-import java.util.Hashtable;
 import java.util.InputMismatchException;
 import java.util.LinkedList;
 import java.util.Map;
 import java.util.Scanner;
-
 
 import Utilitarios.*;
 import Utilitarios.AceleradorPts.*;
@@ -56,13 +52,14 @@ public class Application {
      * 
      * @return cidade origem -> String 
      */
-    private static String escolherCidadeOrigem(){  
+    private static String escolherCidadeOrigem() {  
         String cidadeOrigem = "";
         do {
-        cidadeOrigem = escolherCidadesTrecho("Origem");
-    } while (cidadeOrigem == "");
-    return cidadeOrigem;
-}
+            cidadeOrigem = escolherCidadesTrecho("Origem");
+        } while (cidadeOrigem == "");
+        return cidadeOrigem;
+    }
+
     /**
      * Método Responsavél por retornar cidade de destino escolhida por usuario.
      * 
@@ -78,17 +75,19 @@ public class Application {
         } while (cidadeDestino == "");
         return cidadeDestino;
     }    
+
     /**
      * Verificar se trecho já está cadastrado na lista e se é nulo
      * para poder add.
      * @param novoTrecho --> Novo trecho cadastrado
      * @return boolean --> true:se add a lista; false: caso não consiga adicionar
      */
-    private static boolean adicionarTrechoAlista(Trecho novoTrecho){
-        if(!trechosSistema.contains(novoTrecho) && novoTrecho!=null)
-              return  trechosSistema.add(novoTrecho);
+    private static boolean adicionarTrechoAlista(Trecho novoTrecho) {
+        if (!trechosSistema.contains(novoTrecho) && novoTrecho!=null)
+            return  trechosSistema.add(novoTrecho);
         return false;    
     }
+
     /**
      *Método utiliza cidades previamente cadastradas no sistema para escolha do usuario,
      *Essas cidades são disponibilizadas através de uma lista de Strings que a classe cidadesTrecho
@@ -137,26 +136,27 @@ public class Application {
         cidadeOrigem = escolherCidadeOrigem();
         String cidadeDestino = "";
         cidadeDestino = escolherCidadeDestino();
-        if(!cidadeDestino.equals(cidadeOrigem))
+        if (!cidadeDestino.equals(cidadeOrigem))
             return new Trecho(cidadeOrigem, cidadeDestino);
         return null;
-        }
+    }
+
     /**
      * Verificar se o trecho escolhido para o cadastro do Voo já está cadastrado no Sistema.
      * @return Trecho ou Null -> Trecho(Cadastrado); Null(Não Cadastrado)
      */
-    private static Trecho escolherTrechoVoo(){
+    private static Trecho escolherTrechoVoo() {
         limparTela();
         System.out.println();
         System.out.println();
         System.out.println("FLY CORE");
         System.out.println("==========================");
         Trecho trechoEscolhido = formarTrecho();
-        if(!trechosSistema.contains(trechoEscolhido)){
+        if (!trechosSistema.contains(trechoEscolhido)) {
             System.out.println("\nTrecho não cadastrado");
             trechoEscolhido = null;
         }
-        else{
+        else {
             System.out.println("\nOK Trecho escolhido!");
         }
         return trechoEscolhido;
@@ -168,66 +168,71 @@ public class Application {
      * Recebe id de cadastro do voo pelo usuario
      * @return int -> id digitado ; -1 (expetion gerada)
      */
-    private static int receberIDVoocadastro(){
-        int id=0;
+    private static int receberIDVoocadastro() {
+        int id = 0;
         limparTela();
         System.out.println("Entre com o ID do Voo: (Número inteiro de até :)"+Integer.MAX_VALUE);
-        try{
+        try {
             id = sc.nextInt();
         }
-        catch(InputMismatchException e){
+        catch(InputMismatchException e) {
             System.out.println("insira opção valida!");
             id = -1;
         }
         return id;
     }
+
     /**
      * Método responsavél por realizar a busca de um Voo.
      * @param vooBusca Objeto Voo criado com os dados do objeto de busca.
      * @return Voo -> Voo encontrado ; null (não encontrado)
      */
-    private static Voo buscarVoo(Voo vooBusca){
-        if(!voosSistema.containsKey(vooBusca.hashCode())){
+    private static Voo buscarVoo(Voo vooBusca) {
+        if (!voosSistema.containsKey(vooBusca.hashCode())) {
                 return null;
         }
         return voosSistema.get(vooBusca.hashCode());
     }
+
     /**
      * Adicionar voo ao HashMap do Sistema;
      * Verifica se o voo já está no mapa e se seu id é maior que 0.
      * @param novoVoo novo Voo cadastrado
      * @return boolean --> true (add) ; false(não add)
      */
-    private static boolean adicionarVooAlista(Voo novoVoo){
-        if(!voosSistema.containsValue(novoVoo) && novoVoo.getTrecho().getIdTrecho()!=0){
-        voosSistema.put(novoVoo.hashCode(), novoVoo);
-        return true;
-    }
+    private static boolean adicionarVooAlista(Voo novoVoo) {
+        if (!voosSistema.containsValue(novoVoo) && novoVoo.getTrecho().getIdTrecho()!=0) {
+            voosSistema.put(novoVoo.hashCode(), novoVoo);
+            return true;
+        }
         return false;
     }
-   /**
+
+    /**
     * Método responsavél por receber preco de cadastro de um Voo.
     * @return double -> preco digitado; -1.00 (Catch Expetion)
     */
-    private static double cadastrarPreco(){
+    private static double cadastrarPreco() {
         Scanner sc = new Scanner (System.in);
 
         double preco=0d;
         limparTela();
         System.out.println("Entre com o Preço do Voo: ");
-        try{
+        try {
             preco = sc.nextDouble();
         }
-        catch(InputMismatchException e){
+        catch(InputMismatchException e) {
             System.out.println("insira opção valida!");
             preco = -1d;
         }
         return preco;
     }
-    private static Data cadastrarData(){
+
+    private static Data cadastrarData() {
         //Implementar método 
         return new Data();
     }
+
     /**
      * Método responsavél por receber atributos para criação de um Voo
      * e retornar o objeto formado.
@@ -237,13 +242,13 @@ public class Application {
      * @param id       id Cadastrado
      * @return Voo --> Voo formado
      */
-    private static Voo formarVoo(Trecho novoTrecho, Data dataVoo, double preco, int id){
+    private static Voo formarVoo(Trecho novoTrecho, Data dataVoo, double preco, int id) {
         return new Voo(novoTrecho, dataVoo, preco, id);
     }
     //endregion
 
     //# region Multiplicador
-    private static int escolherMultiplicador (){
+    private static int escolherMultiplicador () {
         System.out.println();
         System.out.println("FLY CORE");
         System.out.println("==========================");
@@ -259,10 +264,11 @@ public class Application {
             return -1;
         }
     }
-    private static IMultiplicavel gerarMultiplicador(){
+
+    private static IMultiplicavel gerarMultiplicador() {
         //implementar 
         int optMulti = escolherMultiplicador();
-        switch(optMulti){
+        switch(optMulti) {
             case 1:
                 return new MultiplicadorPrata();
             case 2:
@@ -274,20 +280,22 @@ public class Application {
     }
     //#endregion
 
-    private static boolean validarNome(String nome){
-        if(nome.matches("[0-9]+") || nome.isEmpty())
+    private static boolean validarNome(String nome) {
+        if (nome.matches("[0-9]+") || nome.isEmpty())
             return false;
         return true;
     }
-    private static boolean validarCpf(String cpf){
+
+    private static boolean validarCpf(String cpf) {
         cpf = cpf.toLowerCase();
         cpf = cpf.strip();
-        if(cpf.matches("[a-zA-Z]+") || cpf.length()!=11)
+        if (cpf.matches("[a-zA-Z]+") || cpf.length()!=11)
             return false;
         return true;    
     }
+
     //#region Clientes
-    private static String receberCPFbusca(){
+    private static String receberCPFbusca() {
         String cpf ="";
         System.out.println("\nInsira o CPF do Cliente que deseja C: ");
         cpf = sc.nextLine();
@@ -296,62 +304,67 @@ public class Application {
         }
         return cpf;
     }
-    private static Cliente buscarCliente(String cpfCliente){
+
+    private static Cliente buscarCliente(String cpfCliente) {
         Cliente clienteBusca = new Cliente("", cpfCliente);
-        try{
-        Cliente clienteEncontrado = clientesSistema.get(clienteBusca.hashCode());
-            return clienteEncontrado;
+        try {
+            Cliente clienteEncontrado = clientesSistema.get(clienteBusca.hashCode());
+                return clienteEncontrado;
         }
-        catch(NullPointerException nulo){
+        catch(NullPointerException nulo) {
             System.out.println("Erro cliente nulo: " + nulo);
         }
         return clienteBusca; // retorna Cliente apenas com cpf caso não seja encontrado
     }
+
     private static boolean addClienteAoMapa(Cliente novoCliente){
-       try{
-        if(!clientesSistema.containsKey(novoCliente.hashCode())){
-            clientesSistema.put(novoCliente.hashCode(), novoCliente);
-             return true;
-         }
-        return false;
-    }
-    catch(NullPointerException e){
+        try {
+            if (!clientesSistema.containsKey(novoCliente.hashCode())) {
+                clientesSistema.put(novoCliente.hashCode(), novoCliente);
+                return true;
+            }
+            return false;
+        }
+        catch(NullPointerException e) {
+                throw e;
+        }
+        catch(NumberFormatException e) {
             throw e;
+        }
     }
-    catch(NumberFormatException e){
-        throw e;
-    }
-    }
-    private static boolean atualizarClienteMapa(Cliente novoCliente){
-        try{
-            if(clientesSistema.containsKey(novoCliente.hashCode())){
+
+    private static boolean atualizarClienteMapa(Cliente novoCliente) {
+        try {
+            if (clientesSistema.containsKey(novoCliente.hashCode())) {
                 clientesSistema.replace(novoCliente.hashCode(), novoCliente);
                 return true;
             }
-           else{return false;}
-        }catch(NullPointerException e){
+            else {
+                return false;
+            }
+        }
+        catch(NullPointerException e) {
             System.out.println("Erro:"+e);
             return false;
         }
     }
-    private static String receberDadosClienteCadastro(){
-      
+    private static String receberDadosClienteCadastro() {
         String nome= "", cpf = "";
         System.out.println("\nEntre com o Nome do Cliente: ");
         String dadosCliente = "";
-        try{
+        try {
             nome = sc.nextLine();
-            if(!validarNome(nome)){
+            if (!validarNome(nome)) {
                 System.out.println("Nome Invalido! ");
                 pausa();
                 limparTela();
                 return dadosCliente;
             }
         
-        System.out.println("\nInsira o CPF do cliente? ");
-        cpf = sc.nextLine();
+            System.out.println("\nInsira o CPF do cliente? ");
+            cpf = sc.nextLine();
             
-            if(!validarCpf(cpf)){
+            if (!validarCpf(cpf)) {
                 System.out.println("\n CPF INVALIDO!");
                 pausa();
                 limparTela();
@@ -359,38 +372,50 @@ public class Application {
             dadosCliente = nome +";"+cpf;
             return dadosCliente;
         }
-        catch(InputMismatchException e){System.out.println(e); throw e;}
+        catch(InputMismatchException e) {
+            System.out.println(e); throw e;
+        }
         
     }
-    private static Cliente cadastrarCliente(){
+
+    private static Cliente cadastrarCliente() {
         String dadosCliente ="";
         dadosCliente = receberDadosClienteCadastro();
         String[] separandoDados = dadosCliente.split(";");
-        try{
+        try {
             Cliente novoCliente = new Cliente(separandoDados[0], separandoDados[1]);
             return novoCliente;
         }
-        catch(NullPointerException e){
+        catch(NullPointerException e) {
             System.out.println("Erro ao encontrar classe Clientes");
-           throw e;
+            throw e;
         }
-        catch(IndexOutOfBoundsException e){
+        catch(IndexOutOfBoundsException e) {
             System.out.println("Erro ao colher dados do Cliente");
             return new Cliente("", "");
         }
     }
-   private static boolean alocarMultiplicadorCliente(Cliente cl, IMultiplicavel ac){
-    if(ac == null){return false;};
-    try{
-        cl.setAcelerador(ac);
-        return true;
-    }catch(NullPointerException e){System.out.println("Erro ao alocar acelerador de PTS"+e); return false;}
 
-   }
-   //#endregion
-   private static void exibirVoos(){
-    voosSistema.values().stream().map(e ->e .toString()).forEach(System.out::print);}
-   //#region Menus
+    private static boolean alocarMultiplicadorCliente(Cliente cl, IMultiplicavel ac) {
+        if (ac == null) {
+            return false;
+        }
+        try {
+            cl.setAcelerador(ac);
+            return true;
+        }
+        catch(NullPointerException e) {
+            System.out.println("Erro ao alocar acelerador de PTS"+e); 
+            return false;
+        }
+    }
+    //#endregion
+
+    private static void exibirVoos() {
+        voosSistema.values().stream().map(e ->e .toString()).forEach(System.out::print);
+    }
+
+    //#region Menus
     private static int menuPrincipal() {
         limparTela();
         System.out.println();
@@ -412,7 +437,7 @@ public class Application {
         }
     }
 
-    private static int menuPassagens(){
+    private static int menuPassagens() {
         limparTela();
         System.out.println();
         System.out.println("FLY CORE");
@@ -432,7 +457,7 @@ public class Application {
         }
     }
 
-    private static int menuClientes(){
+    private static int menuClientes() {
         limparTela();
         System.out.println();
         System.out.println("FLY CORE");
@@ -450,7 +475,7 @@ public class Application {
         }     
     }
 
-    private static int menuMultiplicador(){
+    private static int menuMultiplicador() {
         limparTela();
         System.out.println();
         System.out.println("FLY CORE");
@@ -469,7 +494,7 @@ public class Application {
         }
     }
 
-    private static int menuADM(){
+    private static int menuADM() {
         System.out.println();
         System.out.println("FLY CORE");
         System.out.println("==========================");
@@ -488,7 +513,7 @@ public class Application {
         }
     }
     
-    private static int menuCadastroVoos(){
+    private static int menuCadastroVoos() {
         pausa();
         limparTela();
         limparTela();
@@ -513,205 +538,249 @@ public class Application {
     //#endregion
 
     //#region Execução Menus
-    private static void executarMenuMultiplicador(Cliente clienteBusca){    
+    private static void executarMenuMultiplicador(Cliente clienteBusca) {    
         int optMenuMulti = 0;
-        do{
-        optMenuMulti = menuMultiplicador();
-        switch(optMenuMulti){
-            case 1:
-            boolean multiSetado= false, clAtualizado = false;
-            try{
-                if(!clienteBusca.getNome().isEmpty()){
-                     IMultiplicavel multiplicadorEscolhido =  gerarMultiplicador();
+        do {
+            optMenuMulti = menuMultiplicador();
+            switch (optMenuMulti) {
+                case 1:
+                    boolean multiSetado= false, clAtualizado = false;
+                    try {
+                        if (!clienteBusca.getNome().isEmpty()) {
+                            IMultiplicavel multiplicadorEscolhido =  gerarMultiplicador();
                             multiSetado =  alocarMultiplicadorCliente(clienteBusca, multiplicadorEscolhido);
-                            if(multiSetado)
-                            {
+                            
+                            if(multiSetado) {
                                 System.out.println("\nMultiplicador Setado!");
                                 clAtualizado =  atualizarClienteMapa(clienteBusca);
                             }
-                            if(clAtualizado){System.out.println("\nCliente Atualizado!");}
+                            if(clAtualizado) {
+                                System.out.println("\nCliente Atualizado!");
                             }
-            }catch(NullPointerException e){ System.out.println("\nCliente não encontrado");}
-            pausa();
-            break;
-            case 2:
-                    try{
-                       System.out.print("Multiplicador "+((clienteBusca.ativarMulti())? "Ligado": "Desligado"));  
+                        }
+                    } 
+                    catch(NullPointerException e) {
+                        System.out.println("\nCliente não encontrado");
                     }
-                    catch(NullPointerException e){System.out.print("\nNão possui Multiplicador Cadastrado!");}
-             pausa();  
-            case 3:
+                    pausa();
+                break;
 
-            case 0: break;
-            default:
-            System.out.println("Insira uma opção valida");
-            pausa();
-        }
-    }while(optMenuMulti!=0);
+                case 2:
+                    try {
+                        System.out.print("Multiplicador "+((clienteBusca.ativarMulti())? "Ligado": "Desligado"));  
+                    }
+                    catch(NullPointerException e) {
+                        System.out.print("\nNão possui Multiplicador Cadastrado!");
+                    }
+                    pausa();  
+                break;
+
+                case 3: //TODO
+
+                case 0: break;
+
+                default:
+                    System.out.println("Insira uma opção valida");
+                    pausa();
+            }
+        } while (optMenuMulti != 0);
     }
 
-    private static void executarMenuPassagens(){
+    private static void executarMenuPassagens() {
         int optMenuPassagens = 0;
         do{
-        optMenuPassagens = menuPassagens();
-        switch(optMenuPassagens){
-            case 1:
+            optMenuPassagens = menuPassagens();
+            switch(optMenuPassagens) {
+                case 1:
                     Trecho novoTrecho= formarTrecho();
                     boolean trechoAdd = false;
                     trechoAdd = adicionarTrechoAlista(novoTrecho);
-                    if(trechoAdd)
+                    if (trechoAdd)
                         System.out.println("\n Trecho Add com Sucesso");
-                    else{
+                    else {
                         System.out.println("\n Trecho invalido ou já cadastrado!");
                     }
                     pausa();    
-            break;
-            case 2:
-                executarMenuCadastroVoos();
-            break;
-            
-            case 4:
+                break;
+
+                case 2:
+                    executarMenuCadastroVoos();
+                break;
+                
+                case 4:
                     limparTela();
                     exibirVoos();
                     pausa();
-            break;
-            case 0:
                 break;
-           default:
-           System.out.println("Insira uma Opção valida");    
+
+                case 0: break;
+
+                default:
+                    System.out.println("Insira uma Opção valida");    
                     pausa();
-        }
-    }while(optMenuPassagens!=0);
+            }
+        } while (optMenuPassagens != 0);
     }
     
     private static void executarMenuCliente(){
         int optMenuClientes = 0;
         do{
-        optMenuClientes= menuClientes();
-        switch(optMenuClientes){
-            case 1:
-                Cliente nvCl = cadastrarCliente();
-                boolean clienteSalvo = false;
-                if(!nvCl.getCpf().equals("00000000000") && !nvCl.getNome().isEmpty() && !nvCl.getNome().isBlank()){
-                    try{
-                        clienteSalvo = addClienteAoMapa(nvCl);
-                        if(!clienteSalvo){System.out.println("\nCliente Já Cadastrado");}
-                        else{System.out.println("\nCliente Cadastrado com Sucesso!");}
-                       ;
+            optMenuClientes= menuClientes();
+            switch (optMenuClientes) {
+                case 1:
+                    Cliente nvCl = cadastrarCliente();
+                    boolean clienteSalvo = false;
+                    if (!nvCl.getCpf().equals("00000000000") && !nvCl.getNome().isEmpty() && !nvCl.getNome().isBlank()) {
+                        try {
+                            clienteSalvo = addClienteAoMapa(nvCl);
+                            if (!clienteSalvo) {
+                                System.out.println("\nCliente Já Cadastrado");
+                            }
+                            else {
+                                System.out.println("\nCliente Cadastrado com Sucesso!");
+                            }
+                        }
+
+                        catch(NullPointerException e) {
+                            System.out.println("\nErro ao inerir Cliente (null)");
+                        }
+                        catch(NumberFormatException e) {
+                            System.out.println("\nErro ao formatar HashCode cliente: "+e);
+                        }
+                        pausa();
                     }
+                    else {
+                        System.out.println("Dados invalidos/Cliente não cadastrado");
+                    }   
+                break;
 
-                    catch (NullPointerException e){System.out.println("\nErro ao inerir Cliente (null)");}
-                    catch(NumberFormatException e){System.out.println("\nErro ao formatar HashCode cliente: "+e);}
+                case 2:
+                    String cpfBusca = "";
+                    cpfBusca = receberCPFbusca();
+                    if (!validarCpf(cpfBusca)) {
+                        System.out.println("Insira um CPF válido");
+                    }
+                    else {
+                        Cliente clienteBusca = buscarCliente(cpfBusca);
+                        if (clienteBusca != null) {
+                            executarMenuMultiplicador(clienteBusca);
+                        }
+                        else {
+                            System.out.println("Cliente Invalido!");
+                        }     
+                    }
                     pausa();
-                }
-                else{System.out.println("Dados invalidos/Cliente não cadastrado");}   
+                break;
+                
+            case 0: return;
 
-            break;
-            case 2:
-            String cpfBusca = "";
-            cpfBusca = receberCPFbusca();
-            if(!validarCpf(cpfBusca)){
-                System.out.println("Insira um CPF válido");
+            default:
+                System.out.println("Insira uma Opção valida");
+                pausa();  
             }
-            else{
-               Cliente clienteBusca = buscarCliente(cpfBusca);
-               if(clienteBusca != null){
-                     executarMenuMultiplicador(clienteBusca);
-               }
-               else{System.out.println("Cliente Invalido!");}     
-             }
-             pausa();
-        break;
-            case 0:
-                return;
-           default:
-           System.out.println("Insira uma Opção valida");
-           pausa();  
-        }
-    }while(optMenuClientes!=0);
+        } while (optMenuClientes != 0);
     }
    
-    private static void executarMenuCadastroVoos(){
+    private static void executarMenuCadastroVoos() {
         int optMenuCadastroVoo = 0;
-        int idVoo=0;
-        do{
+        int idVoo = 0;
+        do {
             optMenuCadastroVoo = menuCadastroVoos();
-            switch(optMenuCadastroVoo){
-                case 0:      
-                break;
+            switch(optMenuCadastroVoo) {
                 case 1:
                     Trecho nv = escolherTrechoVoo();
-                        trechoVooCadastro = nv;
+                    trechoVooCadastro = nv;
                 break;
-                case 2:
-                      
-                break;
+    
+                case 2: break;
+
                 case 3:
-                        double preco = cadastrarPreco();
-                        if(preco == -1){
-                            System.out.println("Entrada invalida para o preço!");
-                        }
-                        else{precoVooCadastro = preco;}
+                    double preco = cadastrarPreco();
+                    if (preco == -1) {
+                        System.out.println("Entrada invalida para o preço!");
+                    }
+                    else {
+                        precoVooCadastro = preco;
+                    }
                 break;
 
                 case 4:
                     idVoo = receberIDVoocadastro();
-                            if(idVoo >0){
-                                idVooCadastro = idVoo;
-                                System.out.println("ID ESCOLHIDO: "+idVoo);
-                            }else{System.out.println("O id não pode ser = a 0 !"); idVoo=0;}     
+                    if (idVoo > 0) {
+                        idVooCadastro = idVoo;
+                        System.out.println("ID ESCOLHIDO: " + idVoo);
+                    }
+                    else {
+                        System.out.println("O id não pode ser = a 0 !"); idVoo=0;
+                    }     
                 break;
 
                 case 5:                 
-                        try{
-                            Voo novoVoo = formarVoo(trechoVooCadastro, dataVooCadastro, precoVooCadastro, idVooCadastro);
-                            System.out.println("\n INFO VOO: \n");
-                            if(idVooCadastro !=0){
-                            if(precoVooCadastro>0d){
-                            if(adicionarVooAlista(novoVoo)){
-                                System.out.println("\nVoo Cadastrado!");
-                                System.out.println(buscarVoo(novoVoo).toString());
-                            }else{System.out.println("\nVoo Número: "+novoVoo.getIdVoo()+" Já cadastrado!");}
-                            }else{System.out.println("\n Não é possivel cadastrar um Voo com o preço igual a zero");}
-                            }else{System.out.println("Digite Um ID valido");}
-                        }catch(NullPointerException nulo){
-                            System.out.println("\n Voo não cadastrado \n Trecho Invalido!");
-                        }        
+                    try {
+                        Voo novoVoo = formarVoo(trechoVooCadastro, dataVooCadastro, precoVooCadastro, idVooCadastro);
+                        System.out.println("\n INFO VOO: \n");
+                        if (idVooCadastro !=0) {
+                            if (precoVooCadastro>0d) {
+                                if (adicionarVooAlista(novoVoo)) {
+                                    System.out.println("\nVoo Cadastrado!");
+                                    System.out.println(buscarVoo(novoVoo).toString());
+                                }
+                                else {
+                                    System.out.println("\nVoo Número: " + novoVoo.getIdVoo() + " Já cadastrado!");
+                                }
+                            }
+                            else {
+                                System.out.println("\n Não é possivel cadastrar um Voo com o preço igual a zero");
+                            }
+                        }
+                        else {
+                            System.out.println("Digite Um ID valido");
+                        }
+                    }
+                    catch(NullPointerException nulo) {
+                        System.out.println("\n Voo não cadastrado \n Trecho Invalido!");
+                    }        
                 break;
+
+                case 0: break;
+
                 default:
                     System.out.println("Opção Invalida!");
                     pausa();
             }
-        }while(optMenuCadastroVoo!=0);
+        } while (optMenuCadastroVoo != 0);
+
         trechoVooCadastro = null;
-        precoVooCadastro =0d;
-        idVooCadastro =0;
+        precoVooCadastro = 0d;
+        idVooCadastro = 0;
     }
    
-    private static void executarMenuPrincipal(){
+    private static void executarMenuPrincipal() {
         int optMenuPrincipal = 0;
-        do{
+        do {
             optMenuPrincipal = menuPrincipal();//primeira entrada do usuario
-            switch(optMenuPrincipal){
+            switch(optMenuPrincipal) {
                 case 0:
-                    optMenuPrincipal= 0;
+                    optMenuPrincipal = 0;
                 break;
+
                 case 1:
-                limparTela();
+                    limparTela();
                     executarMenuPassagens();
                 continue;
+    
                 case 2:
                     limparTela();
                     executarMenuCliente();
                 continue;
-                case 3:
-                break;
+
+                case 3: break;
+
                 case -1:
-                    System.out.println("\n Entre com uma Opção Válida!");
+                    System.out.println("\nEntre com uma opção válida!");
                 break;
             }
-        }
-        while(optMenuPrincipal!=0);
+        } while (optMenuPrincipal != 0);
     }
     //#endregion
     public static void main(String[] args) {

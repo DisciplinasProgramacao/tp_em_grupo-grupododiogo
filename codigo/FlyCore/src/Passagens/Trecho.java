@@ -1,7 +1,5 @@
 package Passagens;
 
-import java.util.Objects;
-
 public class Trecho {
 
     private final int idTrecho;
