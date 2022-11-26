@@ -88,12 +88,12 @@ public class Voo {
     @Override
     public boolean equals(Object o) {
         Voo voo = (Voo) o;
-        return idVoo == voo.getIdVoo() || voo.hashCode()== hashCode();
+        return voo.hashCode()== hashCode();
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(trechoVoo, dataVoo, preco, idVoo);
+        return Objects.hash(idVoo);
     }
 //#endregion Override's da Classe
 }
