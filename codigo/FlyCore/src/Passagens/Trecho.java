@@ -59,7 +59,7 @@ public class Trecho {
     private int somarValoresCharString(char[] a, char[] b){
         int somaA =0, somaB =0;
         for(char e : a){
-            somaA += (int) e;
+            somaA += (int) e *5;
         }
         for(char f: b){
             somaB += (int) f;
