@@ -93,7 +93,7 @@ public class Voo {
 
     @Override
     public int hashCode() {
-        return Objects.hash(trechoVoo, dataVoo, preco);
+        return Objects.hash(trechoVoo, dataVoo, preco, System.currentTimeMillis());
     }
 //#endregion Override's da Classe
 }
