@@ -88,7 +88,7 @@ public class Voo {
     @Override
     public boolean equals(Object o) {
         Voo voo = (Voo) o;
-        return idVoo == voo.getIdVoo();
+        return idVoo == voo.getIdVoo() || voo.getPreco()==preco;
     }
 
     @Override
