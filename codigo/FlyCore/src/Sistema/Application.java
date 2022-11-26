@@ -48,6 +48,14 @@ public class Application {
     //#endregion
 
     //#region Trecho
+    /**
+     * Método Responsavél por retornar cidade de origem escolhida por usuario.
+     * 
+     * Utiliza-se do método de escolherCidades para receber cidade escolhida
+     * por usuario.
+     * 
+     * @return cidade origem -> String 
+     */
     private static String escolherCidadeOrigem(){  
         String cidadeOrigem = "";
         do {
@@ -55,6 +63,14 @@ public class Application {
     } while (cidadeOrigem == "");
     return cidadeOrigem;
 }
+    /**
+     * Método Responsavél por retornar cidade de destino escolhida por usuario.
+     * 
+     * Utiliza-se do método de escolherCidades para receber cidade escolhida
+     * por usuario.
+     * 
+     * @return cidade destino -> String 
+     */
     private static String escolherCidadeDestino(){
         String cidadeDestino= "";
         do {
@@ -62,11 +78,24 @@ public class Application {
         } while (cidadeDestino == "");
         return cidadeDestino;
     }    
+    /**
+     * Verificar se trecho já está cadastrado na lista e se é nulo
+     * para poder add.
+     * @param novoTrecho --> Novo trecho cadastrado
+     * @return boolean --> true:se add a lista; false: caso não consiga adicionar
+     */
     private static boolean adicionarTrechoAlista(Trecho novoTrecho){
         if(!trechosSistema.contains(novoTrecho) && novoTrecho!=null)
               return  trechosSistema.add(novoTrecho);
         return false;    
     }
+    /**
+     *Método utiliza cidades previamente cadastradas no sistema para escolha do usuario,
+     *Essas cidades são disponibilizadas através de uma lista de Strings que a classe cidadesTrecho
+     fornece 
+     * @param escolha String que identifica qual tipo de cidade será escolhida (Origem ou Destino)
+     * @return String -> cidade escolhida pelo usaurio.
+     */
     private static String escolherCidadesTrecho(String escolha) { 
         limparTela();
         System.out.println();
@@ -97,6 +126,12 @@ public class Application {
         }
         
     }
+    /**
+     * Método responsavél por criar o objeto trecho no sistema,
+     * ele utiliza os métodos de escolha de cidade para formar o Trecho e retornar.
+     * @return Trecho ou Null -> Trecho gerado e instanciado com a cidades escolhidas;
+     * Null(caso a cidade de origem seja igual a de destino)
+     */
     private static Trecho formarTrecho() {
         String cidadeOrigem = "";
         cidadeOrigem = escolherCidadeOrigem();
@@ -106,6 +141,10 @@ public class Application {
             return new Trecho(cidadeOrigem, cidadeDestino);
         return null;
         }
+    /**
+     * Verificar se o trecho escolhido para o cadastro do Voo já está cadastrado no Sistema.
+     * @return Trecho ou Null -> Trecho(Cadastrado); Null(Não Cadastrado)
+     */
     private static Trecho escolherTrechoVoo(){
         limparTela();
         System.out.println();
@@ -125,6 +164,10 @@ public class Application {
     //endregion
 
     //#region Voo
+    /**
+     * Recebe id de cadastro do voo pelo usuario
+     * @return int -> id digitado ; -1 (expetion gerada)
+     */
     private static int receberIDVoocadastro(){
         int id=0;
         limparTela();
@@ -138,12 +181,23 @@ public class Application {
         }
         return id;
     }
+    /**
+     * Método responsavél por realizar a busca de um Voo.
+     * @param vooBusca Objeto Voo criado com os dados do objeto de busca.
+     * @return Voo -> Voo encontrado ; null (não encontrado)
+     */
     private static Voo buscarVoo(Voo vooBusca){
         if(!voosSistema.containsKey(vooBusca.hashCode())){
                 return null;
         }
         return voosSistema.get(vooBusca.hashCode());
     }
+    /**
+     * Adicionar voo ao HashMap do Sistema;
+     * Verifica se o voo já está no mapa e se seu id é maior que 0.
+     * @param novoVoo novo Voo cadastrado
+     * @return boolean --> true (add) ; false(não add)
+     */
     private static boolean adicionarVooAlista(Voo novoVoo){
         if(!voosSistema.containsValue(novoVoo) && novoVoo.getTrecho().getIdTrecho()!=0){
         voosSistema.put(novoVoo.hashCode(), novoVoo);
@@ -151,6 +205,10 @@ public class Application {
     }
         return false;
     }
+   /**
+    * Método responsavél por receber preco de cadastro de um Voo.
+    * @return double -> preco digitado; -1.00 (Catch Expetion)
+    */
     private static double cadastrarPreco(){
         Scanner sc = new Scanner (System.in);
 
@@ -170,6 +228,15 @@ public class Application {
         //Implementar método 
         return new Data();
     }
+    /**
+     * Método responsavél por receber atributos para criação de um Voo
+     * e retornar o objeto formado.
+     * @param novoTrecho Trecho Cadastrado
+     * @param dataVoo  Data Cadastrada
+     * @param preco    preco Cadastrado 
+     * @param id       id Cadastrado
+     * @return Voo --> Voo formado
+     */
     private static Voo formarVoo(Trecho novoTrecho, Data dataVoo, double preco, int id){
         return new Voo(novoTrecho, dataVoo, preco, id);
     }
