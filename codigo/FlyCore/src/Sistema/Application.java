@@ -26,6 +26,7 @@ public class Application {
     private static Trecho trechoVooCadastro = null ;
     private static Data dataVooCadastro = new Data();
     private static double precoVooCadastro = 0d;
+    private static int idVooCadastro=0;
     // #region utilidades
     /**
      * "Limpa" a tela (códigos de terminal VT-100)
@@ -124,6 +125,19 @@ public class Application {
     //endregion
 
     //#region Voo
+    private static int receberIDVoocadastro(){
+        int id=0;
+        limparTela();
+        System.out.println("Entre com o ID do Voo: (Número inteiro de até :)"+Integer.MAX_VALUE);
+        try{
+            id = sc.nextInt();
+        }
+        catch(InputMismatchException e){
+            System.out.println("insira opção valida!");
+            id = -1;
+        }
+        return id;
+    }
     private static Voo buscarVoo(Voo vooBusca){
         if(!voosSistema.containsKey(vooBusca.hashCode())){
                 return null;
@@ -156,8 +170,8 @@ public class Application {
         //Implementar método 
         return new Data();
     }
-    private static Voo formarVoo(Trecho novoTrecho, Data dataVoo, double preco){
-        return new Voo(novoTrecho, dataVoo, preco);
+    private static Voo formarVoo(Trecho novoTrecho, Data dataVoo, double preco, int id){
+        return new Voo(novoTrecho, dataVoo, preco, id);
     }
     //endregion
 
@@ -417,7 +431,8 @@ public class Application {
         System.out.println("1 - Escolher Trecho");
         System.out.println("2 - Escolher Data");
         System.out.println("3 - Cadastrar preço");
-        System.out.println("4 - Cadastrar Voo ");
+        System.out.println("4 - Cadastrar ID Voo ");
+        System.out.println("5 - Cadastrar Voo");
         System.out.println("0 - Cancelar");
         System.out.print("Digite sua opção: ");
         try {
@@ -572,16 +587,28 @@ public class Application {
                         else{precoVooCadastro = preco;}
                 break;
 
-                case 4:                 
+                case 4:
+
+                            int idVoo = receberIDVoocadastro();
+                            if(idVoo >0){
+                                idVooCadastro = idVoo;
+                                System.out.println("ID ESCOLHIDO: "+idVoo);
+                            }else{System.out.println("O id não pode ser = a 0 !");}
+                            
+                break;
+
+                case 5:                 
                         try{
-                            Voo novoVoo = formarVoo(trechoVooCadastro, dataVooCadastro, precoVooCadastro);
+                            Voo novoVoo = formarVoo(trechoVooCadastro, dataVooCadastro, precoVooCadastro, idVooCadastro);
                             System.out.println("\n INFO VOO: \n");
+                            if(idVooCadastro !=0){
                             if(precoVooCadastro>0d){
                             if(adicionarVooAlista(novoVoo)){
                                 System.out.println("\nVoo Cadastrado!");
                                 System.out.println(buscarVoo(novoVoo).toString());
                             }else{System.out.println("\nVoo Número: "+novoVoo.getIdVoo()+" Já cadastrado!");}
                             }else{System.out.println("\n Não é possivel cadastrar um Voo com o preço igual a zero");}
+                            }else{System.out.println("Digite Um ID valido");}
                         }catch(NullPointerException nulo){
                             System.out.println("\n Voo não cadastrado \n Trecho Invalido!");
                         }        
@@ -593,6 +620,7 @@ public class Application {
         }while(optMenuCadastroVoo!=0);
         trechoVooCadastro = null;
         precoVooCadastro =0d;
+        idVooCadastro =0;
     }
    
     private static void executarMenuPrincipal(){

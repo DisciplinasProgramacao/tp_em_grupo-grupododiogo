@@ -18,10 +18,10 @@ public class Voo {
      * @param trecho Recebe Trecho que está ligado ao voo
      * @param data Recebe a Data referente ao voo
      */
-    public Voo(Trecho trecho, Data data, double precoVoo) {
+    public Voo(Trecho trecho, Data data, double precoVoo, int id) {
         this.trechoVoo = trecho;
         this.dataVoo = data;
-        this.idVoo = Math.abs(this.hashCode());
+        this.idVoo = id;
         this.preco = precoVoo;
     }
 //#endregion Construtor do Voo
@@ -88,12 +88,12 @@ public class Voo {
     @Override
     public boolean equals(Object o) {
         Voo voo = (Voo) o;
-        return idVoo == voo.getIdVoo();
+        return idVoo == voo.getIdVoo() || voo.hashCode()== hashCode();
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(trechoVoo, dataVoo, preco);
+        return Objects.hash(trechoVoo, dataVoo, preco, idVoo);
     }
 //#endregion Override's da Classe
 }
