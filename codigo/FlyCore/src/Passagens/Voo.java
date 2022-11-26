@@ -21,7 +21,7 @@ public class Voo {
     public Voo(Trecho trecho, Data data, double precoVoo) {
         this.trechoVoo = trecho;
         this.dataVoo = data;
-        this.idVoo = this.hashCode();
+        this.idVoo = Math.abs(this.hashCode());
         this.preco = precoVoo;
     }
 //#endregion Construtor do Voo
@@ -87,15 +87,13 @@ public class Voo {
 
     @Override
     public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
         Voo voo = (Voo) o;
-        return idVoo == voo.getIdVoo() && dataVoo.equals(dataVoo) && preco == voo.getPreco();
+        return idVoo == voo.getIdVoo();
     }
 
     @Override
     public int hashCode() {
-        return Math.abs(Objects.hash(trechoVoo, dataVoo, preco));
+        return Objects.hash(trechoVoo, dataVoo, preco);
     }
 //#endregion Override's da Classe
 }

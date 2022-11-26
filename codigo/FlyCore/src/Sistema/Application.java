@@ -131,7 +131,7 @@ public class Application {
         return voosSistema.get(vooBusca.hashCode());
     }
     private static boolean adicionarVooAlista(Voo novoVoo){
-        if(!voosSistema.containsKey(novoVoo.hashCode()) && novoVoo.getTrecho().getIdTrecho()!=0){
+        if(!voosSistema.containsValue(novoVoo) && novoVoo.getTrecho().getIdTrecho()!=0){
         voosSistema.put(novoVoo.hashCode(), novoVoo);
         return true;
     }
