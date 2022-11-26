@@ -633,7 +633,7 @@ public class Application {
    
     private static void executarMenuCadastroVoos(){
         int optMenuCadastroVoo = 0;
-        
+        int idVoo=0;
         do{
             optMenuCadastroVoo = menuCadastroVoos();
             switch(optMenuCadastroVoo){
@@ -655,13 +655,11 @@ public class Application {
                 break;
 
                 case 4:
-
-                            int idVoo = receberIDVoocadastro();
+                    idVoo = receberIDVoocadastro();
                             if(idVoo >0){
                                 idVooCadastro = idVoo;
                                 System.out.println("ID ESCOLHIDO: "+idVoo);
-                            }else{System.out.println("O id não pode ser = a 0 !");}
-                            
+                            }else{System.out.println("O id não pode ser = a 0 !"); idVoo=0;}     
                 break;
 
                 case 5:                 
