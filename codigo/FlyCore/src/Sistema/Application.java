@@ -547,7 +547,6 @@ public class Application {
                 case 1:
                     boolean multiSetado= false, clAtualizado = false;
                     try {
-                        if (!clienteBusca.getNome().isEmpty()) {
                             IMultiplicavel multiplicadorEscolhido =  gerarMultiplicador();
                             multiSetado =  alocarMultiplicadorCliente(clienteBusca, multiplicadorEscolhido);
                             
@@ -558,8 +557,7 @@ public class Application {
                             if(clAtualizado) {
                                 System.out.println("\nCliente Atualizado!");
                             }
-                        }
-                    } 
+                        } 
                     catch(NullPointerException e) {
                         System.out.println("\nCliente não encontrado");
                     }
