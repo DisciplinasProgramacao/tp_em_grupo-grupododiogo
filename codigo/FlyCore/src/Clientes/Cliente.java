@@ -96,10 +96,32 @@ public class Cliente {
      * @return int numeroBilhetes --> número de bilhetes promocionais para o cliente.
      */
     public int calcularNumeroBilhetesPromocionais(){
+        try{
+            return calcularNumeroBilhetesPromocionaisMulti();
+        }catch(NullPointerException multiNulo){
+            return calcularNumeroBilhetesPromocionaisPadrao();
+        }
+    }
+
+    private int calcularNumeroBilhetesPromocionaisMulti(){
         Data data = new Data();
         data.tirar1Ano();
 
-        int valorTotal = this.bilhetesCliente.stream().filter(b -> b.getDataCompra().maisRecenteQue(data) == -1 && b.getStatus() == true).mapToInt(Bilhete::calcularPontuacao).sum();
+        int valorTotal = this.bilhetesCliente.stream().filter(b -> b.getDataCompra().maisRecenteQue(data) == -1 && b.getStatus() == true).mapToInt(e -> this.acelardorPts.multiplicar(e.calcularPontuacao())).sum();
+        this.setBilhetesInvalidos();
+
+        double valorAux = valorTotal / 10500;
+        int numeroBilhetes = (int)valorAux;
+
+        this.numeroBilhetesPromocionais = numeroBilhetes;
+        return this.numeroBilhetesPromocionais;
+    }
+
+    private int calcularNumeroBilhetesPromocionaisPadrao(){
+        Data data = new Data();
+        data.tirar1Ano();
+
+        int valorTotal = this.bilhetesCliente.stream().filter(b -> b.getDataCompra().maisRecenteQue(data) == -1 && b.getStatus() == true).mapToInt(e -> e.calcularPontuacao()).sum();
         this.setBilhetesInvalidos();
 
         double valorAux = valorTotal / 10500;
@@ -116,6 +138,9 @@ public class Cliente {
         int valorTotal = this.bilhetesCliente.stream().filter(b -> b.getDataCompra().maisRecenteQue(data) == -1 && b.getStatus() == true).mapToInt(Bilhete::calcularPontuacao).sum();
         return valorTotal;
     }
+    
+    
+    
     private void setBilhetesInvalidos(){
         Data data = new Data();
         data.tirar1Ano();
