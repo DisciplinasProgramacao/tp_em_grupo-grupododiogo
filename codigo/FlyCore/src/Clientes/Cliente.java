@@ -29,7 +29,7 @@ public class Cliente {
 
     /**
      * Validação basica do cpf (Tamnho != 11) será tratado apenas.
-     * @param cpf cpf digitado no construtor
+     * @param cpfd (cpf)
      * @return String --> "00000000000" caso não siga as especificações || cpf de parametro caso validado
      */
     private String validarCpf(String cpfd){
@@ -117,16 +117,24 @@ public class Cliente {
         this.numeroBilhetesPromocionais = valor - 1;
     }
 
-    public String gerarRelatorio(){
-        String l = "Nome do cliente: " + this.nome + "\n" +
-                   "Cpf: " + this.cpf + "\n" +
-                    "Pontuaçao total: " + this.getPontuacao() + "\n" +
-                    "Quantidade de bilhetes: " + this.bilhetesCliente.stream().count() + "\n" +
-                    "Acelerador Ativo: " + this.acelardorPts.isAtivo() + "\n" +
-                    "Numero de bilhetes gratis: " + this.calcularNumeroBilhetesPromocionais() + "\n"
+    public String gerarRelatorio() {
+        int qtdBilhetes = (int) this.bilhetesCliente.stream().count();
+        int pontuacao = this.getPontuacao();
+        int qtdBilhetesGratis = this.calcularNumeroBilhetesPromocionais();
 
-                ;
-        return l;
+        String statusAcelerador;
+        try {
+            statusAcelerador = (this.acelardorPts.isAtivo()) ? "Ativado" : "Desativado";
+        } catch(NullPointerException e ){
+            statusAcelerador = "Desativado";
+        }
+
+        return  "Nome do cliente: " + this.nome + "\n" +
+                "Cpf: " + this.cpf + "\n" +
+                "Pontuaçao total: " + pontuacao + "\n" +
+                "Quantidade de bilhetes: " + qtdBilhetes + "\n" +
+                "Status do Acelerador: " + statusAcelerador + "\n" +
+                "Numero de bilhetes gratis: " + qtdBilhetesGratis + "\n";
     }
 
     public IMultiplicavel getAcelardorPts() {

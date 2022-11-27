@@ -815,9 +815,13 @@ public class Application {
     }
 
     private static void gerarRelatorioCliente(String cpf) {
-        Cliente cliente = buscarCliente(cpf);
-
-        System.out.println(buscarCliente(cpf).gerarRelatorio());
+        try {
+            System.out.println(buscarCliente(cpf).gerarRelatorio());
+        }
+        catch(NullPointerException e)
+        {
+            System.out.println("Cpf nao cadastrado ou invalido, cadastre o cliente antes.");
+        }
     }
 
     //#endregion
