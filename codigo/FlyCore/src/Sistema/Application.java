@@ -298,7 +298,7 @@ public class Application {
     //#region Clientes
     private static String receberCPFbusca() {
         String cpf ="";
-        System.out.println("\nInsira o CPF do Cliente que deseja C: ");
+        System.out.println("\nInsira o CPF do Cliente:  ");
         cpf = sc.nextLine();
         if(!validarCpf(cpf)){
                 return "";
@@ -314,8 +314,8 @@ public class Application {
         }
         catch(NullPointerException nulo) {
             System.out.println("Erro cliente nulo: " + nulo);
+            return null; // retorna null caso não seja encontrado
         }
-        return clienteBusca; // retorna Cliente apenas com cpf caso não seja encontrado
     }
 
     private static boolean addClienteAoMapa(Cliente novoCliente){
@@ -663,12 +663,9 @@ public class Application {
                     }
                     else {
                         Cliente clienteBusca = buscarCliente(cpfBusca);
-                        if (clienteBusca != null) {
+                        if(clienteBusca!=null)
                             executarMenuMultiplicador(clienteBusca);
-                        }
-                        else {
-                            System.out.println("Cliente Invalido!");
-                        }     
+                        else{System.out.println("\n Cliente não Cadastrado.");}    
                     }
                     pausa();
                 break;
