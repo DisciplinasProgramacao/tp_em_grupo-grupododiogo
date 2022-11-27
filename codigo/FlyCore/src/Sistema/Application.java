@@ -376,7 +376,7 @@ public class Application {
         
     }
 
-    private static Cliente cadastrarCliente() {
+    private static Cliente formarCliente() {
         String dadosCliente ="";
         dadosCliente = receberDadosClienteCadastro();
         String[] separandoDados = dadosCliente.split(";");
@@ -624,7 +624,7 @@ public class Application {
             optMenuClientes= menuClientes();
             switch (optMenuClientes) {
                 case 1:
-                    Cliente nvCl = cadastrarCliente();
+                    Cliente nvCl = formarCliente();
                     boolean clienteSalvo = false;
                     if (!nvCl.getCpf().equals("00000000000") && !nvCl.getNome().isEmpty() && !nvCl.getNome().isBlank()) {
                         try {
