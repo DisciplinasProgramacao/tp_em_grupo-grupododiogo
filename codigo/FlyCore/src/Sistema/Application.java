@@ -189,9 +189,6 @@ public class Application {
      * @return Voo -> Voo encontrado ; null (não encontrado)
      */
     private static Voo buscarVoo(Voo vooBusca) {
-        if (!voosSistema.containsKey(vooBusca.hashCode())) {
-                return null;
-        }
         return voosSistema.get(vooBusca.hashCode());
     }
 
