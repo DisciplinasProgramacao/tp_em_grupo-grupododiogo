@@ -1,6 +1,7 @@
 package Sistema;
 
 import java.util.*;
+import java.util.stream.Collectors;
 
 import Passagens.Bilhete;
 import Utilitarios.*;
@@ -804,6 +805,7 @@ public class Application {
 
                 case 3:
                     limparTela();
+                    clienteMaisPontos();
 
                     continue;
                 case 4:
@@ -822,15 +824,32 @@ public class Application {
         } while (optMenuAdm != 0);
     }
 
+    private static void clienteMaisPontos() {
+        try {
+            Cliente clienteMaior = clientesSistema.values().stream().collect(Collectors.maxBy(Comparator.comparingInt(Cliente::calcularPontuacaoAnual))).orElse(null);
+            clienteMaior.gerarRelatorio();
+        }
+        catch (NullPointerException n ){
+            System.out.println("Nenhum cliente registrado");
+        }
+    }
+
     private static void gerarRelatorioBilhetesAnual(String cpf) {
+
         Cliente clienteProcurado = buscarCliente(cpf);
+
         Data data = new Data();
         data.tirar1Ano();
 
-        int total = clienteProcurado.calcularNumeroBilhetesPromocionais();
+        int total = 0;
 
-        clienteProcurado.getBilhetesCliente().stream().filter(b -> b.getDataCompra().maisRecenteQue(data) == -1).map(b -> b.toString()).forEach(System.out::println);
-        System.out.println("\n O cliente ganhou " + total + "bilhetes promocionais.");
+        try {
+            total = clienteProcurado.calcularNumeroBilhetesPromocionais();
+            clienteProcurado.getBilhetesCliente().stream().filter(b -> b.getDataCompra().maisRecenteQue(data) == -1).map(b -> b.toString()).forEach(System.out::println);
+            System.out.println("\n O cliente ganhou " + total + "bilhetes promocionais.");
+        } catch (NullPointerException n) {
+            System.out.println("Cpf nao cadastrado ou invalido, cadastre o cliente antes.");
+        }
     }
 
     private static void gerarRelatorioCliente(String cpf) {
