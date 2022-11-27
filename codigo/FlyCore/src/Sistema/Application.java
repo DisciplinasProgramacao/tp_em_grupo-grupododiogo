@@ -176,7 +176,8 @@ public class Application {
             id = sc.nextInt();
         }
         catch(InputMismatchException e) {
-            System.out.println("insira opção valida!");
+            sc.nextLine();
+            System.out.println("\nInsira uma opção valida !");
             id = -1;
         }
         return id;
@@ -711,7 +712,7 @@ public class Application {
                         System.out.println("ID ESCOLHIDO: " + idVoo);
                     }
                     else {
-                        System.out.println("O id não pode ser = a 0 !"); idVoo=0;
+                        System.out.println("\nO id deve ser um número inteiro maior que zero! "); idVoo=0;
                     }     
                 break;
 
