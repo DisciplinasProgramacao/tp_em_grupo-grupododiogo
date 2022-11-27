@@ -313,6 +313,9 @@ public class Application {
             System.out.println("Erro cliente nulo: " + nulo);
             return null; // retorna null caso não seja encontrado
         }
+        catch(NumberFormatException e){
+            return null;
+        }
     }
 
     private static boolean addClienteAoMapa(Cliente novoCliente){
