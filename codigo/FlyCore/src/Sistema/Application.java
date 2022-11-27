@@ -501,9 +501,9 @@ public class Application {
         System.out.println("1 - Gerar Relatorio (Cliente)");//incluir consulta de bilhete grátis gerado
         System.out.println("2 - Cliente Maior Pts (Ultimo Ano)");
         System.out.println("3 - Voos");
-        System.out.println("Vendas");
+        System.out.println("4 - Vendas");
         System.out.println("0 - Cancelar");
-        System.out.print("Digite sua opção: ");
+        System.out.println("Digite sua opção: ");
         try {
             int opcao = teclado.nextInt();
             teclado.nextLine();
@@ -774,7 +774,9 @@ public class Application {
                     executarMenuCliente();
                 continue;
 
-                case 3: break;
+                case 3:
+                    executarMenuAdm();
+                    continue;
 
                 case -1:
                     System.out.println("\nEntre com uma opção válida!");
@@ -782,6 +784,46 @@ public class Application {
             }
         } while (optMenuPrincipal != 0);
     }
+
+    private static void executarMenuAdm() {
+    int optMenuAdm = 0;
+        do {
+            optMenuAdm = menuADM();//primeira entrada do usuario
+            switch(optMenuAdm) {
+                case 0:
+                    optMenuAdm = 0;
+                    break;
+
+                case 1:
+                    limparTela();
+                    System.out.println("Insira o cpf do cliente para gerar o relatorio");
+                    String cpf = sc.nextLine();
+                    gerarRelatorioCliente(cpf);
+                    continue;
+
+                case 2:
+                    limparTela();
+
+                    continue;
+
+                case 3:
+                    limparTela();
+
+                    continue;
+
+                case -1:
+                    System.out.println("\nEntre com uma opção válida!");
+                    break;
+            }
+        } while (optMenuAdm != 0);
+    }
+
+    private static void gerarRelatorioCliente(String cpf) {
+        Cliente cliente = buscarCliente(cpf);
+
+        System.out.println(buscarCliente(cpf).gerarRelatorio());
+    }
+
     //#endregion
     public static void main(String[] args) {
         executarMenuPrincipal();

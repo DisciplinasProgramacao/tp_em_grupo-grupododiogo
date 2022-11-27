@@ -17,7 +17,7 @@ public class Cliente {
     private int numeroBilhetesPromocionais = 0;
 
     /**
-     * Construtor cliente, recebe o nome,numero do documento e senha.
+     * Construtor cliente, recebe o nome e numero do documento.
      * @param nomeCliente
      * @param numCpf
      */
@@ -115,6 +115,18 @@ public class Cliente {
     }
     public void setNumeroBilhetesPromocionais (int valor) {
         this.numeroBilhetesPromocionais = valor - 1;
+    }
+
+    public String gerarRelatorio(){
+        String l = "Nome do cliente: " + this.nome + "\n" +
+                   "Cpf: " + this.cpf + "\n" +
+                    "Pontuaçao total: " + this.getPontuacao() + "\n" +
+                    "Quantidade de bilhetes: " + this.bilhetesCliente.stream().count() + "\n" +
+                    "Acelerador Ativo: " + this.acelardorPts.isAtivo() + "\n" +
+                    "Numero de bilhetes gratis: " + this.calcularNumeroBilhetesPromocionais() + "\n"
+
+                ;
+        return l;
     }
 
     public IMultiplicavel getAcelardorPts() {
