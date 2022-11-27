@@ -497,11 +497,11 @@ public class Application {
         System.out.println();
         System.out.println("FLY CORE");
         System.out.println("==========================");
-        System.out.println("1 - Gerar Relatorio (Cliente)");//incluir consulta de bilhete grátis gerado
+        System.out.println("1 - Gerar Relatorio (Cliente)");
         System.out.println("2 - Gerar Relatorio de bilhetes (comprados ate 1 ano atras)");
-        System.out.println("3 - Cliente Maior Pts (Ultimo Ano)");
-        System.out.println("4 - Voos");
-        System.out.println("5 - Vendas");
+        System.out.println("3 - Consultar Cliente Maior Pts (Ultimo Ano)");
+        System.out.println("4 - Consultar Voo em uma data e cidade especifica com mais de 100 reservas");
+        System.out.println("5 - Consultar Total de Vendas");
         System.out.println("0 - Cancelar");
         System.out.println("Digite sua opção: ");
         try {
@@ -810,6 +810,11 @@ public class Application {
                     continue;
                 case 4:
                     limparTela();
+                    String cidade = escolherCidadeDestino();
+                    System.out.println("Escolha uma data");
+                    Data data = new Data(); //criar metodo para pegar data
+
+                    voosMaisDe100reservas(data, cidade);
 
                     continue;
 
@@ -824,6 +829,9 @@ public class Application {
         } while (optMenuAdm != 0);
     }
 
+    private static void voosMaisDe100reservas(Data data, String cidade){
+
+    }
     private static void clienteMaisPontos() {
         try {
             Cliente clienteMaior = clientesSistema.values().stream().collect(Collectors.maxBy(Comparator.comparingInt(Cliente::calcularPontuacaoAnual))).orElse(null);
