@@ -12,6 +12,9 @@ public class Bilhete {
     protected double precoBilhete = 0;
     protected String tipo;
     protected Data dataDeCompra;
+
+    protected boolean statusCalculoPromocao = true;
+
     /**
      * Construtor do bilhete, atribuindo um hashCode como id e o tipo do bilhete
      */
@@ -32,13 +35,13 @@ public class Bilhete {
     }
 
     /** Remove voo da lista de voos contidos no bilhete.
-     * @param idVoo
+     * @param idvoo
      * @return true caso consiga remover o voo com sucesso da lista. Caso isso não ocorra, retorna false.
      */
-    public boolean removerVoo(Voo vooRemover) {
+    public boolean removerVoo(Voo idvoo) {
         try {
             
-            return this.voos.remove(vooRemover);
+            return this.voos.remove(idvoo);
          
         }
         catch (IndexOutOfBoundsException e) {
@@ -79,9 +82,12 @@ public class Bilhete {
         return pontosFidelidade;
     }
 
-    
+    public void setStatusCalculoPromocao(boolean statusCalculoPromocao) {
+        this.statusCalculoPromocao = statusCalculoPromocao;
+    }
+
     /**
-     * @param Voo voo que deseja buscar
+     * @param vooBuscado voo que deseja buscar
      * @return Voo encontrado.
      */
     public int buscarVoo(Voo vooBuscado) {
@@ -118,13 +124,20 @@ public class Bilhete {
         this.dataDeCompra = new Data();
     }
 
+    public String exibirVoosBilhete(){
+        StringBuilder infos = new StringBuilder();
+        this.voos.stream().forEach(b -> infos.append(b.toString() + "\n"));
+        return infos.toString();
+    }
+
     /** 
      * @return String com as informações de todos os Voos do bilhete.
      */
     @Override
     public String toString() {
         StringBuilder infoBilhete = new StringBuilder();
-        infoBilhete.append("=========== Bilhete " + this.tipo + " número: "+this.idBilhete+" ===========\n");
+        infoBilhete.append("Bilhete " + this.tipo + " número: "+this.idBilhete+" ===========\n");
+        infoBilhete.append(exibirVoosBilhete());
         if (this.voos.isEmpty()) {
             return "Nenhum voo cadastrado";
         }
@@ -155,5 +168,7 @@ public class Bilhete {
         return this.idBilhete;
     }
     public Data getDataCompra() { return this.dataDeCompra;}
+
+    public boolean getStatus() {return this.statusCalculoPromocao;}
 
 }

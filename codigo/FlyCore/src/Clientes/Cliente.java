@@ -96,16 +96,23 @@ public class Cliente {
      * @return int numeroBilhetes --> número de bilhetes promocionais para o cliente.
      */
     public int calcularNumeroBilhetesPromocionais(){
-        Data dataAtual = new Data();
-        dataAtual.tirar1Ano();
+        Data data = new Data();
+        data.tirar1Ano();
 
-        int valorTotal = this.bilhetesCliente.stream().filter(b -> b.getDataCompra().maisRecenteQue(dataAtual) == -1).mapToInt(Bilhete::calcularPontuacao).sum();
+        int valorTotal = this.bilhetesCliente.stream().filter(b -> b.getDataCompra().maisRecenteQue(data) == -1 && b.getStatus() == true).mapToInt(Bilhete::calcularPontuacao).sum();
+        this.setBilhetesInvalidos();
 
         double valorAux = valorTotal / 10500;
         int numeroBilhetes = (int)valorAux;
 
         this.numeroBilhetesPromocionais = numeroBilhetes;
         return this.numeroBilhetesPromocionais;
+    }
+
+    private void setBilhetesInvalidos(){
+        Data data = new Data();
+        data.tirar1Ano();
+        this.bilhetesCliente.stream().filter(b -> b.getDataCompra().maisRecenteQue(data) == -1 && b.getStatus() == true).forEach(b -> b.setStatusCalculoPromocao(false));
     }
     public boolean ativarMulti(){
         try{
@@ -124,7 +131,7 @@ public class Cliente {
 
         String statusAcelerador;
         try {
-            statusAcelerador = (this.acelardorPts.isAtivo()) ? "Ativado" : "Desativado";
+            statusAcelerador = (this.acelardorPts.isAtivo()) ? "Acelerador " + this.acelardorPts.getTipo() + " Ativado" : "Desativado";
         } catch(NullPointerException e ){
             statusAcelerador = "Desativado";
         }
@@ -142,6 +149,8 @@ public class Cliente {
     }
     public String getCpf(){return this.cpf;};
     public String getNome(){return this.nome;};
+
+    public Deque<Bilhete> getBilhetesCliente(){return this.bilhetesCliente;}
     @Override
     public int hashCode() {
         long cpf = Long.parseLong(this.cpf);

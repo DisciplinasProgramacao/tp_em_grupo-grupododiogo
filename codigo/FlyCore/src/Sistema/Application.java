@@ -1,11 +1,8 @@
 package Sistema;
 
-import java.util.HashMap;
-import java.util.InputMismatchException;
-import java.util.LinkedList;
-import java.util.Map;
-import java.util.Scanner;
+import java.util.*;
 
+import Passagens.Bilhete;
 import Utilitarios.*;
 import Utilitarios.AceleradorPts.*;
 import Clientes.Cliente;
@@ -500,9 +497,10 @@ public class Application {
         System.out.println("FLY CORE");
         System.out.println("==========================");
         System.out.println("1 - Gerar Relatorio (Cliente)");//incluir consulta de bilhete grátis gerado
-        System.out.println("2 - Cliente Maior Pts (Ultimo Ano)");
-        System.out.println("3 - Voos");
-        System.out.println("4 - Vendas");
+        System.out.println("2 - Gerar Relatorio de bilhetes (comprados ate 1 ano atras)");
+        System.out.println("3 - Cliente Maior Pts (Ultimo Ano)");
+        System.out.println("4 - Voos");
+        System.out.println("5 - Vendas");
         System.out.println("0 - Cancelar");
         System.out.println("Digite sua opção: ");
         try {
@@ -799,12 +797,22 @@ public class Application {
 
                 case 2:
                     limparTela();
-
+                    System.out.println("Insira o cpf do cliente para gerar o relatorio");
+                    String cpf1 = sc.nextLine();
+                    gerarRelatorioBilhetesAnual(cpf1);
                     continue;
 
                 case 3:
                     limparTela();
 
+                    continue;
+                case 4:
+                    limparTela();
+
+                    continue;
+
+                case 5:
+                    limparTela();
                     continue;
 
                 case -1:
@@ -812,6 +820,17 @@ public class Application {
                     break;
             }
         } while (optMenuAdm != 0);
+    }
+
+    private static void gerarRelatorioBilhetesAnual(String cpf) {
+        Cliente clienteProcurado = buscarCliente(cpf);
+        Data data = new Data();
+        data.tirar1Ano();
+
+        int total = clienteProcurado.calcularNumeroBilhetesPromocionais();
+
+        clienteProcurado.getBilhetesCliente().stream().filter(b -> b.getDataCompra().maisRecenteQue(data) == -1).map(b -> b.toString()).forEach(System.out::println);
+        System.out.println("\n O cliente ganhou " + total + "bilhetes promocionais.");
     }
 
     private static void gerarRelatorioCliente(String cpf) {
