@@ -21,7 +21,7 @@ public class BilheteTest {
     public void setUp() {
         bhParaSpTrecho = new Trecho("Belo Horizonte", "São Paulo");
         dataVoo = new Data(06, 05, 2003);
-        bhParaSpVoo = new Voo(bhParaSpTrecho, dataVoo, 100);
+        bhParaSpVoo = new Voo(bhParaSpTrecho, dataVoo, 100,1);
         bilhete = new Bilhete();
     }
     
@@ -57,7 +57,7 @@ public class BilheteTest {
         bilhete.inserirVoo(bhParaSpVoo);
         Trecho tr2 = new Trecho("Belo Horizonte", "São Paulo");
         Data data2 = new Data(06, 05, 2003);
-        Voo voo2 = new Voo(tr2, data2, 250.0);
+        Voo voo2 = new Voo(tr2, data2, 250.0,1);
         bilhete.inserirVoo(voo2);
 
       assertEquals(300d, bilhete.calcularPreco());

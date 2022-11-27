@@ -24,12 +24,12 @@ public class VooTest {
     public void setUp(){
         bhParaSp = new Trecho("Belo Horizonte", "São Paulo");
         dataVoo = new Data(06, 05, 2003);
-        bhParaSpVoo = new Voo(bhParaSp, dataVoo, 0);
+        bhParaSpVoo = new Voo(bhParaSp, dataVoo, 0,1);
         bilhete = new Bilhete();
 
         bhParaRj = new Trecho("Belo Horizonte", "Rio de Janeiro");
         dataVoo2 = new Data(06, 05, 2003);
-        bhParaRjVoo = new Voo(bhParaRj, dataVoo2, 0);
+        bhParaRjVoo = new Voo(bhParaRj, dataVoo2, 0,1);
     }
 
     @Test
