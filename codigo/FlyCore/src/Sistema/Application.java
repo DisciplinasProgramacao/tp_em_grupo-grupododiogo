@@ -361,6 +361,10 @@ public class Application {
             System.out.println("Erro de Formatação --> Data = data atual");
             return new Data();
         }
+        catch(IndexOutOfBoundsException e){
+            System.out.println("ERRO FORMATAÇÃO");
+            return new Data();
+        }
     }
 
 
