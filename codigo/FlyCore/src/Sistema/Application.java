@@ -248,6 +248,15 @@ public class Application {
        }
     }
     
+    public static void exibirVoosEscala(Trecho tr1, Trecho tr2){
+        List< Voo> voosTrechoUm = new LinkedList<>();
+        List <Voo> voosTrechoDois = new LinkedList<>();
+        voosTrechoUm = buscarVoosPorTrecho(tr1);
+        if(!voosTrechoUm.isEmpty() &&  !voosTrechoDois.isEmpty()){
+        voosTrechoUm.stream().map(e -> e.toString()).forEach(System.out::println);
+        voosTrechoDois.stream().map(e -> e.toString()).forEach(System.out::println);
+        }
+    }
     //endregion
 
 
@@ -675,10 +684,9 @@ public class Application {
                         System.out.println("\n Nenhum Voo encontrado... Procurando Escalas");
                         try{
                         Trecho[] escalas = formarEscalasVoo(trechosVooBilhete[0].getCidadeOrigem(), trechosVooBilhete[0].getCidadeDestino());
-                        exibirVoosDisponiveisParaUmTrecho(escalas[0]);
-                        exibirVoosDisponiveisParaUmTrecho(escalas[1]);
+                        exibirVoosEscala(escalas[0], escalas[1]);
                         pausa();
-                        if(buscarVoosPorTrecho(escalas[0]).isEmpty()){
+                        if(buscarVoosPorTrecho(escalas[0]).isEmpty() && buscarVoosPorTrecho(escalas[1]).isEmpty()){
                             System.out.println("Nenhuma Esacala encontrada!");
                                 break;
                         }
