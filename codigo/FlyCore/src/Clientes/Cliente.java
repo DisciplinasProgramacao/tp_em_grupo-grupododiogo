@@ -102,7 +102,6 @@ public class Cliente {
             return calcularNumeroBilhetesPromocionaisPadrao();
         }
     }
-
     private int calcularNumeroBilhetesPromocionaisMulti(){
         Data data = new Data();
         data.tirar1Ano();
@@ -116,7 +115,6 @@ public class Cliente {
         this.numeroBilhetesPromocionais = numeroBilhetes;
         return this.numeroBilhetesPromocionais;
     }
-
     private int calcularNumeroBilhetesPromocionaisPadrao(){
         Data data = new Data();
         data.tirar1Ano();
@@ -130,7 +128,6 @@ public class Cliente {
         this.numeroBilhetesPromocionais = numeroBilhetes;
         return this.numeroBilhetesPromocionais;
     }
-
     public int calcularPontuacaoAnual(){
         try{
             return calcularPontuacaAnualMulti();
