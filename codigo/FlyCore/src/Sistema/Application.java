@@ -162,6 +162,27 @@ public class Application {
     //endregion
 
     //#region Voo
+
+    private List<Voo> buscarVoosPorTrecho(Trecho trechoProcurado){
+
+   return voosSistema.values().stream().filter(e -> e.getTrecho().equals(trechoProcurado)).toList();
+    }
+
+    private Trecho formarEscalaCoringaDestino(String cidadeDestino){
+       Trecho escalaCoringaDestino = new Trecho("São Paulo", cidadeDestino);
+        if(trechosSistema.contains(escalaCoringaDestino)){
+            return escalaCoringaDestino;
+        }
+        return null;
+    }   
+
+    private Trecho formarEscalaCoringaOrigem(String cidadeOrigem){
+        Trecho escalaCoringaDestino = new Trecho(cidadeOrigem, "São Paulo");
+         if(trechosSistema.contains(escalaCoringaDestino)){
+             return escalaCoringaDestino;
+         }
+         return null;
+     }   
     /**
      * Recebe id de cadastro do voo pelo usuario
      * @return int -> id digitado ; -1 (expetion gerada)
@@ -537,7 +558,7 @@ public class Application {
     }
     //#endregion
 
-    //#region Execução Menus
+//#region Execução Menus
     private static void executarMenuMultiplicador(Cliente clienteBusca) {    
         int optMenuMulti = 0;
         do {
@@ -828,7 +849,9 @@ public class Application {
             }
         } while (optMenuAdm != 0);
     }
+  //#endregion
 
+    //#region Relatorios ADM
     private static void voosMaisDe100reservas(Data data, String cidade){
 
     }
@@ -869,8 +892,8 @@ public class Application {
             System.out.println("Cpf nao cadastrado ou invalido, cadastre o cliente antes.");
         }
     }
-
     //#endregion
+  
     public static void main(String[] args) {
         executarMenuPrincipal();
         teclado.close();
