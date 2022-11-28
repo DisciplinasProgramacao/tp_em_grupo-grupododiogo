@@ -161,6 +161,55 @@ public class Application {
     }
     //endregion
 
+    //#region Bilhetes
+        
+    /**
+      * Menu para escolha do tipo de bilhete desejado
+      * @return Opção do usuário (int)
+     */
+   public static int menuTipoBilhete() {
+         System.out.println();
+         System.out.println();
+         System.out.println("FLY CORE");
+         System.out.println("==========================");
+         System.out.println("1 - Bilhete comum");
+         System.out.println("2 - Bilhete promocional");
+         System.out.println("3 - Bilhete fidelidade");
+        
+         System.out.println("0 - Sair");
+         System.out.print("Digite sua opção: ");
+        try {
+             int opcao = teclado.nextInt();
+             teclado.nextLine();
+             return opcao;
+         } catch (InputMismatchException e) {
+             return -1;
+         }
+     }
+
+    public static int menuCompraBilhete(){
+        System.out.println();
+         System.out.println();
+         System.out.println("FLY CORE");
+         System.out.println("==========================");
+         System.out.println("1 - Escolher Tipo Bilhete");
+         System.out.println("2 - Inserir Voo");
+         System.out.println("3 - Remover Voo");
+         System.out.println("4 - Finalizar Compra");
+         System.out.println("0 - Sair");
+         System.out.print("Digite sua opção: ");
+        try {
+             int opcao = teclado.nextInt();
+             teclado.nextLine();
+             return opcao;
+         } catch (InputMismatchException e) {
+             return -1;
+         }
+    }
+    //endregion
+
+
+
     //#region Voo
 
     private List<Voo> buscarVoosPorTrecho(Trecho trechoProcurado){
