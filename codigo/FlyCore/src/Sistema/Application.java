@@ -252,6 +252,7 @@ public class Application {
         List< Voo> voosTrechoUm = new LinkedList<>();
         List <Voo> voosTrechoDois = new LinkedList<>();
         voosTrechoUm = buscarVoosPorTrecho(tr1);
+        voosTrechoDois = buscarVoosPorTrecho(tr2);
         if(!voosTrechoUm.isEmpty() &&  !voosTrechoDois.isEmpty()){
         voosTrechoUm.stream().map(e -> e.toString()).forEach(System.out::println);
         voosTrechoDois.stream().map(e -> e.toString()).forEach(System.out::println);
