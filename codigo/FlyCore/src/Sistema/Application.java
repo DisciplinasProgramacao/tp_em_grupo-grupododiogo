@@ -682,7 +682,7 @@ public class Application {
                             System.out.println("Nenhuma Esacala encontrada!");
                                 break;
                         }
-                        }catch(NullPointerException e){System.out.println("");}
+                        }catch(NullPointerException e){System.out.println("Trecho invalido"); break;}
                     }
                         System.out.println("Ente com o id do Voo que deseja add: ");
                         idVooEscolhido = receberIDVoocadastro();
