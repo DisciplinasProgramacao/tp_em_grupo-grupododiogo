@@ -1,9 +1,12 @@
 package Sistema;
 
+import java.rmi.NotBoundException;
 import java.util.*;
 import java.util.stream.Collectors;
 
 import Passagens.Bilhete;
+import Passagens.BilheteFidelidade;
+import Passagens.BilhetePromocional;
 import Utilitarios.*;
 import Utilitarios.AceleradorPts.*;
 import Clientes.Cliente;
@@ -163,6 +166,20 @@ public class Application {
 
     //#region Bilhetes
         
+    private static Trecho escolherTrehcoBilhete(){
+        Trecho novoTrecho = formarTrecho();
+        return novoTrecho;
+    }
+
+    private static Trecho[] formarEscalasVoo(String cidadeOrigem, String cidadeDestino){
+        Trecho destinoCoringa = formarEscalaCoringaDestino(cidadeDestino);
+        Trecho origemCoringa = formarEscalaCoringaOrigem(cidadeOrigem);
+        Trecho [] escalas = new Trecho[2];
+        escalas[0] = origemCoringa;
+        escalas[1]= destinoCoringa;
+        return escalas;
+     }
+
     /**
       * Menu para escolha do tipo de bilhete desejado
       * @return Opção do usuário (int)
@@ -175,7 +192,6 @@ public class Application {
          System.out.println("1 - Bilhete comum");
          System.out.println("2 - Bilhete promocional");
          System.out.println("3 - Bilhete fidelidade");
-        
          System.out.println("0 - Sair");
          System.out.print("Digite sua opção: ");
         try {
@@ -187,7 +203,7 @@ public class Application {
          }
      }
 
-    public static int menuCompraBilhete(){
+   public static int menuCompraBilhete(){
         System.out.println();
          System.out.println();
          System.out.println("FLY CORE");
@@ -206,18 +222,44 @@ public class Application {
              return -1;
          }
     }
+   
+    public static Bilhete gerarBilhete(){
+        int tipoBilhete=0;
+        tipoBilhete = menuTipoBilhete();
+        switch(tipoBilhete){
+
+            case 1:
+                return new Bilhete();
+            case 2:
+                return new BilhetePromocional();
+            case 3: 
+                return new BilheteFidelidade();
+            default:
+            System.out.println("\nTipo invalido!");
+            return null;
+        }
+    }
+   
+    public static void exibirVoosDisponiveisParaUmTrecho(Trecho trechoProcurado){
+       List< Voo> voosTrecho = new LinkedList<>();
+       voosTrecho = buscarVoosPorTrecho(trechoProcurado);
+       if(!voosTrecho.isEmpty()){
+       voosTrecho.stream().map(e -> e.toString()).forEach(System.out::println);
+       }
+    }
+    
     //endregion
 
 
 
     //#region Voo
 
-    private List<Voo> buscarVoosPorTrecho(Trecho trechoProcurado){
+    private static List<Voo> buscarVoosPorTrecho(Trecho trechoProcurado){
 
    return voosSistema.values().stream().filter(e -> e.getTrecho().equals(trechoProcurado)).toList();
     }
 
-    private Trecho formarEscalaCoringaDestino(String cidadeDestino){
+    private static Trecho formarEscalaCoringaDestino(String cidadeDestino){
        Trecho escalaCoringaDestino = new Trecho("São Paulo", cidadeDestino);
         if(trechosSistema.contains(escalaCoringaDestino)){
             return escalaCoringaDestino;
@@ -225,7 +267,7 @@ public class Application {
         return null;
     }   
 
-    private Trecho formarEscalaCoringaOrigem(String cidadeOrigem){
+    private static Trecho formarEscalaCoringaOrigem(String cidadeOrigem){
         Trecho escalaCoringaDestino = new Trecho(cidadeOrigem, "São Paulo");
          if(trechosSistema.contains(escalaCoringaDestino)){
              return escalaCoringaDestino;
@@ -515,6 +557,7 @@ public class Application {
         System.out.println("2 -  Cadastrar Voos");
         System.out.println("3 - Cadastrar Datas");
         System.out.println("4 - Ver Voos Cadastrados");
+        System.out.println("5 - Comprar Bilhete");
         System.out.println("0 - Cancelar");
         System.out.print("Digite sua opção: ");
         try {
@@ -608,6 +651,65 @@ public class Application {
     //#endregion
 
 //#region Execução Menus
+
+    private static void executarMenuCompra(Cliente cl){
+        int optMenuCompra = 0;
+        Bilhete bilheteCompra = null;
+        Trecho[] trechosVooBilhete = new Trecho[3];
+        Voo [] voosBilhete = new Voo[3];
+        do{
+            optMenuCompra = menuCompraBilhete();
+            switch(optMenuCompra){
+                case 1:
+                bilheteCompra = gerarBilhete();
+                break;
+                case 2:
+                    int idVooEscolhido =0;
+                    trechosVooBilhete[0] = formarTrecho();
+                    int nVoos=0;
+                    if(trechosSistema.contains(trechosVooBilhete[0]) && !buscarVoosPorTrecho(trechosVooBilhete[0]).isEmpty()){
+                        exibirVoosDisponiveisParaUmTrecho(trechosVooBilhete[0]);
+                        pausa();
+                    }
+                    else{
+                        System.out.println("\n Nenhum Voo encontrado... Procurando Escalas");
+                        try{
+                        Trecho[] escalas = formarEscalasVoo(trechosVooBilhete[0].getCidadeOrigem(), trechosVooBilhete[0].getCidadeDestino());
+                        exibirVoosDisponiveisParaUmTrecho(escalas[0]);
+                        exibirVoosDisponiveisParaUmTrecho(escalas[1]);
+                        pausa();
+                        if(buscarVoosPorTrecho(escalas[0]).isEmpty()){
+                            System.out.println("Nenhuma Esacala encontrada!");
+                                break;
+                        }
+                        }catch(NullPointerException e){System.out.println("");}
+                    }
+                        System.out.println("Ente com o id do Voo que deseja add: ");
+                        idVooEscolhido = receberIDVoocadastro();
+                        if(idVooEscolhido!=-1){
+                            Voo vooEscolhido = voosSistema.get(Objects.hash(idVooEscolhido));
+                            if(vooEscolhido!=null){
+                            voosBilhete[nVoos] = vooEscolhido;
+                            nVoos++;
+                            System.out.println("\nVoo add a lista");
+                            }
+                            else{
+                                System.out.println("Voo invaldio!");
+                            }
+                        } 
+                break;
+
+                case 3:
+
+                break;
+
+                case 4:
+
+                break;
+            }
+        }while(optMenuCompra !=0);
+    }
+
     private static void executarMenuMultiplicador(Cliente clienteBusca) {    
         int optMenuMulti = 0;
         do {
@@ -680,7 +782,17 @@ public class Application {
                     exibirVoos();
                     pausa();
                 break;
-
+                
+                case 5:
+                    limparTela();
+                    String cpf = receberCPFbusca();
+                    Cliente cl = buscarCliente(cpf);
+                    if(cl!=null){
+                    executarMenuCompra(cl);
+                    }
+                    else{System.out.println("! Cliente invalido !");}
+                    pausa();
+                break;
                 case 0: break;
 
                 default:
