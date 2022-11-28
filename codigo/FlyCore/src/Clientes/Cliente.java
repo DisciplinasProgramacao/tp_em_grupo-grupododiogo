@@ -73,6 +73,7 @@ public class Cliente {
         catch(NullPointerException e) {
                 pontuacaoTotal = verificarPontuacaoPadrao();
             }
+        this.pontuacaoCliente = pontuacaoTotal;
         return pontuacaoTotal;
     } 
     /**
