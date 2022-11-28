@@ -846,7 +846,7 @@ public class Application {
         try {
             total = clienteProcurado.calcularNumeroBilhetesPromocionais();
             clienteProcurado.getBilhetesCliente().stream().filter(b -> b.getDataCompra().maisRecenteQue(data) == -1).map(b -> b.toString()).forEach(System.out::println);
-            System.out.println("\n O cliente ganhou " + total + "bilhetes promocionais.");
+            System.out.println("\n O cliente ganhou " + total + " bilhetes promocionais no ultimo ano.");
         } catch (NullPointerException n) {
             System.out.println("Cpf nao cadastrado ou invalido, cadastre o cliente antes.");
         }

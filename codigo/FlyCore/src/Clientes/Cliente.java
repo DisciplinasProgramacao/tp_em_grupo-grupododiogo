@@ -132,6 +132,14 @@ public class Cliente {
     }
 
     public int calcularPontuacaoAnual(){
+        try{
+            return calcularPontuacaAnualMulti();
+        }catch(NullPointerException multiNulo){
+            return calcularPontuacaoAnualPadrao();
+        }
+    }
+
+    public int calcularPontuacaoAnualPadrao(){
         Data data = new Data();
         data.tirar1Ano();
 
@@ -139,7 +147,13 @@ public class Cliente {
         return valorTotal;
     }
     
-    
+    private int calcularPontuacaAnualMulti(){
+        Data data = new Data();
+        data.tirar1Ano();
+
+        int valorTotal = this.bilhetesCliente.stream().filter(b -> b.getDataCompra().maisRecenteQue(data) == -1 && b.getStatus() == true).mapToInt(e -> this.acelardorPts.multiplicar(e.calcularPontuacao())).sum();
+        return valorTotal;
+    }
     
     private void setBilhetesInvalidos(){
         Data data = new Data();
