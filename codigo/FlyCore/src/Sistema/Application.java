@@ -686,7 +686,7 @@ public class Application {
                         Trecho[] escalas = formarEscalasVoo(trechosVooBilhete[0].getCidadeOrigem(), trechosVooBilhete[0].getCidadeDestino());
                         exibirVoosEscala(escalas[0], escalas[1]);
                         pausa();
-                        if(buscarVoosPorTrecho(escalas[0]).isEmpty() && buscarVoosPorTrecho(escalas[1]).isEmpty()){
+                        if(buscarVoosPorTrecho(escalas[0]).isEmpty() || buscarVoosPorTrecho(escalas[1]).isEmpty()){
                             System.out.println("Nenhuma Esacala encontrada!");
                                 break;
                         }
