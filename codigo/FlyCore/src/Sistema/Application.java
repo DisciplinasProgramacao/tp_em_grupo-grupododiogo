@@ -702,7 +702,28 @@ public class Application {
                 break;
 
                 case 3:
-
+                        limparTela();
+                        System.out.println("\nVoos selecionados : ");
+                        if(voosBilhete[0]==null){System.out.println("Nenhum Voo cadastrado!");
+                            break;
+                    }
+                        for(Voo vooSelecionado: voosBilhete){
+                            if(vooSelecionado!=null)
+                                System.out.println(vooSelecionado.toString());
+                        }
+                        pausa();
+                        System.out.println("Entre com o ID do voo que deseja excluir : ");
+                        int idVooExcluir = receberIDVoocadastro();
+                        int cont=0;
+                        for(Voo vooExcluir : voosBilhete){
+                            try{
+                            if(vooExcluir.getIdVoo() == idVooExcluir){
+                                voosBilhete[cont] = null;
+                                System.out.println("\nVoo "+idVooExcluir+" Excluido!");
+                            }
+                            cont++;
+                        }catch(NullPointerException e){};
+                        }pausa();
                 break;
 
                 case 4:
