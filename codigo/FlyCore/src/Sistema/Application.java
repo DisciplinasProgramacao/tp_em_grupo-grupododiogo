@@ -12,7 +12,6 @@ import Utilitarios.AceleradorPts.*;
 import Clientes.Cliente;
 import Passagens.Trecho;
 import Passagens.Voo;
-import Utilitarios.CidadesTrecho;
 
 public class Application {
     private static Scanner teclado = new Scanner(System.in);//Leitor para INTEGER
@@ -346,10 +345,24 @@ public class Application {
         return preco;
     }
 
-    private static Data cadastrarData() {
-        //Implementar método 
-        return new Data();
+    private static Data formatarData(){
+        System.out.println("=======FlyCORE======");
+        System.out.println("Insira uma Data para cadastro : \n(XX/XX/XXXX)");
+        String dataDigitada = sc.nextLine();
+        String[] dataFormatada =  dataDigitada.split("/");
+        int dia=0, mes=0, ano =0;
+        try{
+        dia = Integer.parseInt(dataFormatada[0]);
+        mes = Integer.parseInt(dataFormatada[1]);
+        ano = Integer.parseInt(dataFormatada[2]);
+        return new Data(dia, mes, ano);
+        }
+        catch(NumberFormatException erroFormatacao){ 
+            System.out.println("Erro de Formatação --> Data = data atual");
+            return new Data();
+        }
     }
+
 
     /**
      * Método responsavél por receber atributos para criação de um Voo
@@ -565,9 +578,8 @@ public class Application {
         System.out.println("==========================");
         System.out.println("1 - Cadastrar Trechos");
         System.out.println("2 -  Cadastrar Voos");
-        System.out.println("3 - Cadastrar Datas");
-        System.out.println("4 - Ver Voos Cadastrados");
-        System.out.println("5 - Comprar Bilhete");
+        System.out.println("3 - Ver Voos Cadastrados");
+        System.out.println("4 - Comprar Bilhete");
         System.out.println("0 - Cancelar");
         System.out.print("Digite sua opção: ");
         try {
@@ -809,13 +821,13 @@ public class Application {
                     executarMenuCadastroVoos();
                 break;
                 
-                case 4:
+                case 3:
                     limparTela();
                     exibirVoos();
                     pausa();
                 break;
                 
-                case 5:
+                case 4:
                     limparTela();
                     String cpf = receberCPFbusca();
                     Cliente cl = buscarCliente(cpf);
@@ -901,7 +913,9 @@ public class Application {
                     trechoVooCadastro = nv;
                 break;
     
-                case 2: break;
+                case 2:
+                    dataVooCadastro = formatarData();
+                break;
 
                 case 3:
                     double preco = cadastrarPreco();
@@ -1057,7 +1071,7 @@ public class Application {
             System.out.println("Nenhum cliente registrado");
         }
     }
-
+ 
     private static void gerarRelatorioBilhetesAnual(String cpf) {
 
         Cliente clienteProcurado = buscarCliente(cpf);
