@@ -657,6 +657,7 @@ public class Application {
         Bilhete bilheteCompra = null;
         Trecho[] trechosVooBilhete = new Trecho[3];
         Voo [] voosBilhete = new Voo[3];
+        int nVoos=0;
         do{
             optMenuCompra = menuCompraBilhete();
             switch(optMenuCompra){
@@ -666,7 +667,6 @@ public class Application {
                 case 2:
                     int idVooEscolhido =0;
                     trechosVooBilhete[0] = formarTrecho();
-                    int nVoos=0;
                     if(trechosSistema.contains(trechosVooBilhete[0]) && !buscarVoosPorTrecho(trechosVooBilhete[0]).isEmpty()){
                         exibirVoosDisponiveisParaUmTrecho(trechosVooBilhete[0]);
                         pausa();
@@ -689,9 +689,11 @@ public class Application {
                         if(idVooEscolhido!=-1){
                             Voo vooEscolhido = voosSistema.get(Objects.hash(idVooEscolhido));
                             if(vooEscolhido!=null){
+                            try{    
                             voosBilhete[nVoos] = vooEscolhido;
                             nVoos++;
                             System.out.println("\nVoo add a lista");
+                            }catch(IndexOutOfBoundsException e){System.out.println("\nMÁXIMO DE 3 VOOS POR BILHETE!");}
                             }
                             else{
                                 System.out.println("Voo invaldio!");
