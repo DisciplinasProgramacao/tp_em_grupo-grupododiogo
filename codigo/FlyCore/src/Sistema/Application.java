@@ -8,12 +8,8 @@ import Passagens.Trecho;
 import Passagens.Voo;
 import Utilitarios.*;
 import Utilitarios.AceleradorPts.*;
-import java.rmi.NotBoundException;
-import java.text.BreakIterator;
 import java.util.*;
-import java.util.Formatter.BigDecimalLayoutForm;
 import java.util.stream.Collectors;
-import org.junit.jupiter.params.shadow.com.univocity.parsers.common.input.ElasticCharAppender;
 
 public class Application {
 
