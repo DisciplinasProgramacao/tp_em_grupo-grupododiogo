@@ -176,7 +176,6 @@ class Trecho {
 
 MultiplicadorPreto -- Cliente
 MultiplicadorPrata -- Cliente
-Emulti -- Cliente
 IMultiplicavel <|.. MultiplicadorPreto
 IMultiplicavel <|.. MultiplicadorPrata
 Cliente -- Bilhete
