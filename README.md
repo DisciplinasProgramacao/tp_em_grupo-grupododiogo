@@ -103,12 +103,6 @@ class MultiplicadorPrata {
  +isAtivo() boolean
 }
 
-class Emulti {
- <<unum>>
- PRATA
- PRETO
-}
-
 class IMultiplicavel {
  <<Interface>>
  +multiplicar(int pts) int
