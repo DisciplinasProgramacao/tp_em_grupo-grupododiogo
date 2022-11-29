@@ -137,7 +137,6 @@ public class Bilhete {
     public String toString() {
         StringBuilder infoBilhete = new StringBuilder();
         infoBilhete.append("Bilhete " + this.tipo + " número: "+this.idBilhete+" ===========\n");
-        infoBilhete.append(exibirVoosBilhete());
         if (this.voos.isEmpty()) {
             return "Nenhum voo cadastrado";
         }
@@ -147,7 +146,6 @@ public class Bilhete {
         }
 
         infoBilhete.append("\nPreço total do bilhete: " + this.calcularPreco());
-        infoBilhete.append("\n\nLembre-se de anotar o número do bilhete e dos voos, eles serão necessários depois ;)");
         return infoBilhete.toString();
     }
 
