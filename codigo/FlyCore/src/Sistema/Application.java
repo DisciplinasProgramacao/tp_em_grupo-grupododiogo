@@ -1,8 +1,12 @@
 package Sistema;
 
 import java.rmi.NotBoundException;
+import java.text.BreakIterator;
 import java.util.*;
+import java.util.Formatter.BigDecimalLayoutForm;
 import java.util.stream.Collectors;
+
+import org.junit.jupiter.params.shadow.com.univocity.parsers.common.input.ElasticCharAppender;
 
 import Passagens.Bilhete;
 import Passagens.BilheteFidelidade;
@@ -752,6 +756,40 @@ public class Application {
                 break;
 
                 case 4:
+                        try{    
+                            for(Voo vooBilhete : voosBilhete){
+                                if(vooBilhete!=null && bilheteCompra.buscarVoo(vooBilhete)==-1){
+                                    bilheteCompra.inserirVoo(vooBilhete);
+                                }
+                            }
+                            System.out.println("\n"+bilheteCompra.toString());
+                        }catch(NullPointerException bilheteNull){
+                            System.out.println("\nTipo de Bilhete Invalido!");
+                            break;
+                        }
+                        try{
+                            System.out.println("1 - Confirmar\n2 - Cancelar");
+                            int opt = sc.nextInt();
+                            switch(opt){
+                                case 1:
+                                        if(cl.comprarBilhete(bilheteCompra)){
+                                            System.out.println("Bilhete comprado Com sucesso");
+                                            cl.getPontuacao();
+                                           if(atualizarClienteMapa(cl)){
+                                                System.out.println("Cliente Atualizado! ");
+                                           }else{System.out.println("Problemas ao atualizar Cliente");} 
+                                        }else{System.out.println("\n Falha ao comprar Bilhete");}
+                                break;
+
+                                case 2:
+                                        System.out.println("\nOk cancelando...");
+                                break;
+                                default:
+                                System.out.println("\nOpção invalida!");
+                            }
+                        }catch(InputMismatchException e){
+                            System.out.println("\nOpcção Invalida");
+                        }
 
                 break;
             }
@@ -792,9 +830,6 @@ public class Application {
                     }
                     pausa();  
                 break;
-
-                case 3: //TODO
-
                 case 0: break;
 
                 default:
