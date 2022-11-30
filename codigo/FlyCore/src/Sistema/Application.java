@@ -371,6 +371,7 @@ public class Application {
       teclado.nextLine();
       return opcao;
     } catch (InputMismatchException e) {
+      teclado.nextLine();
       return -1;
     }
   }
@@ -764,7 +765,7 @@ public class Application {
     System.out.println("2 - Cadastrar Voos");
     System.out.println("3 - Ver Voos Cadastrados");
     System.out.println("4 - Comprar Bilhete");
-    System.out.println("0 - Cancelar");
+    System.out.println("0 - Voltar");
     System.out.print("Digite sua opção: ");
     try {
       int opcao = teclado.nextInt();
@@ -782,7 +783,7 @@ public class Application {
     System.out.println("==========================");
     System.out.println("1 - Cadastrar Cliente");
     System.out.println("2 - Multiplicador PTS");
-    System.out.println("0 - Cancelar");
+    System.out.println("0 - Voltar");
     System.out.print("Digite sua opção: ");
     try {
       int opcao = teclado.nextInt();
@@ -801,7 +802,7 @@ public class Application {
     System.out.println("1 - Adicionar Multiplicador");
     System.out.println("2 - Ativar/ Desativar Multiplicador");
     System.out.println("3 - Status");
-    System.out.println("0 - sair");
+    System.out.println("0 - Voltar");
     System.out.print("Digite sua opção: ");
     try {
       int opcao = teclado.nextInt();
@@ -825,7 +826,7 @@ public class Application {
       "4 - Consultar Voo em uma data e cidade especifica com mais de 100 reservas"
     );
     System.out.println("5 - Consultar Total de Vendas");
-    System.out.println("0 - Cancelar");
+    System.out.println("0 - Voltar");
     System.out.println("Digite sua opção: ");
     try {
       int opcao = teclado.nextInt();
@@ -864,6 +865,7 @@ public class Application {
   //#region Execução Menus
 
   private static void executarMenuCompra(Cliente cl) {
+    limparTela();
     int optMenuCompra = 0;
     Bilhete bilheteCompra = null;
     Trecho[] trechosVooBilhete = new Trecho[3];
@@ -874,6 +876,9 @@ public class Application {
       switch (optMenuCompra) {
         case 1:
           bilheteCompra = gerarBilhete();
+          if(bilheteCompra!=null){
+            System.out.println("\nOk Bilhete Selecionado");
+          }
           break;
         case 2:
           int idVooEscolhido = 0;
@@ -1079,6 +1084,8 @@ public class Application {
           String cpf = receberCPFbusca();
           Cliente cl = buscarCliente(cpf);
           if (cl != null) {
+            System.out.print("\nCarregando os dados de: "+cl.getNome());
+            pausa();
             executarMenuCompra(cl);
           } else {
             System.out.println("! Cliente invalido !");
