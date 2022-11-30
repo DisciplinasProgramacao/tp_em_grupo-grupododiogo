@@ -103,12 +103,6 @@ class MultiplicadorPrata {
  +isAtivo() boolean
 }
 
-class Emulti {
- <<unum>>
- PRATA
- PRETO
-}
-
 class IMultiplicavel {
  <<Interface>>
  +multiplicar(int pts) int
@@ -182,7 +176,6 @@ class Trecho {
 
 MultiplicadorPreto -- Cliente
 MultiplicadorPrata -- Cliente
-Emulti -- Cliente
 IMultiplicavel <|.. MultiplicadorPreto
 IMultiplicavel <|.. MultiplicadorPrata
 Cliente -- Bilhete
