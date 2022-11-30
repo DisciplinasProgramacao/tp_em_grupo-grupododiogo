@@ -2,11 +2,7 @@ package PassagensTest;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-
-import Passagens.Bilhete;
 import Passagens.Trecho;
-import Passagens.Voo;
-import Utilitarios.Data;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 

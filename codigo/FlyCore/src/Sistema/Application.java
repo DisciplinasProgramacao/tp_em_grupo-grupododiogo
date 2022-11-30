@@ -29,11 +29,26 @@ public class Application {
   private static Data dataVooCadastro = new Data();
   private static double precoVooCadastro = 0d;
   private static int idVooCadastro = 0;
-  private static String arqTrechos = "src/Arquivos/trechos.bin";
-  private static String arqVoos = "src/Arquivos/voos.bin";
-  private static String arqClientes = "src/Arquivos/clientes.bin";
+  private static String CaminhoDiretorioProjeto = System.getProperty("user.dir");
+  private static String arqTrechos = formatarCaminho(CaminhoDiretorioProjeto) + "/codigo/FlyCore/src/Arquivos/trechos.bin";
+  private static String arqVoos = formatarCaminho(CaminhoDiretorioProjeto) + "/codigo/FlyCore/src/Arquivos/voos.bin";
+  private static String arqClientes = formatarCaminho(CaminhoDiretorioProjeto) + "/codigo/FlyCore/src/Arquivos/clientes.bin";
 
   // #region utilidades
+  /**
+   * retira parte do caminho absoluto do projeto caso o mesmo seja rodado em diretórios mais internos,
+   * para que o caminho termine com o nome da pasta raiz do projeto
+   * @param caminho String com o caminho absoluto do projeto
+   * @return caminho absoluto do projeto terminando na pasta raiz do mesmo
+   */
+  public static String formatarCaminho(String caminho) {
+    if (CaminhoDiretorioProjeto.endsWith("FlyCore")) {
+      return caminho.replaceAll("\\\\codigo\\\\FlyCore", "");
+    } else {
+      return caminho;
+    }
+  }
+
   /**
    * Gravação serializada do conjunto de trechos
    * @throws IOException Em caso de erro na escrita ou abertura do arquivo (propagação de exceção)
@@ -1385,6 +1400,7 @@ public class Application {
   //#endregion
 
   public static void main(String[] args) throws NoSuchMethodException, SecurityException {
+    System.out.println(arqTrechos);
     carregarTrechos();
     carregarVoos();
     carregarClientes();
