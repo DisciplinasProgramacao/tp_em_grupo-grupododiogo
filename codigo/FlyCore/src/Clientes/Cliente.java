@@ -48,6 +48,8 @@ public class Cliente implements Serializable {
      */
     public boolean comprarBilhete(Bilhete bilheteCompra) {
         try {
+            if(bilheteCompra.exibirVoosBilhete().isEmpty())
+            {return false;}
             bilheteCompra.inserirDataCompra();
             this.bilhetesCliente.add(bilheteCompra);
             return true;

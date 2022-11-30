@@ -979,7 +979,7 @@ public class Application {
                     System.out.println("Problemas ao atualizar Cliente");
                   }
                 } else {
-                  System.out.println("\n Falha ao comprar Bilhete");
+                  System.out.println("\n Falha ao comprar Bilhete - Bilhete sem Voos");
                 }
                 break;
               case 2:
