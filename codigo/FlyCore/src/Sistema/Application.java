@@ -30,9 +30,9 @@ public class Application {
   private static double precoVooCadastro = 0d;
   private static int idVooCadastro = 0;
   private static String CaminhoDiretorioProjeto = System.getProperty("user.dir");
-  private static String arqTrechos = formatarCaminho(CaminhoDiretorioProjeto) + "/codigo/FlyCore/src/Arquivos/trechos.bin";
-  private static String arqVoos = formatarCaminho(CaminhoDiretorioProjeto) + "/codigo/FlyCore/src/Arquivos/voos.bin";
-  private static String arqClientes = formatarCaminho(CaminhoDiretorioProjeto) + "/codigo/FlyCore/src/Arquivos/clientes.bin";
+  private static String arqTrechos = formatarCaminho(CaminhoDiretorioProjeto) + "trechos.bin";
+  private static String arqVoos = formatarCaminho(CaminhoDiretorioProjeto) + "voos.bin";
+  private static String arqClientes = formatarCaminho(CaminhoDiretorioProjeto) + "clientes.bin";
 
   // #region utilidades
   /**
@@ -43,9 +43,9 @@ public class Application {
    */
   public static String formatarCaminho(String caminho) {
     if (CaminhoDiretorioProjeto.endsWith("FlyCore")) {
-      return caminho.replaceAll("\\\\codigo\\\\FlyCore", "");
+      return caminho.replaceAll("\\\\codigo\\\\FlyCore", "") + "/codigo/FlyCore/src/Arquivos/";
     } else {
-      return caminho;
+      return caminho + "/codigo/FlyCore/src/Arquivos/";
     }
   }
 
