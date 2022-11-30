@@ -1332,6 +1332,7 @@ public class Application {
           continue;
         case -1:
           System.out.println("\nEntre com uma opção válida!");
+          pausa();
           break;
       }
     } while (optMenuAdm != 0);
