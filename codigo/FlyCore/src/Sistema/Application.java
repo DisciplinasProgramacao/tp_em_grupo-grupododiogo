@@ -8,6 +8,13 @@ import Passagens.Trecho;
 import Passagens.Voo;
 import Utilitarios.*;
 import Utilitarios.AceleradorPts.*;
+
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
 import java.util.*;
 import java.util.stream.Collectors;
 
@@ -22,8 +29,151 @@ public class Application {
   private static Data dataVooCadastro = new Data();
   private static double precoVooCadastro = 0d;
   private static int idVooCadastro = 0;
+  private static String arqTrechos = "src/Arquivos/trechos.bin";
+  private static String arqVoos = "src/Arquivos/voos.bin";
+  private static String arqClientes = "src/Arquivos/clientes.bin";
 
   // #region utilidades
+  /**
+   * Gravação serializada do conjunto de trechos
+   * @throws IOException Em caso de erro na escrita ou abertura do arquivo (propagação de exceção)
+   */
+  public static void gravarTrechos() throws IOException, FileNotFoundException {
+    ObjectOutputStream obj = new ObjectOutputStream(new FileOutputStream(arqTrechos));
+    for (Trecho trecho : trechosSistema) {
+      obj.writeObject(trecho);
+    }
+    obj.close();
+  }
+
+  /**
+   * Carrega dados do arquivo de trechos serialiado. Tratamento de diversas exceções
+   */
+  public static void carregarTrechos() {
+    FileInputStream dados;
+  
+    try {
+      dados = new FileInputStream(arqTrechos);
+      if (dados.available() != 0) {
+        ObjectInputStream obj = new ObjectInputStream(dados);
+        while (dados.available() != 0) {
+          Trecho novoTrecho = (Trecho)obj.readObject();
+          trechosSistema.add(novoTrecho);
+        }
+        obj.close();
+      }
+    } catch (FileNotFoundException e) {
+      System.out.println("Arquivo não encontrado.");
+      System.out.println("Trechos em branco.");
+      System.out.print("Nome do arquivo de trechos: ");
+      arqTrechos = teclado.nextLine();
+      pausa();
+    } catch(IOException ex) {
+      System.out.println("Problema no uso do arquivo.");
+      System.out.println("Favor reiniciar o sistema.");
+      pausa();
+    } catch(ClassNotFoundException cex) {
+      System.out.println("Classe não encontrada: avise ao suporte.");
+      System.out.println("Trechos em branco.");
+      trechosSistema = new LinkedList<>();
+      pausa();
+    }
+  }
+  
+  /**
+   * Gravação serializada do conjunto de Voos
+   * @throws IOException Em caso de erro na escrita ou abertura do arquivo (propagação de exceção)
+   */
+  public static void gravarVoos() throws IOException, FileNotFoundException {
+    ObjectOutputStream obj = new ObjectOutputStream(new FileOutputStream(arqVoos));
+    for (Map.Entry<Integer, Voo> voo : voosSistema.entrySet()) {
+      Voo vooAux = voo.getValue();
+      if (vooAux != null) {
+        obj.writeObject(vooAux);
+      }
+    }
+    obj.close();
+  }
+
+  /**
+   * Carrega dados do arquivo de voos serialiado. Tratamento de diversas exceções
+   */
+  public static void carregarVoos() {
+    FileInputStream dados;
+  
+    try {
+      dados = new FileInputStream(arqVoos);
+      if (dados.available() != 0) {
+        ObjectInputStream obj = new ObjectInputStream(dados);
+        while (dados.available() != 0) {
+          Voo novoVoo = (Voo)obj.readObject();
+          voosSistema.put(novoVoo.hashCode(), novoVoo);
+        }
+        obj.close();
+      }
+    } catch (FileNotFoundException e) {
+      System.out.println("Arquivo não encontrado.");
+      System.out.println("Voos em branco.");
+      System.out.print("Nome do arquivo de voos: ");
+      arqVoos = teclado.nextLine();
+      pausa();
+    } catch(IOException ex) {
+      System.out.println("Problema no uso do arquivo.");
+      System.out.println("Favor reiniciar o sistema.");
+      pausa();
+    } catch(ClassNotFoundException cex) {
+      System.out.println("Classe não encontrada: avise ao suporte.");
+      System.out.println("Voos em branco.");
+      voosSistema = new HashMap<>();
+      pausa();
+    }
+  }
+
+  /**
+   * Gravação serializada do conjunto de clientes
+   * @throws IOException Em caso de erro na escrita ou abertura do arquivo (propagação de exceção)
+   */
+  public static void gravarClientes() throws IOException, FileNotFoundException {
+    ObjectOutputStream obj = new ObjectOutputStream(new FileOutputStream(arqClientes));
+    for (Map.Entry<Integer, Cliente> cliente : clientesSistema.entrySet()) {
+      obj.writeObject(cliente.getValue());
+    }
+    obj.close();
+  }
+
+  /**
+   * Carrega dados do arquivo de clientes serialiado. Tratamento de diversas exceções
+   */
+  public static void carregarClientes() {
+    FileInputStream dados;
+  
+    try {
+      dados = new FileInputStream(arqClientes);
+      if (dados.available() != 0) {
+        ObjectInputStream obj = new ObjectInputStream(dados);
+        while (dados.available() != 0) {
+          Cliente novoCliente = (Cliente)obj.readObject();
+          clientesSistema.put(novoCliente.hashCode(), novoCliente);
+        }
+        obj.close();
+      }
+    } catch (FileNotFoundException e) {
+      System.out.println("Arquivo não encontrado.");
+      System.out.println("Clientes em branco.");
+      System.out.print("Nome do arquivo de clientes: ");
+      arqClientes = teclado.nextLine();
+      pausa();
+    } catch(IOException ex) {
+      System.out.println("Problema no uso do arquivo.");
+      System.out.println("Favor reiniciar o sistema.");
+      pausa();
+    } catch(ClassNotFoundException cex) {
+      System.out.println("Classe não encontrada: avise ao suporte.");
+      System.out.println("Clientes em branco.");
+      clientesSistema = new HashMap<>();
+      pausa();
+    }
+  }
   /**
    * "Limpa" a tela (códigos de terminal VT-100)
    * @return void
@@ -170,10 +320,10 @@ public class Application {
 
   //#region Bilhetes
 
-  private static Trecho escolherTrehcoBilhete() {
-    Trecho novoTrecho = formarTrecho();
-    return novoTrecho;
-  }
+  // private static Trecho escolherTrehcoBilhete() {
+  //   Trecho novoTrecho = formarTrecho();
+  //   return novoTrecho;
+  // }
 
   private static Trecho[] formarEscalasVoo(
     String cidadeOrigem,
@@ -347,13 +497,13 @@ public class Application {
    * @return double -> preco digitado; -1.00 (Catch Expetion)
    */
   private static double cadastrarPreco() {
-    Scanner sc = new Scanner(System.in);
-
+    Scanner scDouble = new Scanner(System.in);
     double preco = 0d;
     limparTela();
     System.out.println("Entre com o Preço do Voo: ");
     try {
-      preco = sc.nextDouble();
+      preco = scDouble.nextDouble();
+      scDouble.close();
     } catch (InputMismatchException e) {
       System.out.println("insira opção valida!");
       preco = -1d;
@@ -598,7 +748,7 @@ public class Application {
     System.out.println("FLY CORE");
     System.out.println("==========================");
     System.out.println("1 - Cadastrar Trechos");
-    System.out.println("2 -  Cadastrar Voos");
+    System.out.println("2 - Cadastrar Voos");
     System.out.println("3 - Ver Voos Cadastrados");
     System.out.println("4 - Comprar Bilhete");
     System.out.println("0 - Cancelar");
@@ -635,7 +785,7 @@ public class Application {
     System.out.println();
     System.out.println("FLY CORE");
     System.out.println("==========================");
-    System.out.println("1 - Add Multiplicador");
+    System.out.println("1 - Adicionar Multiplicador");
     System.out.println("2 - Ativar/ Desativar Multiplicador");
     System.out.println("3 - Status");
     System.out.println("0 - sair");
@@ -744,7 +894,7 @@ public class Application {
               break;
             }
           }
-          System.out.println("Ente com o id do Voo que deseja add: ");
+          System.out.println("Entre com o id do Voo que deseja adicionar: ");
           idVooEscolhido = receberIDVoocadastro();
           if (idVooEscolhido != -1) {
             Voo vooEscolhido = voosSistema.get(Objects.hash(idVooEscolhido));
@@ -752,7 +902,7 @@ public class Application {
               try {
                 voosBilhete[nVoos] = vooEscolhido;
                 nVoos++;
-                System.out.println("\nVoo add a lista");
+                System.out.println("\nVoo adicionado à lista");
               } catch (IndexOutOfBoundsException e) {
                 System.out.println("\nMÁXIMO DE 3 VOOS POR BILHETE!");
               }
@@ -869,6 +1019,17 @@ public class Application {
           }
           pausa();
           break;
+          case 3:
+          try {
+            System.out.print(
+              "Multiplicador " +
+              ((clienteBusca.getAcelardorPts().isAtivo()) ? "Ativo" : "Desativado")
+            );
+          } catch (NullPointerException e) {
+            System.out.print("\nNão possui Multiplicador Cadastrado!");
+          }
+          pausa();
+          break;
         case 0:
           break;
         default:
@@ -887,7 +1048,7 @@ public class Application {
           Trecho novoTrecho = formarTrecho();
           boolean trechoAdd = false;
           trechoAdd = adicionarTrechoAlista(novoTrecho);
-          if (trechoAdd) System.out.println("\n Trecho Add com Sucesso"); else {
+          if (trechoAdd) System.out.println("\n Trecho Adicionado com Sucesso"); else {
             System.out.println("\n Trecho invalido ou já cadastrado!");
           }
           pausa();
@@ -1075,6 +1236,48 @@ public class Application {
           break;
       }
     } while (optMenuPrincipal != 0);
+
+    try {
+      gravarTrechos();
+    } catch (FileNotFoundException e) {
+      System.out.println("Arquivo não encontrado.");
+      System.out.println("Não foi possível gravar os dados dos trechos.");
+      System.out.print("Nome do arquivo de trechos: ");
+      arqTrechos = teclado.nextLine();
+      pausa();
+    } catch(IOException ex) {
+      System.out.println("Problema no uso do arquivo.");
+      System.out.println("Favor reiniciar o sistema.");
+      pausa();
+    }
+
+    try {
+      gravarVoos();
+    } catch (FileNotFoundException e) {
+      System.out.println("Arquivo não encontrado.");
+      System.out.println("Não foi possível gravar os voos.");
+      System.out.print("Nome do arquivo de voos: ");
+      arqVoos = teclado.nextLine();
+      pausa();
+    } catch(IOException ex) {
+      System.out.println("Problema no uso do arquivo.");
+      System.out.println("Favor reiniciar o sistema.");
+      pausa();
+    }
+
+    try {
+      gravarClientes();
+    } catch (FileNotFoundException e) {
+      System.out.println("Arquivo não encontrado.");
+      System.out.println("Não foi possível gravar os clientes.");
+      System.out.print("Nome do arquivo de clientes: ");
+      arqClientes = teclado.nextLine();
+      pausa();
+    } catch(IOException ex) {
+      System.out.println("Problema no uso do arquivo.");
+      System.out.println("Favor reiniciar o sistema.");
+      pausa();
+    }
   }
 
   private static void executarMenuAdm() {
@@ -1181,7 +1384,10 @@ public class Application {
 
   //#endregion
 
-  public static void main(String[] args) {
+  public static void main(String[] args) throws NoSuchMethodException, SecurityException {
+    carregarTrechos();
+    carregarVoos();
+    carregarClientes();
     executarMenuPrincipal();
     teclado.close();
     sc.close();

@@ -1,12 +1,15 @@
 package Passagens;
 import Utilitarios.Data;
 
+import java.io.Serializable;
 import java.util.Comparator;
 import java.util.LinkedList;
 import java.util.Objects;
 import java.util.stream.Collectors;
 
-public class Bilhete {
+public class Bilhete implements Serializable{
+    private static final long serialVersionUID = 20221L;
+
     protected final int idBilhete;
     protected LinkedList<Voo> voos = new LinkedList<Voo>();
     protected double precoBilhete = 0;

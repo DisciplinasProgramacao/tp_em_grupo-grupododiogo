@@ -1,5 +1,7 @@
 package Utilitarios;
 
+import java.io.Serializable;
+
 /** 
  * MIT License
  *
@@ -28,8 +30,8 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 
 /** Classe data simples para fundamentos de POO */
-public class Data{
-    
+public class Data implements Serializable{
+    private static final long serialVersionUID = 20221L;
 
     //#region atributos
     //constante: dias de cada mês

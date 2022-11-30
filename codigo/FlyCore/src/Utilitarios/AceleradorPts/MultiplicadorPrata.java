@@ -1,6 +1,9 @@
 package Utilitarios.AceleradorPts;
 
-public class MultiplicadorPrata implements IMultiplicavel {
+import java.io.Serializable;
+
+public class MultiplicadorPrata implements IMultiplicavel, Serializable {
+    private static final long serialVersionUID = 1L;
 
     private static final String TIPO = "prata";
     private static double preco = 0d;
@@ -15,7 +18,7 @@ public class MultiplicadorPrata implements IMultiplicavel {
     public int multiplicar(int pts) {
         int total = pts; 
         if(this.ativo)
-            total = (int) (int ) (pts*MultiplicadorPrata.VALOR);
+            total = (int) (int) (pts*MultiplicadorPrata.VALOR);
         return total;
     }
 

@@ -1,5 +1,6 @@
 package Clientes;
 
+import java.io.Serializable;
 import java.util.Deque;
 import java.util.LinkedList;
 
@@ -7,7 +8,8 @@ import Passagens.Bilhete;
 import Utilitarios.Data;
 import Utilitarios.AceleradorPts.IMultiplicavel;
 
-public class Cliente {
+public class Cliente implements Serializable {
+    private static final long serialVersionUID = 20221L;
 
     private String nome = "";
     private String cpf = "";
@@ -74,7 +76,7 @@ public class Cliente {
                 pontuacaoTotal = verificarPontuacaoPadrao();
             }
         this.pontuacaoCliente = pontuacaoTotal;
-        return pontuacaoTotal;
+        return pontuacaoCliente;
     } 
     /**
      * Método privado para soma padrão da pontuação de bilhetes relacionado a um Cliente.

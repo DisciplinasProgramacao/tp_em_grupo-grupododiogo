@@ -1,6 +1,7 @@
 package Passagens;
 
 public class BilheteFidelidade extends Bilhete {
+    private static final long serialVersionUID = 20221L;
 
     /**
      * Construtor do bilhete de fidelidade, atribuindo um hashCode como id e o tipo do bilhete

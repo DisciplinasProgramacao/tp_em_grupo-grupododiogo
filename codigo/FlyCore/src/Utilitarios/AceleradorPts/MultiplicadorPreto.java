@@ -1,6 +1,9 @@
 package Utilitarios.AceleradorPts;
 
-public class MultiplicadorPreto implements IMultiplicavel {
+import java.io.Serializable;
+
+public class MultiplicadorPreto implements IMultiplicavel, Serializable {
+    private static final long serialVersionUID = 1L;
 
     private static final String TIPO = "preto";
     private static double preco = 0d;

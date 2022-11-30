@@ -2,9 +2,12 @@ package Passagens;
 
 import Utilitarios.Data;
 
+import java.io.Serializable;
 import java.util.Objects;
 
-public class Voo {
+public class Voo implements Serializable {
+    private static final long serialVersionUID = 20221L;
+
 //#region Atributos Do Voo
     private final int idVoo;
     private Trecho trechoVoo;

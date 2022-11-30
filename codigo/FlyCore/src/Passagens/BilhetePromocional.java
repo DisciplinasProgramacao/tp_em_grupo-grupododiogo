@@ -1,6 +1,7 @@
 package Passagens;
 
 public class BilhetePromocional extends Bilhete {
+    private static final long serialVersionUID = 20221L;
 
     /**
      * Construtor do bilhete promocional, atribuindo um hashCode como id e o tipo do bilhete

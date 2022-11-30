@@ -1,6 +1,9 @@
 package Passagens;
 
-public class Trecho {
+import java.io.Serializable;
+
+public class Trecho implements Serializable {
+    private static final long serialVersionUID = 20221L;
 
     private final int idTrecho;
     private String cidadeOrigem;
