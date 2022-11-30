@@ -512,13 +512,11 @@ public class Application {
    * @return double -> preco digitado; -1.00 (Catch Expetion)
    */
   private static double cadastrarPreco() {
-    Scanner scDouble = new Scanner(System.in);
     double preco = 0d;
     limparTela();
     System.out.println("Entre com o Preço do Voo: ");
     try {
-      preco = scDouble.nextDouble();
-      scDouble.close();
+      preco = sc.nextDouble();
     } catch (InputMismatchException e) {
       System.out.println("insira opção valida!");
       preco = -1d;
