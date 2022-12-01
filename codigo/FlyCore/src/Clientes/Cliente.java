@@ -101,24 +101,7 @@ public class Cliente implements Serializable {
      * @return int numeroBilhetes --> número de bilhetes promocionais para o cliente.
      */
     public int calcularNumeroBilhetesPromocionais(){
-        try{
-            return calcularNumeroBilhetesPromocionaisMulti();
-        }catch(NullPointerException multiNulo){
             return calcularNumeroBilhetesPromocionaisPadrao();
-        }
-    }
-    private int calcularNumeroBilhetesPromocionaisMulti(){
-        Data data = new Data();
-        data.tirar1Ano();
-
-        int valorTotal = this.bilhetesCliente.stream().filter(b -> b.getDataCompra().maisRecenteQue(data) == -1 && b.getStatus() == true).mapToInt(e -> this.acelardorPts.multiplicar(e.calcularPontuacao())).sum();
-        this.setBilhetesInvalidos();
-
-        double valorAux = valorTotal / 10500;
-        int numeroBilhetes = (int)valorAux;
-
-        this.numeroBilhetesPromocionais = numeroBilhetes;
-        return this.numeroBilhetesPromocionais;
     }
     private int calcularNumeroBilhetesPromocionaisPadrao(){
         Data data = new Data();
@@ -133,30 +116,15 @@ public class Cliente implements Serializable {
         this.numeroBilhetesPromocionais = numeroBilhetes;
         return this.numeroBilhetesPromocionais;
     }
-    public int calcularPontuacaoAnual(){
-        try{
-            return calcularPontuacaAnualMulti();
-        }catch(NullPointerException multiNulo){
-            return calcularPontuacaoAnualPadrao();
-        }
-    }
 
-    public int calcularPontuacaoAnualPadrao(){
+    public int calcularPontuacaoAnual(){
         Data data = new Data();
         data.tirar1Ano();
 
         int valorTotal = this.bilhetesCliente.stream().filter(b -> b.getDataCompra().maisRecenteQue(data) == -1 && b.getStatus() == true).mapToInt(Bilhete::calcularPontuacao).sum();
         return valorTotal;
     }
-    
-    private int calcularPontuacaAnualMulti(){
-        Data data = new Data();
-        data.tirar1Ano();
 
-        int valorTotal = this.bilhetesCliente.stream().filter(b -> b.getDataCompra().maisRecenteQue(data) == -1 && b.getStatus() == true).mapToInt(e -> this.acelardorPts.multiplicar(e.calcularPontuacao())).sum();
-        return valorTotal;
-    }
-    
     private void setBilhetesInvalidos(){
         Data data = new Data();
         data.tirar1Ano();

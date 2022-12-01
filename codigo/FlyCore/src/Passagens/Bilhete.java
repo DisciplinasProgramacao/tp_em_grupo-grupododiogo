@@ -139,7 +139,7 @@ public class Bilhete implements Serializable{
     @Override
     public String toString() {
         StringBuilder infoBilhete = new StringBuilder();
-        infoBilhete.append("Bilhete " + this.tipo + " número: "+this.idBilhete+" ===========\n");
+        infoBilhete.append("============ Bilhete " + this.tipo + " número: "+this.idBilhete+" ============ \n");
         if (this.voos.isEmpty()) {
             return "Nenhum voo cadastrado";
         }
@@ -148,7 +148,8 @@ public class Bilhete implements Serializable{
             infoBilhete.append(vooBi.toString());
         }
 
-        infoBilhete.append("\nPreço total do bilhete: " + this.calcularPreco());
+        infoBilhete.append("Preço total do bilhete: " + this.calcularPreco() + "\n");
+        infoBilhete.append("==================================================== \n");
         return infoBilhete.toString();
     }
 

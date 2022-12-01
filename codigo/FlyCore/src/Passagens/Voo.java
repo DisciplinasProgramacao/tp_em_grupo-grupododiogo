@@ -84,7 +84,7 @@ public class Voo implements Serializable {
     @Override
     public String toString() {
         StringBuilder infoVoo = new StringBuilder();
-        infoVoo.append("=========== Voo Número: " + this.idVoo + " ===========" +
+        infoVoo.append("------- Voo Número: " + this.idVoo + " -------" +
         "\nData do Voo: " + this.dataVoo.dataFormatada() +
         "\nPreço do voo: " + this.preco + "\n");
         infoVoo.append(this.trechoVoo.toString());

@@ -18,6 +18,7 @@ import java.io.ObjectOutputStream;
 import java.math.BigDecimal;
 import java.util.*;
 import java.util.stream.Collectors;
+import java.util.stream.DoubleStream;
 
 public class Application {
 
@@ -827,13 +828,14 @@ public class Application {
       "4 - Consultar Voo em uma data e cidade especifica com mais de 100 reservas"
     );
     System.out.println("5 - Consultar Total de Vendas");
+    System.out.println("6 - Excluir usuario");
     System.out.println("0 - Voltar");
     System.out.println("Digite sua opção: ");
     try {
       int opcao = teclado.nextInt();
-      teclado.nextLine();
       return opcao;
     } catch (InputMismatchException e) {
+      teclado.nextLine();
       return -1;
     }
   }
@@ -973,7 +975,7 @@ public class Application {
           }
           try {
             System.out.println("1 - Confirmar\n2 - Cancelar");
-            int opt = sc.nextInt();
+            int opt = teclado.nextInt();
             switch (opt) {
               case 1:
                 if (cl.comprarBilhete(bilheteCompra)) {
@@ -1337,10 +1339,15 @@ public class Application {
           continue;
         case 5:
           limparTela();
-          System.out.println("\n Digite o mes e ano para saber o valor arrecadado. (digite 0 para saber o valor total arrecadado");
-          String opt = sc.nextLine();
-          gerarRelatorioValorArrecadado(opt);
+          System.out.println("\n1 - Valor total arrecadado desde o inicio da empresa \n2 - Valor arrecadado por mes e ano");
+          int opcao = teclado.nextInt();
+          gerarRelatorioValorArrecadado(opcao);
           continue;
+
+        case 6:
+          System.out.println("Digite o cpf para excluir:");
+          String cpfExcluido = sc.nextLine();
+          excluirDadosCliente(cpfExcluido);
         case -1:
           System.out.println("\nEntre com uma opção válida!");
           pausa();
@@ -1349,20 +1356,48 @@ public class Application {
     } while (optMenuAdm != 0);
   }
 
-  private static void gerarRelatorioValorArrecadado(String opt) {
+  private static void gerarRelatorioValorArrecadado(int opcao) {
+    int optRelatorio = 0;
+    do {
+      switch (opcao) {
+        case 1:
+          try {
+            List<Bilhete> bilhetes = clientesSistema.values().stream().flatMap(c -> c.getBilhetesCliente().stream()).collect(Collectors.toList());
 
-    try {
-      //List<Deque<Bilhete>> bilhetes = clientesSistema.values().stream().map(c -> c.getBilhetesCliente()).collect(Collectors.toList());
+            Double total = bilhetes.stream().flatMapToDouble(b -> DoubleStream.of(b.getPrecoBilhete())).sum();
 
-       //double total = bilhetes.stream().map(b -> b.getPrecoBilhete()).mapToDouble(Double::doubleValue);
-      //double totall = bilhetes.
+            System.out.printf("Valor total arrecadado desde o inicio da FlyCore: R$" + "%.2f", total);
+            pausa();
 
-      //System.out.printf("Valor total arrecadado desde o inicio da empresa: " + "%.2f",total);
-    }
-    catch(NullPointerException n){
-      System.out.println("Nenhum dado encontrado.");
+            continue;
+          } catch (NullPointerException n) {
+            System.out.println("Nenhum dado encontrado.");
 
-    }
+            continue;
+          }
+
+        case 2:
+          System.out.println("Digite o mes: ");
+          int mes = teclado.nextInt();
+          System.out.println("Digite o ano: ");
+          int ano = teclado.nextInt();
+
+          List<Bilhete> bilhetes = clientesSistema.values().stream().flatMap(c -> c.getBilhetesCliente().stream()).collect(Collectors.toList());
+          List<Bilhete> bilhetesFiltrados = bilhetes.stream().filter(b -> b.getDataCompra().dataFormatada().substring(3).equals(String.format("%02d",mes)+"/" + String.format("%4d",ano))).toList();
+
+
+          Double total = bilhetesFiltrados.stream().flatMapToDouble(b -> DoubleStream.of(b.getPrecoBilhete())).sum();
+
+          System.out.printf("Valor total arrecadado no mes " + mes + " do ano " + ano  + " : R$" + "%.2f", total);
+          pausa();
+
+          continue;
+        case -1:
+          System.out.println("\nEntre com uma opção válida!");
+          pausa();
+          break;
+      }
+    } while (optRelatorio != 0);
   }
 
   //#endregion
@@ -1397,7 +1432,6 @@ public class Application {
 
     Data data = new Data();
     data.tirar1Ano();
-
     int total = 0;
 
     try {
@@ -1409,12 +1443,13 @@ public class Application {
         .map(b -> b.toString())
         .forEach(System.out::println);
       System.out.println(
-        "\n O cliente ganhou " + total + " bilhetes promocionais no ultimo ano."
+        "\nO cliente ganhou " + total + " bilhetes promocionais no ultimo ano."
       );
     } catch (NullPointerException n) {
       System.out.println(
         "Cpf nao cadastrado ou invalido, cadastre o cliente antes."
       );
+      pausa();
     }
   }
 
@@ -1430,6 +1465,16 @@ public class Application {
 
   //#endregion
 
+  private static void excluirDadosCliente(String cpf){
+    if (validarCpf(cpf)) {
+      System.out.println((clientesSistema.remove(Objects.hash(cpf)) == null) ? "Cliente nao cadastrado" : "Cliente excluido com sucesso");
+    }
+    else {
+      System.out.println("Cpf invalido.");
+    }
+
+  }
+
   public static void main(String[] args) throws NoSuchMethodException, SecurityException {
     System.out.println(arqTrechos);
     carregarTrechos();
@@ -1439,4 +1484,6 @@ public class Application {
     teclado.close();
     sc.close();
   }
+
+
 }
