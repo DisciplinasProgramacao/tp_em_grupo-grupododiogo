@@ -171,8 +171,8 @@ public class Cliente implements Serializable {
     public void setNumeroBilhetesPromocionais (int valor) {
         this.numeroBilhetesPromocionais = valor - 1;
     }
-
-    public String gerarRelatorio() {
+    @Override
+    public String toString() {
         int qtdBilhetes = (int) this.bilhetesCliente.stream().count();
         int pontuacao = this.getPontuacao();
         int qtdBilhetesGratis = this.calcularNumeroBilhetesPromocionais();
@@ -183,13 +183,15 @@ public class Cliente implements Serializable {
         } catch(NullPointerException e ){
             statusAcelerador = "Desativado";
         }
+        StringBuilder dadosCliente = new StringBuilder();
 
-        return  "Nome do cliente: " + this.nome + "\n" +
+        dadosCliente.append("\nNome do cliente: " + this.nome + "\n" +
                 "Cpf: " + this.cpf + "\n" +
                 "Pontuaçao total: " + pontuacao + "\n" +
                 "Quantidade de bilhetes: " + qtdBilhetes + "\n" +
                 "Status do Acelerador: " + statusAcelerador + "\n" +
-                "Numero de bilhetes gratis: " + qtdBilhetesGratis + "\n";
+                "Numero de bilhetes gratis: " + qtdBilhetesGratis + "\n");
+       return dadosCliente.toString();         
     }
 
     public IMultiplicavel getAcelardorPts() {

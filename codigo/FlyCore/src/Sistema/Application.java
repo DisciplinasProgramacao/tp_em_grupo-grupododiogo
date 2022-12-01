@@ -1361,7 +1361,7 @@ public class Application {
           )
         )
         .orElse(null);
-      clienteMaior.gerarRelatorio();
+     System.out.print("Cliente com maior Pontuação (ultimo ano) :\n\n " +clienteMaior.toString()+"\n");
     } catch (NullPointerException n) {
       System.out.println("Nenhum cliente registrado");
     }
@@ -1395,7 +1395,7 @@ public class Application {
 
   private static void gerarRelatorioCliente(String cpf) {
     try {
-      System.out.println(buscarCliente(cpf).gerarRelatorio());
+      System.out.println(buscarCliente(cpf).toString());
     } catch (NullPointerException e) {
       System.out.println(
         "Cpf nao cadastrado ou invalido, cadastre o cliente antes."
