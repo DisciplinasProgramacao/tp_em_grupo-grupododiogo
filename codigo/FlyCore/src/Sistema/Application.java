@@ -1345,9 +1345,9 @@ public class Application {
           continue;
 
         case 6:
-          System.out.println("Digite o cpf para excluir:");
-          String cpfExcluido = sc.nextLine();
+          String cpfExcluido = receberCPFbusca();
           excluirDadosCliente(cpfExcluido);
+          continue;
         case -1:
           System.out.println("\nEntre com uma opção válida!");
           pausa();
