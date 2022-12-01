@@ -1377,7 +1377,7 @@ public class Application {
           }
 
         case 2:
-          System.out.println("Digite o mes: ");
+          System.out.println("Digite o mes:  ");
           int mes = teclado.nextInt();
           System.out.println("Digite o ano: ");
           int ano = teclado.nextInt();
