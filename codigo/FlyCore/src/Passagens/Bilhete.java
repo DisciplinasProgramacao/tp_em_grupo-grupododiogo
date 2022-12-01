@@ -169,6 +169,9 @@ public class Bilhete implements Serializable{
         return this.idBilhete;
     }
     public Data getDataCompra() { return this.dataDeCompra;}
+    public double getPrecoBilhete() {
+        return this.precoBilhete;
+    }
 
     public boolean getStatus() {return this.statusCalculoPromocao;}
 

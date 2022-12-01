@@ -75,7 +75,10 @@ public class Voo implements Serializable {
     public Data getData() {
         return this.dataVoo;
     }
+
+    public String getCidadeDestino() {return this.trechoVoo.getCidadeDestino();}
     //#endregion Metodos uteis do Voo
+
 
 //#region Override's da Classe
     @Override

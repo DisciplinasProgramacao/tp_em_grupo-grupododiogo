@@ -15,6 +15,7 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
+import java.math.BigDecimal;
 import java.util.*;
 import java.util.stream.Collectors;
 
@@ -1336,6 +1337,9 @@ public class Application {
           continue;
         case 5:
           limparTela();
+          System.out.println("\n Digite o mes e ano para saber o valor arrecadado. (digite 0 para saber o valor total arrecadado");
+          String opt = sc.nextLine();
+          gerarRelatorioValorArrecadado(opt);
           continue;
         case -1:
           System.out.println("\nEntre com uma opção válida!");
@@ -1345,10 +1349,31 @@ public class Application {
     } while (optMenuAdm != 0);
   }
 
+  private static void gerarRelatorioValorArrecadado(String opt) {
+
+    try {
+      //List<Deque<Bilhete>> bilhetes = clientesSistema.values().stream().map(c -> c.getBilhetesCliente()).collect(Collectors.toList());
+
+       //double total = bilhetes.stream().map(b -> b.getPrecoBilhete()).mapToDouble(Double::doubleValue);
+      //double totall = bilhetes.
+
+      //System.out.printf("Valor total arrecadado desde o inicio da empresa: " + "%.2f",total);
+    }
+    catch(NullPointerException n){
+      System.out.println("Nenhum dado encontrado.");
+
+    }
+  }
+
   //#endregion
 
   //#region Relatorios ADM
-  private static void voosMaisDe100reservas(Data data, String cidade) {}
+  private static void voosMaisDe100reservas(Data data, String cidade) {
+
+  List<Voo> voos = voosSistema.values().stream().filter(v -> v.getCidadeDestino() == cidade && v.getData() == data).toList();
+  //voos.stream().filter().flatMap();
+
+  }
 
   private static void clienteMaisPontos() {
     try {
