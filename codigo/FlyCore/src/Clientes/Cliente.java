@@ -7,6 +7,7 @@ import java.util.LinkedList;
 import Passagens.Bilhete;
 import Utilitarios.Data;
 import Utilitarios.AceleradorPts.IMultiplicavel;
+import Utilitarios.AceleradorPts.MultiplicadorPrata;
 
 public class Cliente implements Serializable {
     private static final long serialVersionUID = 20221L;
@@ -15,7 +16,7 @@ public class Cliente implements Serializable {
     private String cpf = "";
     private int pontuacaoCliente = 0;
     private Deque<Bilhete> bilhetesCliente = new LinkedList<>();
-    private IMultiplicavel acelardorPts;
+    private IMultiplicavel acelardorPts = new MultiplicadorPrata();
     private int numeroBilhetesPromocionais = 0;
 
     /**
@@ -61,37 +62,18 @@ public class Cliente implements Serializable {
 
     /**
      * Calcula a pontuaçao de fidelidade total do cliente.
-     * A principio o método tenta utilizar o multiplicador do cliente para realizar o calculo,
-     * caso não consiga por não ter um Multiplicador relacionado será desviado o fluxo e chamado
-     * um método auxiliar para calcular a pontuação total padrão.
      * @return pontuaçao de fidelidade
      */
     public int getPontuacao() {
         int pontuacaoTotal = 0;
-
-        try {
             for (Bilhete bilhete : this.bilhetesCliente) {
                 pontuacaoTotal += this.acelardorPts.multiplicar(bilhete.calcularPontuacao());
             }
-        }
-        catch(NullPointerException e) {
-                pontuacaoTotal = verificarPontuacaoPadrao();
-            }
+        
         this.pontuacaoCliente = pontuacaoTotal;
         return pontuacaoCliente;
     } 
-    /**
-     * Método privado para soma padrão da pontuação de bilhetes relacionado a um Cliente.
-     * @return int pts --> pontuação total do cliente
-     */
-    private int verificarPontuacaoPadrao() {
-        int pts = 0;
-            for (Bilhete bilhete : this.bilhetesCliente) {
-                pts +=  bilhete.calcularPontuacao();
-            }
-        return pts;
-    }
-
+ 
     public void setAcelerador(IMultiplicavel multi) {
         this.acelardorPts = multi;
     }
@@ -101,25 +83,9 @@ public class Cliente implements Serializable {
      * @return int numeroBilhetes --> número de bilhetes promocionais para o cliente.
      */
     public int calcularNumeroBilhetesPromocionais(){
-        try{
-            return calcularNumeroBilhetesPromocionaisMulti();
-        }catch(NullPointerException multiNulo){
-            return calcularNumeroBilhetesPromocionaisPadrao();
-        }
+        return calcularNumeroBilhetesPromocionaisPadrao();
     }
-    private int calcularNumeroBilhetesPromocionaisMulti(){
-        Data data = new Data();
-        data.tirar1Ano();
-
-        int valorTotal = this.bilhetesCliente.stream().filter(b -> b.getDataCompra().maisRecenteQue(data) == -1 && b.getStatus() == true).mapToInt(e -> this.acelardorPts.multiplicar(e.calcularPontuacao())).sum();
-        this.setBilhetesInvalidos();
-
-        double valorAux = valorTotal / 10500;
-        int numeroBilhetes = (int)valorAux;
-
-        this.numeroBilhetesPromocionais = numeroBilhetes;
-        return this.numeroBilhetesPromocionais;
-    }
+   
     private int calcularNumeroBilhetesPromocionaisPadrao(){
         Data data = new Data();
         data.tirar1Ano();
@@ -133,27 +99,12 @@ public class Cliente implements Serializable {
         this.numeroBilhetesPromocionais = numeroBilhetes;
         return this.numeroBilhetesPromocionais;
     }
+   
     public int calcularPontuacaoAnual(){
-        try{
-            return calcularPontuacaAnualMulti();
-        }catch(NullPointerException multiNulo){
-            return calcularPontuacaoAnualPadrao();
-        }
-    }
-
-    public int calcularPontuacaoAnualPadrao(){
         Data data = new Data();
         data.tirar1Ano();
 
         int valorTotal = this.bilhetesCliente.stream().filter(b -> b.getDataCompra().maisRecenteQue(data) == -1 && b.getStatus() == true).mapToInt(Bilhete::calcularPontuacao).sum();
-        return valorTotal;
-    }
-    
-    private int calcularPontuacaAnualMulti(){
-        Data data = new Data();
-        data.tirar1Ano();
-
-        int valorTotal = this.bilhetesCliente.stream().filter(b -> b.getDataCompra().maisRecenteQue(data) == -1 && b.getStatus() == true).mapToInt(e -> this.acelardorPts.multiplicar(e.calcularPontuacao())).sum();
         return valorTotal;
     }
     
@@ -193,7 +144,6 @@ public class Cliente implements Serializable {
                 "Numero de bilhetes gratis: " + qtdBilhetesGratis + "\n");
        return dadosCliente.toString();         
     }
-
     public IMultiplicavel getAcelardorPts() {
         return this.acelardorPts;
     }
