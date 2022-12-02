@@ -33,7 +33,6 @@ public class Bilhete implements Serializable{
      * @return true em caso de sucesso.
      */
     public boolean inserirVoo(Voo novoVoo) {
-        
         return this.voos.add(novoVoo);
     }
 

@@ -5,6 +5,7 @@ import java.util.Deque;
 import java.util.LinkedList;
 
 import Passagens.Bilhete;
+import Utilitarios.AceleradorPts.MultiplicadorPrata;
 import Utilitarios.Data;
 import Utilitarios.AceleradorPts.IMultiplicavel;
 
@@ -15,7 +16,7 @@ public class Cliente implements Serializable {
     private String cpf = "";
     private int pontuacaoCliente = 0;
     private Deque<Bilhete> bilhetesCliente = new LinkedList<>();
-    private IMultiplicavel acelardorPts;
+    private IMultiplicavel acelardorPts = new MultiplicadorPrata();
     private int numeroBilhetesPromocionais = 0;
 
     /**
@@ -69,14 +70,10 @@ public class Cliente implements Serializable {
     public int getPontuacao() {
         int pontuacaoTotal = 0;
 
-        try {
-            for (Bilhete bilhete : this.bilhetesCliente) {
-                pontuacaoTotal += this.acelardorPts.multiplicar(bilhete.calcularPontuacao());
-            }
+        for (Bilhete bilhete : this.bilhetesCliente) {
+            pontuacaoTotal += this.acelardorPts.multiplicar(bilhete.calcularPontuacao());
         }
-        catch(NullPointerException e) {
-                pontuacaoTotal = verificarPontuacaoPadrao();
-            }
+
         this.pontuacaoCliente = pontuacaoTotal;
         return pontuacaoCliente;
     } 
@@ -101,11 +98,7 @@ public class Cliente implements Serializable {
      * @return int numeroBilhetes --> número de bilhetes promocionais para o cliente.
      */
     public int calcularNumeroBilhetesPromocionais(){
-        try{
             return calcularNumeroBilhetesPromocionaisMulti();
-        }catch(NullPointerException multiNulo){
-            return calcularNumeroBilhetesPromocionaisPadrao();
-        }
     }
     private int calcularNumeroBilhetesPromocionaisMulti(){
         Data data = new Data();
@@ -134,11 +127,7 @@ public class Cliente implements Serializable {
         return this.numeroBilhetesPromocionais;
     }
     public int calcularPontuacaoAnual(){
-        try{
             return calcularPontuacaAnualMulti();
-        }catch(NullPointerException multiNulo){
-            return calcularPontuacaoAnualPadrao();
-        }
     }
 
     public int calcularPontuacaoAnualPadrao(){

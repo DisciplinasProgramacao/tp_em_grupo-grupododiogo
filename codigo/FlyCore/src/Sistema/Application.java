@@ -8,14 +8,12 @@ import Passagens.Trecho;
 import Passagens.Voo;
 import Utilitarios.*;
 import Utilitarios.AceleradorPts.*;
-
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
-import java.math.BigDecimal;
 import java.util.*;
 import java.util.stream.Collectors;
 import java.util.stream.DoubleStream;
@@ -193,7 +191,6 @@ public class Application {
   }
   /**
    * "Limpa" a tela (códigos de terminal VT-100)
-   * @return void
    */
   public static void limparTela() {
     System.out.print("\033[H\033[2J");
@@ -529,7 +526,7 @@ public class Application {
 
   private static Data formatarData() {
     System.out.println("=======FlyCORE======");
-    System.out.println("Insira uma Data para cadastro : \n(XX/XX/XXXX)");
+    System.out.println("Insira uma Data : \n(XX/XX/XXXX)");
     String dataDigitada = sc.nextLine();
     String[] dataFormatada = dataDigitada.split("/");
     int dia = 0, mes = 0, ano = 0;
@@ -907,7 +904,7 @@ public class Application {
                 buscarVoosPorTrecho(escalas[0]).isEmpty() ||
                 buscarVoosPorTrecho(escalas[1]).isEmpty()
               ) {
-                System.out.println("Nenhuma Esacala encontrada!");
+                System.out.println("Nenhuma Escala encontrada!");
                 break;
               }
             } catch (NullPointerException e) {
@@ -915,7 +912,6 @@ public class Application {
               break;
             }
           }
-          System.out.println("Entre com o id do Voo que deseja adicionar: ");
           idVooEscolhido = receberIDVoocadastro();
           if (idVooEscolhido != -1) {
             Voo vooEscolhido = voosSistema.get(Objects.hash(idVooEscolhido));
@@ -980,9 +976,19 @@ public class Application {
               case 1:
                 if (cl.comprarBilhete(bilheteCompra)) {
                   System.out.println("Bilhete comprado Com sucesso");
+                  for (Voo voos: voosBilhete) {
+                    try {
+                      int id = voos.getIdVoo();
+                      voosSistema.get(Objects.hash(id)).incrementarPassageiro();
+                    } catch (NullPointerException n) {
+
+                    }
+                  }
                   cl.getPontuacao();
                   if (atualizarClienteMapa(cl)) {
                     System.out.println("Cliente Atualizado! ");
+                    optMenuCompra = 0;
+                    break;
                   } else {
                     System.out.println("Problemas ao atualizar Cliente");
                   }
@@ -1313,7 +1319,7 @@ public class Application {
           break;
         case 1:
           limparTela();
-          System.out.println("Insira o cpf do cliente para gerar o relatorio");
+          System.out.println("Insira o cpf do cliente para gerar o relatorio ou aperte ENTER para gerar de todos os usuarios");
           String cpf = sc.nextLine();
           gerarRelatorioCliente(cpf);
           continue;
@@ -1326,16 +1332,12 @@ public class Application {
         case 3:
           limparTela();
           clienteMaisPontos();
-
           continue;
         case 4:
           limparTela();
           String cidade = escolherCidadeDestino();
-          System.out.println("Escolha uma data");
-          Data data = new Data(); //criar metodo para pegar data
-
+          Data data = formatarData(); //criar metodo para pegar data
           voosMaisDe100reservas(data, cidade);
-
           continue;
         case 5:
           limparTela();
@@ -1343,7 +1345,6 @@ public class Application {
           int opcao = teclado.nextInt();
           gerarRelatorioValorArrecadado(opcao);
           continue;
-
         case 6:
           String cpfExcluido = receberCPFbusca();
           excluirDadosCliente(cpfExcluido);
@@ -1405,23 +1406,15 @@ public class Application {
   //#region Relatorios ADM
   private static void voosMaisDe100reservas(Data data, String cidade) {
 
-  List<Voo> voos = voosSistema.values().stream().filter(v -> v.getCidadeDestino() == cidade && v.getData() == data).toList();
-  //voos.stream().filter().flatMap();
+  List<Voo> voosFiltrados = voosSistema.values().stream().filter(v -> v.getCidadeDestino() == cidade && v.getData().equals(data)).toList();
 
+  voosFiltrados.stream().filter(v -> v.getNumeroPassageiros() > 100).forEach(v -> v.toString());
   }
 
   private static void clienteMaisPontos() {
     try {
-      Cliente clienteMaior = clientesSistema
-        .values()
-        .stream()
-        .collect(
-          Collectors.maxBy(
-            Comparator.comparingInt(Cliente::calcularPontuacaoAnual)
-          )
-        )
-        .orElse(null);
-     System.out.print("Cliente com maior Pontuação (ultimo ano) :\n\n " +clienteMaior.toString()+"\n");
+      Cliente clienteM = clientesSistema.values().stream().max(Comparator.comparingInt(Cliente::calcularPontuacaoAnual)).get();
+     System.out.print("Cliente com maior Pontuação (ultimo ano) :\n " +clienteM.toString()+"\n");
     } catch (NullPointerException n) {
       System.out.println("Nenhum cliente registrado");
     }
@@ -1455,7 +1448,13 @@ public class Application {
 
   private static void gerarRelatorioCliente(String cpf) {
     try {
-      System.out.println(buscarCliente(cpf).toString());
+
+      if (cpf == "") {
+        clientesSistema.values().stream().map(c -> c.toString()).forEach(System.out::println);
+      } else {
+        System.out.println(buscarCliente(cpf).toString());
+      }
+
     } catch (NullPointerException e) {
       System.out.println(
         "Cpf nao cadastrado ou invalido, cadastre o cliente antes."
@@ -1484,6 +1483,5 @@ public class Application {
     teclado.close();
     sc.close();
   }
-
 
 }

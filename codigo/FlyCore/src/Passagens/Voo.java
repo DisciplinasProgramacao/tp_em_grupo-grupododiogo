@@ -13,6 +13,8 @@ public class Voo implements Serializable {
     private Trecho trechoVoo;
     private Data dataVoo;
     private double preco;
+
+    private int numeroPassageiros;
 //#endregion
 
 //#region Construtor do Voo
@@ -62,6 +64,8 @@ public class Voo implements Serializable {
         }
     }
 
+    public void incrementarPassageiro() {this.numeroPassageiros++;}
+
     public int getIdVoo() {
         return this.idVoo;
     }
@@ -75,6 +79,7 @@ public class Voo implements Serializable {
     public Data getData() {
         return this.dataVoo;
     }
+    public int getNumeroPassageiros() { return this.numeroPassageiros;}
 
     public String getCidadeDestino() {return this.trechoVoo.getCidadeDestino();}
     //#endregion Metodos uteis do Voo
