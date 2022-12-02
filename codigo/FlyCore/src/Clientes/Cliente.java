@@ -122,7 +122,7 @@ public class Cliente implements Serializable {
         Data data = new Data();
         data.tirar1Ano();
 
-        int valorTotal = this.bilhetesCliente.stream().filter(b -> b.getDataCompra().maisRecenteQue(data) == -1 && b.getStatus() == true).mapToInt(e -> this.acelardorPts.multiplicar(e.calcularPontuacao())).sum();
+        int valorTotal = this.bilhetesCliente.stream().filter(b -> b.getDataCompra().maisRecenteQue(data) == -1).mapToInt(e -> this.acelardorPts.multiplicar(e.calcularPontuacao())).sum();
         return valorTotal;
     }
     
