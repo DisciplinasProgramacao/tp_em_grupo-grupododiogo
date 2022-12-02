@@ -662,6 +662,22 @@ public class Application {
     }
   }
 
+  private static boolean excluirCliente(Cliente nv){
+    try {
+      if (clientesSistema.containsKey(nv.hashCode())) {
+        clientesSistema.remove(nv.hashCode());
+        System.out.println("Cliente REMOVIDO! ");
+        return true;
+      } else {
+        System.out.println("Cliente não cadastrado");
+        return false;
+      }
+    } catch (NullPointerException e) {
+      System.out.println("Erro:" + e);
+      return false;
+    }
+  }
+
   private static String receberDadosClienteCadastro() {
     String nome = "", cpf = "";
     System.out.println("\nEntre com o Nome do Cliente: ");
@@ -1347,7 +1363,7 @@ public class Application {
           continue;
         case 6:
           String cpfExcluido = receberCPFbusca();
-          excluirDadosCliente(cpfExcluido);
+            excluirCliente(buscarCliente(cpfExcluido));
           continue;
         case -1:
           System.out.println("\nEntre com uma opção válida!");
@@ -1463,16 +1479,6 @@ public class Application {
   }
 
   //#endregion
-
-  private static void excluirDadosCliente(String cpf){
-    if (validarCpf(cpf)) {
-      System.out.println((clientesSistema.remove(Objects.hash(cpf)) == null) ? "Cliente nao cadastrado" : "Cliente excluido com sucesso");
-    }
-    else {
-      System.out.println("Cpf invalido.");
-    }
-
-  }
 
   public static void main(String[] args) throws NoSuchMethodException, SecurityException {
     System.out.println(arqTrechos);
