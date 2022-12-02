@@ -33,6 +33,7 @@ public class Application {
   private static String arqTrechos = formatarCaminho(CaminhoDiretorioProjeto) + "trechos.bin";
   private static String arqVoos = formatarCaminho(CaminhoDiretorioProjeto) + "voos.bin";
   private static String arqClientes = formatarCaminho(CaminhoDiretorioProjeto) + "clientes.bin";
+  
 
   // #region utilidades
   /**
@@ -462,10 +463,10 @@ public class Application {
   }
 
   /**
-   * Recebe id de cadastro do voo pelo usuario
+   * Recebe id de voo do usuario
    * @return int -> id digitado ; -1 (expetion gerada)
    */
-  private static int receberIDVoocadastro() {
+  private static int receberIDVoo() {
     int id = 0;
     limparTela();
     System.out.println(
@@ -508,13 +509,13 @@ public class Application {
   }
 
   /**
-   * Método responsavél por receber preco de cadastro de um Voo.
+   * Método responsavél por receber preco para cadastro;
    * @return double -> preco digitado; -1.00 (Catch Expetion)
    */
   private static double cadastrarPreco() {
     double preco = 0d;
     limparTela();
-    System.out.println("Entre com o Preço do Voo: ");
+    System.out.println("Entre com o Preço: ");
     try {
       preco = sc.nextDouble();
     } catch (InputMismatchException e) {
@@ -842,6 +843,7 @@ public class Application {
     );
     System.out.println("5 - Consultar Total de Vendas");
     System.out.println("6 - Excluir usuario");
+    System.out.println("7 - Configurações do Multiplicador de PTS");
     System.out.println("0 - Voltar");
     System.out.println("Digite sua opção: ");
     try {
@@ -876,6 +878,31 @@ public class Application {
     }
   }
 
+  private static int menuMultiplicadorCofnig(){
+    pausa();
+    limparTela();
+    limparTela();
+    System.out.println();
+    System.out.println("FLY CORE");
+    System.out.println("==========================");
+    System.out.println("\n|Aceleradores de Pontuação:|\n");
+    System.out.println("==================================================================");
+    System.out.println("\n* ACELERADOR PRATA: "+MultiplicadorPrata.getprecoMulti()+" R$ \n"); 
+    System.out.println("\n* ACELERADOR PRETO: "+MultiplicadorPreto.getprecoMulti()+" R$ \n");
+    System.out.println("\n==========================OPCOES:=======================================");
+    System.out.println("1 - Mudar Preço Preto");
+    System.out.println("2 - Mudar Preço Prata");
+    System.out.println("0 - Voltar");
+    System.out.print("\nDigite sua opção: ");
+    try {
+      int opcao = teclado.nextInt();
+      teclado.nextLine();
+      return opcao;
+    } catch (InputMismatchException e) {
+      return -1;
+    }
+
+  }
   //#endregion
 
   //#region Execução Menus
@@ -928,7 +955,7 @@ public class Application {
               break;
             }
           }
-          idVooEscolhido = receberIDVoocadastro();
+          idVooEscolhido = receberIDVoo();
           if (idVooEscolhido != -1) {
             Voo vooEscolhido = voosSistema.get(Objects.hash(idVooEscolhido));
             if (vooEscolhido != null) {
@@ -958,7 +985,7 @@ public class Application {
           }
           pausa();
           System.out.println("Entre com o ID do voo que deseja excluir : ");
-          int idVooExcluir = receberIDVoocadastro();
+          int idVooExcluir = receberIDVoo();
           int cont = 0;
           for (Voo vooExcluir : voosBilhete) {
             try {
@@ -1202,7 +1229,7 @@ public class Application {
           }
           break;
         case 4:
-          idVoo = receberIDVoocadastro();
+          idVoo = receberIDVoo();
           if (idVoo > 0) {
             idVooCadastro = idVoo;
             System.out.println("ID ESCOLHIDO: " + idVoo);
@@ -1365,12 +1392,46 @@ public class Application {
           String cpfExcluido = receberCPFbusca();
             excluirCliente(buscarCliente(cpfExcluido));
           continue;
+        case 7 :
+        execmenuMultiplicadorCofnig();
+        break;
         case -1:
           System.out.println("\nEntre com uma opção válida!");
           pausa();
           break;
       }
     } while (optMenuAdm != 0);
+  }
+
+  private static void execmenuMultiplicadorCofnig(){
+    int optMenuConfig = 0;
+    do{
+      optMenuConfig = menuMultiplicadorCofnig();
+
+      switch(optMenuConfig){
+        case 0:
+          break;
+        case 1:
+            double precoMultiPrata =0d;  
+            precoMultiPrata = cadastrarPreco();
+            MultiplicadorPrata.setprecoMulti(precoMultiPrata);
+            System.out.println("Preço Cadastrado com Sucesso");
+          break;
+        case 2:
+        double precoMultiPreto =0d;  
+        precoMultiPreto = cadastrarPreco();
+        MultiplicadorPreto.setprecoMulti(precoMultiPreto);
+        System.out.println("Preço Cadastrado com Sucesso");
+        break;
+        default :
+          System.out.println("Opção invalida");
+          pausa();
+            break;
+      }
+
+
+    }while(optMenuConfig !=0);
+
   }
 
   private static void gerarRelatorioValorArrecadado(int opcao) {

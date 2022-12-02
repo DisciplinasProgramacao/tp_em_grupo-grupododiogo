@@ -15,7 +15,7 @@ public class MultiplicadorTest {
 
     @Test
     public void multiplicarPTSdesativado(){
-        MultiplicadorPrata.setPreco(250d);
+        MultiplicadorPrata.setprecoMulti(250d);
         assertEquals(this.mp.multiplicar(200), 200);//retorna o proprio número quando desligado
         assertEquals(this.mpe.multiplicar(300), 300 );
         assertEquals(250d, this.mp.getPreco());
@@ -31,8 +31,8 @@ public class MultiplicadorTest {
     
     @Test
     public void gets() {
-        MultiplicadorPrata.setPreco(250);
-        MultiplicadorPreto.setPreco(350);
+        MultiplicadorPrata.setprecoMulti(250);
+        MultiplicadorPreto.setprecoMulti(350);
 
         assertEquals(mp.getPreco(), 250d);
         assertEquals(mpe.getPreco(), 350d);

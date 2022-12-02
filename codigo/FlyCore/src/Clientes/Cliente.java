@@ -77,17 +77,6 @@ public class Cliente implements Serializable {
         this.pontuacaoCliente = pontuacaoTotal;
         return pontuacaoCliente;
     } 
-    /**
-     * Método privado para soma padrão da pontuação de bilhetes relacionado a um Cliente.
-     * @return int pts --> pontuação total do cliente
-     */
-    private int verificarPontuacaoPadrao() {
-        int pts = 0;
-            for (Bilhete bilhete : this.bilhetesCliente) {
-                pts +=  bilhete.calcularPontuacao();
-            }
-        return pts;
-    }
 
     public void setAcelerador(IMultiplicavel multi) {
         this.acelardorPts = multi;

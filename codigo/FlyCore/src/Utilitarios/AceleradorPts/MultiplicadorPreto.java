@@ -32,8 +32,7 @@ public class MultiplicadorPreto implements IMultiplicavel, Serializable {
         return this.ativo;
     }
 
-    @Override
-    public double getPreco() {
+    public static double getprecoMulti(){
         return MultiplicadorPreto.preco;
     }
 
@@ -42,10 +41,20 @@ public class MultiplicadorPreto implements IMultiplicavel, Serializable {
         return MultiplicadorPreto.TIPO;
     }
 
-    public static double setPreco(double val) {
+    public static double setprecoMulti(double val) {
         if (val > 0)
             MultiplicadorPreto.preco = val;
         return val;
+    }
+
+    @Override
+    public double getPreco() {
+        return getprecoMulti();
+    }
+
+    @Override
+    public double setPreco(double preco) {
+        return setprecoMulti(preco);
     }
     
     @Override

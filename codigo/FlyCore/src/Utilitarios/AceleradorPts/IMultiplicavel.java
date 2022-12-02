@@ -13,18 +13,16 @@ public interface IMultiplicavel {
      */
     public boolean on_off();
     /**
-     * Retorna o preço relativo a classe de multiplicador que está utilizando o método
-     * @return double valor mensal cobrado.
-     */
-    public double getPreco();
-    /**
      * Retorna o tipo relativo a classe de multiplicador que está utilizando o método.
      * @return String --> ex: Prata, Preto.
      */
+
+     public double getPreco();
     public String getTipo();
     /**
      * Retorna o status atual da instancia de multiplicador que implementa o método.
      * @return boolean --> true : ativo ; false : desativado
      */
     public boolean isAtivo();
+    public double setPreco(double preco);
 }

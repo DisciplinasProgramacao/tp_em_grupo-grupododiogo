@@ -32,8 +32,7 @@ public class MultiplicadorPrata implements IMultiplicavel, Serializable {
        return this.ativo;
     }
 
-    @Override
-    public double getPreco() {
+    public  static double getprecoMulti() {
         return MultiplicadorPrata.preco;
     }
 
@@ -42,14 +41,24 @@ public class MultiplicadorPrata implements IMultiplicavel, Serializable {
         return MultiplicadorPrata.TIPO;
     }
 
-    public static double setPreco(double val) {
+    public static double setprecoMulti(double val) {
         if(val > 0)
             MultiplicadorPrata.preco = val;
         return val;
     }
     
+    
+    @Override
+    public double setPreco(double preco) {
+        return setprecoMulti(preco);
+    }
+    
     @Override
     public boolean isAtivo() {
         return this.ativo;
+    }
+    @Override
+    public double getPreco() {
+        return  getprecoMulti();
     }
 }
