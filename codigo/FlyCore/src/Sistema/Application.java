@@ -673,7 +673,7 @@ public class Application {
         return false;
       }
     } catch (NullPointerException e) {
-      System.out.println("Erro:" + e);
+      System.out.println("Cliente Invalido");
       return false;
     }
   }

@@ -113,29 +113,9 @@ public class Cliente implements Serializable {
         this.numeroBilhetesPromocionais = numeroBilhetes;
         return this.numeroBilhetesPromocionais;
     }
-    private int calcularNumeroBilhetesPromocionaisPadrao(){
-        Data data = new Data();
-        data.tirar1Ano();
 
-        int valorTotal = this.bilhetesCliente.stream().filter(b -> b.getDataCompra().maisRecenteQue(data) == -1 && b.getStatus() == true).mapToInt(e -> e.calcularPontuacao()).sum();
-        this.setBilhetesInvalidos();
-
-        double valorAux = valorTotal / 10500;
-        int numeroBilhetes = (int)valorAux;
-
-        this.numeroBilhetesPromocionais = numeroBilhetes;
-        return this.numeroBilhetesPromocionais;
-    }
     public int calcularPontuacaoAnual(){
             return calcularPontuacaAnualMulti();
-    }
-
-    public int calcularPontuacaoAnualPadrao(){
-        Data data = new Data();
-        data.tirar1Ano();
-
-        int valorTotal = this.bilhetesCliente.stream().filter(b -> b.getDataCompra().maisRecenteQue(data) == -1 && b.getStatus() == true).mapToInt(Bilhete::calcularPontuacao).sum();
-        return valorTotal;
     }
     
     private int calcularPontuacaAnualMulti(){
