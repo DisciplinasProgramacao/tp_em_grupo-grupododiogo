@@ -79,26 +79,30 @@ construtores nem métodos get/set no modelo.
 classDiagram
 class MultiplicadorPreto {
  -static final String TIPO = "preto"
- -static double preco
+ -double preco
  -boolean ativo
  -static final double VALOR = 1.50
  +multiplicar(int pts) int
  +on_off() boolean
+ +getprecoMulti() double
  +getPreco() double
  +getTipo() String
+ +setprecoMulti(double val) double
  +setPreco(double val) double
  +isAtivo() boolean
 }
 
 class MultiplicadorPrata {
  -static final String TIPO = "prata"
- -static double preco
+ -double preco
  -boolean ativo
  -static final double VALOR = 1.25
  +multiplicar(int pts) int
  +on_off() boolean
+ +getprecoMulti() double
  +getPreco() double
  +getTipo() String
+ +setprecoMulti(double val) double
  +setPreco(double val) double
  +isAtivo() boolean
 }
@@ -108,6 +112,7 @@ class IMultiplicavel {
  +multiplicar(int pts) int
  +on_off() boolean
  +getPreco() double
+ +setPreco() double
  +getTipo() String
  +isAtivo() boolean
 }
@@ -118,29 +123,53 @@ class Cliente {
  -int pontuacaoCliente
  -LinkeedList<Bilhete> bilhetesCliente
  -IMultiplicavel acelardorPts
+ -validarCpf(String cpfd) String
  +comprarBilhete(Bilhete bilheteCompra) boolean
  +getPontuacao() int
- -verificarPontuacaoPadrao() int
+ +getStatusAcelerador() boolean
  +setAcelerador(Emulti opt) void
+ +calcularNumeroBilhetesPromocionais() int
+ -calcularNumeroBilhetesPromocionaisMulti() int
+ +calcularPontuacaoAnual() int
+ -calcularPontuacaAnualMulti() int
+ -setBilhetesInvalidos() void
+ +ativarMulti() boolean
+ +setNumeroBilhetesPromocionais(int valor) void
+ +toString() String
+ +getAcelardorPts() IMultiplicavel
+ +getCpf() String
+ +getNome() String
+ +getGastoServicos() double
+ +getBilhetesCliente() Deque<Bilhete>
+ +hashCode() int
+ +equals(Object obj) boolean
  +ordenarBilhetes() void
 }
 
 class Bilhete {
  #int IDBILHETE
  #LinkedList~Voo~ Voos
- #double PrecoBilhete
+ #double PrecoBilhete = 0
  #String tipo
+ #Data dataDeCompra;
+ #boolean statusCalculoPromocao = true;
  +inserirVoo(Voo novoVoo) boolean
  +removerVoo(int idVoo) boolean
- +calcularPrecoFinal() double
+ +calcularPreco() double
  +calcularPontuacao() int
+ +setStatusCalculoPromocao(boolean statusCalculoPromocao) void
  +buscarVoo(int indexVoo) Voo
- +buscarIndexVoo(int idVoo) int
  #encontrarVooMaiorValor() Voo
  #somarPrecoVoosRestantes() double
+ +inserirDataCompra() void
+ +exibirVoosBilhete() String
  +toString() String
  +equals(Object obj) boolean
  +hashCode() int
+ +getIdBilhete() int
+ +getDataCompra() Data
+ +getPrecoBilhete() double
+ +getStatus() boolean
 }
 
 class BilheteFidelidade {
@@ -158,8 +187,10 @@ class Voo {
  -Trecho Trecho
  -Data dataVoo
  -double preco
+ -numeroPassageiros int
  +alterarTrecho(Trecho novoTrecho) boolean
  +alterarData(Data novaData) boolean
+ +incrementarPassageiro() void
  +toString() String
  +equals(Object obj) boolean
  +hashCode() int
