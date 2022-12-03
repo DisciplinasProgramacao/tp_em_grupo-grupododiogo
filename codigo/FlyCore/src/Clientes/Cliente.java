@@ -78,6 +78,10 @@ public class Cliente implements Serializable {
         return pontuacaoCliente;
     } 
 
+    public boolean getStatusAcelerador(){
+        return this.acelardorPts.isAtivo();
+    }
+
     public void setAcelerador(IMultiplicavel multi) {
         this.acelardorPts = multi;
     }
@@ -157,7 +161,16 @@ public class Cliente implements Serializable {
     }
     public String getCpf(){return this.cpf;};
     public String getNome(){return this.nome;};
-
+    public double getGastoServicos(){
+        double totalGastos=0d;
+        boolean statusAcelerador = this.acelardorPts.isAtivo();
+        if(!statusAcelerador) {
+            return 0d;
+        }
+        totalGastos = this.acelardorPts.getPreco(); 
+        return totalGastos;
+        
+    }
     public Deque<Bilhete> getBilhetesCliente(){return this.bilhetesCliente;}
     @Override
     public int hashCode() {
@@ -165,7 +178,6 @@ public class Cliente implements Serializable {
         int hash = (int) cpf;
         return hash;
     }
-
     @Override
     public boolean equals(Object obj) {
         Cliente nb = (Cliente) obj;

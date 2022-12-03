@@ -1441,9 +1441,9 @@ public class Application {
         case 1:
           try {
             List<Bilhete> bilhetes = clientesSistema.values().stream().flatMap(c -> c.getBilhetesCliente().stream()).collect(Collectors.toList());
-
+            Double totalGasotsServico =  clientesSistema.values().stream().filter(cl -> cl.getStatusAcelerador()==true).mapToDouble(e -> e.getGastoServicos()).sum();
             Double total = bilhetes.stream().flatMapToDouble(b -> DoubleStream.of(b.getPrecoBilhete())).sum();
-
+            total+=totalGasotsServico;
             System.out.printf("Valor total arrecadado desde o inicio da FlyCore: R$" + "%.2f", total);
             pausa();
 
