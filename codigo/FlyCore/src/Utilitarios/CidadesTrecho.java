@@ -9,14 +9,18 @@ public class CidadesTrecho {
         "São Paulo",
         "Rio de Janeiro",
         "Rio Grande do sul",
-        "Pernanbuco");
+        "Recife",
+        "Salvador",
+        "Manaus");
 
     private static final List<String> cidadesDestino = Arrays.asList(
         "Belo Horizonte",
         "São Paulo",
         "Rio de Janeiro",
         "Rio Grande do sul",
-        "Pernanbuco");
+        "Recife",
+        "Salvador",
+        "Manaus");
 
     public static List<String> getCidadesOrigem() {
         return cidadesOrigem;
