@@ -33,6 +33,10 @@ public class Application {
   private static String arqTrechos = formatarCaminho(CaminhoDiretorioProjeto) + "trechos.bin";
   private static String arqVoos = formatarCaminho(CaminhoDiretorioProjeto) + "voos.bin";
   private static String arqClientes = formatarCaminho(CaminhoDiretorioProjeto) + "clientes.bin";
+  private static String arqMultiPrata = formatarCaminho(CaminhoDiretorioProjeto) + "mPrata.bin";
+  private static String arqMultiPreto = formatarCaminho(CaminhoDiretorioProjeto) + "mPreto.bin";
+  private static MultiplicadorPrata mPrata = new MultiplicadorPrata();
+  private static MultiplicadorPreto mPreto = new MultiplicadorPreto();
   
 
   // #region utilidades
@@ -47,6 +51,88 @@ public class Application {
       return caminho.replaceAll("\\\\codigo\\\\FlyCore", "") + "/codigo/FlyCore/src/Arquivos/";
     } else {
       return caminho + "/codigo/FlyCore/src/Arquivos/";
+    }
+  }
+
+  /**
+   * Gravação serializada multiplicador prata
+   * @throws IOException Em caso de erro na escrita ou abertura do arquivo (propagação de exceção)
+   */
+  public static void gravarMultiPrata() throws IOException, FileNotFoundException {
+    ObjectOutputStream obj = new ObjectOutputStream(new FileOutputStream(arqMultiPrata));
+    obj.writeObject(mPrata);
+    obj.close();
+  }
+
+  /**
+   * Carrega dados do arquivo do multiplicador preto serialiado. Tratamento de diversas exceções
+   */
+  public static void carregarMultiPrata() {
+    FileInputStream dados;
+  
+    try {
+      dados = new FileInputStream(arqMultiPrata);
+      if (dados.available() != 0) {
+        ObjectInputStream obj = new ObjectInputStream(dados);
+        mPrata = (MultiplicadorPrata)obj.readObject();
+        obj.close();
+      }
+    } catch (FileNotFoundException e) {
+      System.out.println("Arquivo não encontrado.");
+      System.out.println("Trechos em branco.");
+      System.out.print("Nome do arquivo do multiplicador preto: ");
+      arqMultiPrata = teclado.nextLine();
+      pausa();
+    } catch(IOException ex) {
+      System.out.println("Problema no uso do arquivo.");
+      System.out.println("Favor reiniciar o sistema.");
+      pausa();
+    } catch(ClassNotFoundException cex) {
+      System.out.println("Classe não encontrada: avise ao suporte.");
+      System.out.println("Multiplicador preto padrão.");
+      mPrata = new MultiplicadorPrata();
+      pausa();
+    }
+  }
+
+  /**
+   * Gravação serializada multiplicador preto
+   * @throws IOException Em caso de erro na escrita ou abertura do arquivo (propagação de exceção)
+   */
+  public static void gravarMultiPreto() throws IOException, FileNotFoundException {
+    ObjectOutputStream obj = new ObjectOutputStream(new FileOutputStream(arqMultiPreto));
+    obj.writeObject(mPreto);
+    obj.close();
+  }
+
+  /**
+   * Carrega dados do arquivo do multiplicador preto serialiado. Tratamento de diversas exceções
+   */
+  public static void carregarMultiPreto() {
+    FileInputStream dados;
+  
+    try {
+      dados = new FileInputStream(arqMultiPreto);
+      if (dados.available() != 0) {
+        ObjectInputStream obj = new ObjectInputStream(dados);
+        mPreto = (MultiplicadorPreto)obj.readObject();
+        obj.close();
+      }
+    } catch (FileNotFoundException e) {
+      System.out.println("Arquivo não encontrado.");
+      System.out.println("Trechos em branco.");
+      System.out.print("Nome do arquivo do multiplicador preto: ");
+      arqMultiPreto = teclado.nextLine();
+      pausa();
+    } catch(IOException ex) {
+      System.out.println("Problema no uso do arquivo.");
+      System.out.println("Favor reiniciar o sistema.");
+      pausa();
+    } catch(ClassNotFoundException cex) {
+      System.out.println("Classe não encontrada: avise ao suporte.");
+      System.out.println("Multiplicador preto padrão.");
+      mPreto = new MultiplicadorPreto();
+      pausa();
     }
   }
 
@@ -588,9 +674,9 @@ public class Application {
     int optMulti = escolherMultiplicador();
     switch (optMulti) {
       case 1:
-        return new MultiplicadorPrata();
+        return mPrata;
       case 2:
-        return new MultiplicadorPreto();
+        return mPreto;
       default:
         System.out.println("Insira um opção valida");
         return null;
@@ -713,7 +799,7 @@ public class Application {
     dadosCliente = receberDadosClienteCadastro();
     String[] separandoDados = dadosCliente.split(";");
     try {
-      Cliente novoCliente = new Cliente(separandoDados[0], separandoDados[1]);
+      Cliente novoCliente = new Cliente(separandoDados[0], separandoDados[1], mPrata);
       return novoCliente;
     } catch (NullPointerException e) {
       System.out.println("Erro ao encontrar classe Clientes");
@@ -887,11 +973,11 @@ public class Application {
     System.out.println("==========================");
     System.out.println("\n|Aceleradores de Pontuação:|\n");
     System.out.println("==================================================================");
-    System.out.println("\n* ACELERADOR PRATA: "+MultiplicadorPrata.getprecoMulti()+" R$ \n"); 
-    System.out.println("\n* ACELERADOR PRETO: "+MultiplicadorPreto.getprecoMulti()+" R$ \n");
+    System.out.println("\n* ACELERADOR PRATA: "+mPrata.getprecoMulti()+" R$ \n"); 
+    System.out.println("\n* ACELERADOR PRETO: "+mPreto.getprecoMulti()+" R$ \n");
     System.out.println("\n==========================OPCOES:=======================================");
-    System.out.println("1 - Mudar Preço Preto");
-    System.out.println("2 - Mudar Preço Prata");
+    System.out.println("1 - Mudar Preço Prata");
+    System.out.println("2 - Mudar Preço Preto");
     System.out.println("0 - Voltar");
     System.out.print("\nDigite sua opção: ");
     try {
@@ -1310,11 +1396,39 @@ public class Application {
     } while (optMenuPrincipal != 0);
 
     try {
+      gravarMultiPrata();
+    } catch (FileNotFoundException e) {
+      System.out.println("Arquivo não encontrado.");
+      System.out.println("Não foi possível gravar os dados do multiplicador prata.");
+      System.out.print("Nome do arquivo: ");
+      arqMultiPrata = teclado.nextLine();
+      pausa();
+    } catch(IOException ex) {
+      System.out.println("Problema no uso do arquivo.");
+      System.out.println("Favor reiniciar o sistema.");
+      pausa();
+    }
+
+    try {
+      gravarMultiPreto();
+    } catch (FileNotFoundException e) {
+      System.out.println("Arquivo não encontrado.");
+      System.out.println("Não foi possível gravar os dados do multiplicador preto.");
+      System.out.print("Nome do arquivo: ");
+      arqMultiPreto = teclado.nextLine();
+      pausa();
+    } catch(IOException ex) {
+      System.out.println("Problema no uso do arquivo.");
+      System.out.println("Favor reiniciar o sistema.");
+      pausa();
+    }
+
+    try {
       gravarTrechos();
     } catch (FileNotFoundException e) {
       System.out.println("Arquivo não encontrado.");
       System.out.println("Não foi possível gravar os dados dos trechos.");
-      System.out.print("Nome do arquivo de trechos: ");
+      System.out.print("Nome do arquivo: ");
       arqTrechos = teclado.nextLine();
       pausa();
     } catch(IOException ex) {
@@ -1328,7 +1442,7 @@ public class Application {
     } catch (FileNotFoundException e) {
       System.out.println("Arquivo não encontrado.");
       System.out.println("Não foi possível gravar os voos.");
-      System.out.print("Nome do arquivo de voos: ");
+      System.out.print("Nome do arquivo: ");
       arqVoos = teclado.nextLine();
       pausa();
     } catch(IOException ex) {
@@ -1342,7 +1456,7 @@ public class Application {
     } catch (FileNotFoundException e) {
       System.out.println("Arquivo não encontrado.");
       System.out.println("Não foi possível gravar os clientes.");
-      System.out.print("Nome do arquivo de clientes: ");
+      System.out.print("Nome do arquivo: ");
       arqClientes = teclado.nextLine();
       pausa();
     } catch(IOException ex) {
@@ -1414,13 +1528,13 @@ public class Application {
         case 1:
             double precoMultiPrata =0d;  
             precoMultiPrata = cadastrarPreco();
-            MultiplicadorPrata.setprecoMulti(precoMultiPrata);
+            mPrata.setprecoMulti(precoMultiPrata);
             System.out.println("Preço Cadastrado com Sucesso");
           break;
         case 2:
         double precoMultiPreto =0d;  
         precoMultiPreto = cadastrarPreco();
-        MultiplicadorPreto.setprecoMulti(precoMultiPreto);
+        mPreto.setprecoMulti(precoMultiPreto);
         System.out.println("Preço Cadastrado com Sucesso");
         break;
         default :
@@ -1542,7 +1656,8 @@ public class Application {
   //#endregion
 
   public static void main(String[] args) throws NoSuchMethodException, SecurityException {
-    System.out.println(arqTrechos);
+    carregarMultiPrata();
+    carregarMultiPreto();
     carregarTrechos();
     carregarVoos();
     carregarClientes();

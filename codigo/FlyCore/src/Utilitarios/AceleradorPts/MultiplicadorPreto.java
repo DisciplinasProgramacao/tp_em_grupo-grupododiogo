@@ -6,7 +6,7 @@ public class MultiplicadorPreto implements IMultiplicavel, Serializable {
     private static final long serialVersionUID = 1L;
 
     private static final String TIPO = "preto";
-    private static double preco = 0d;
+    private double preco = 0d;
     private boolean ativo = false;
     private static final double valor = 1.50;
     
@@ -32,8 +32,8 @@ public class MultiplicadorPreto implements IMultiplicavel, Serializable {
         return this.ativo;
     }
 
-    public static double getprecoMulti(){
-        return MultiplicadorPreto.preco;
+    public double getprecoMulti(){
+        return this.preco;
     }
 
     @Override
@@ -41,9 +41,9 @@ public class MultiplicadorPreto implements IMultiplicavel, Serializable {
         return MultiplicadorPreto.TIPO;
     }
 
-    public static double setprecoMulti(double val) {
+    public double setprecoMulti(double val) {
         if (val > 0)
-            MultiplicadorPreto.preco = val;
+            this.preco = val;
         return val;
     }
 

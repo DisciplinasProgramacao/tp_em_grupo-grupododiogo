@@ -16,8 +16,20 @@ public class Cliente implements Serializable {
     private String cpf = "";
     private int pontuacaoCliente = 0;
     private Deque<Bilhete> bilhetesCliente = new LinkedList<>();
-    private IMultiplicavel acelardorPts = new MultiplicadorPrata();
+    private IMultiplicavel acelardorPts = null;
     private int numeroBilhetesPromocionais = 0;
+
+    /**
+     * Construtor cliente, recebe o nome e numero do documento e um multiplicador.
+     * @param nomeCliente
+     * @param numCpf
+     */
+    public Cliente(String nomeCliente, String numCpf, IMultiplicavel mPrata) {
+        this.nome = nomeCliente;
+        this.cpf = validarCpf(numCpf);
+        this.pontuacaoCliente = 0;
+        acelardorPts = mPrata;
+    }
 
     /**
      * Construtor cliente, recebe o nome e numero do documento.
