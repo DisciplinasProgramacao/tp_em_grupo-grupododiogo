@@ -1443,7 +1443,6 @@ public class Application {
       System.out.println("Favor reiniciar o sistema.");
       pausa();
     }
-
     try {
       gravarVoos();
     } catch (FileNotFoundException e) {
@@ -1457,7 +1456,6 @@ public class Application {
       System.out.println("Favor reiniciar o sistema.");
       pausa();
     }
-
     try {
       gravarClientes();
     } catch (FileNotFoundException e) {
