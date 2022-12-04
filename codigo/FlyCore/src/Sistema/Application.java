@@ -15,6 +15,7 @@ import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.util.*;
+import java.util.stream.Collector;
 import java.util.stream.Collectors;
 import java.util.stream.DoubleStream;
 
@@ -523,6 +524,12 @@ public class Application {
   //endregion
 
   //#region Voo
+
+  private static void atualizarVooAoMapa(Voo vooAtualizado){
+    try{
+      voosSistema.put(vooAtualizado.hashCode(), vooAtualizado);
+    }catch(NullPointerException e){}
+  }
 
   private static List<Voo> buscarVoosPorTrecho(Trecho trechoProcurado) {
     return voosSistema
