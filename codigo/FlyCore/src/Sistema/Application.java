@@ -1562,9 +1562,9 @@ public class Application {
         case 1:
           try {
             List<Bilhete> bilhetes = clientesSistema.values().stream().flatMap(c -> c.getBilhetesCliente().stream()).collect(Collectors.toList());
-            Double totalGasotsServico =  clientesSistema.values().stream().filter(cl -> cl.getStatusAcelerador()==true).mapToDouble(e -> e.getGastoServicos()).sum();
-            Double total = bilhetes.stream().flatMapToDouble(b -> DoubleStream.of(b.getPrecoBilhete())).sum();
-            total+=totalGasotsServico;
+            double totalGastosServico =  clientesSistema.values().stream().filter(cl -> cl.getStatusAcelerador()==true).mapToDouble(e -> e.getGastoServicos()).sum();
+            double total = bilhetes.stream().flatMapToDouble(b -> DoubleStream.of(b.getPrecoBilhete())).sum();
+            total+=totalGastosServico;
             System.out.printf("Valor total arrecadado desde o inicio da FlyCore: R$" + "%.2f", total);
             pausa();
 
@@ -1604,9 +1604,9 @@ public class Application {
   //#region Relatorios ADM
   private static void voosMaisDe100reservas(Data data, String cidade) {
 
-  List<Voo> voosFiltrados = voosSistema.values().stream().filter(v -> v.getCidadeDestino() == cidade && v.getData().equals(data)).toList();
+  List<Voo> voos = voosSistema.values().stream().filter(v -> Objects.equals(v.getData().dataFormatada(), data.dataFormatada()) && Objects.equals(v.getCidadeDestino(), cidade)).toList();
 
-  voosFiltrados.stream().filter(v -> v.getNumeroPassageiros() > 100).forEach(v -> v.toString());
+  voos.stream().filter(v -> v.getNumeroPassageiros() > 100).forEach(v -> System.out.println(v.toString()));
   }
 
   private static void clienteMaisPontos() {
@@ -1661,7 +1661,6 @@ public class Application {
   }
 
   //#endregion
-
   public static void main(String[] args) throws NoSuchMethodException, SecurityException {
     carregarMultiPrata();
     carregarMultiPreto();
