@@ -64,6 +64,9 @@ public class Voo implements Serializable {
         }
     }
 
+    /**
+     * Metodo que incrementa passageiro dentro do voo
+     */
     public void incrementarPassageiro() {this.numeroPassageiros++;}
 
     public int getIdVoo() {

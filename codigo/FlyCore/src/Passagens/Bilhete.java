@@ -84,6 +84,10 @@ public class Bilhete implements Serializable{
         return pontosFidelidade;
     }
 
+    /**
+     * Define se o status da promocao
+     * @param statusCalculoPromocao
+     */
     public void setStatusCalculoPromocao(boolean statusCalculoPromocao) {
         this.statusCalculoPromocao = statusCalculoPromocao;
     }
@@ -122,10 +126,17 @@ public class Bilhete implements Serializable{
         return precoDescontado;
     }
 
+    /**
+     * Atribui a data atual de compra do bilhete
+     */
     public void inserirDataCompra(){
         this.dataDeCompra = new Data();
     }
 
+    /**
+     * Retorna as informacoes de todos os voos do bilhete
+     * @return String com as informacoes dos voos
+     */
     public String exibirVoosBilhete(){
         StringBuilder infos = new StringBuilder();
         this.voos.stream().forEach(b -> infos.append(b.toString() + "\n"));

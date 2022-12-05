@@ -88,12 +88,20 @@ public class Cliente implements Serializable {
 
         this.pontuacaoCliente = pontuacaoTotal;
         return pontuacaoCliente;
-    } 
+    }
 
+    /**
+     * Retorna o status do acelerador
+     * @return boolean ( ativo = true, inativo = false )
+     */
     public boolean getStatusAcelerador(){
         return this.acelardorPts.isAtivo();
     }
 
+    /**
+     * Seta o tipo do multiplicador
+     * @param multi
+     */
     public void setAcelerador(IMultiplicavel multi) {
         this.acelardorPts = multi;
     }
@@ -102,10 +110,12 @@ public class Cliente implements Serializable {
      * Verifica a pontuação na Pilha de bilhetes em um periodo referente a um ano apartir a data da atual 
      * @return int numeroBilhetes --> número de bilhetes promocionais para o cliente.
      */
+
+    /**
+     * Calcula a pontuacao total dos bilhetes ( bilhetes mais recentes que 1 ano e com status ativo) -> a cada 10500 pontos , o cliente ganha 1 bilhete promocional
+     * @return int -> quantidade de bilhetes promocionais disponiveis
+     */
     public int calcularNumeroBilhetesPromocionais(){
-            return calcularNumeroBilhetesPromocionaisMulti();
-    }
-    private int calcularNumeroBilhetesPromocionaisMulti(){
         Data data = new Data();
         data.tirar1Ano();
 
@@ -119,32 +129,38 @@ public class Cliente implements Serializable {
         return this.numeroBilhetesPromocionais;
     }
 
+    /**
+     * Calcula a pontuacao anual do cliente
+     * @return int
+     */
     public int calcularPontuacaoAnual(){
-            return calcularPontuacaAnualMulti();
-    }
-    
-    private int calcularPontuacaAnualMulti(){
         Data data = new Data();
         data.tirar1Ano();
 
         int valorTotal = this.bilhetesCliente.stream().filter(b -> b.getDataCompra().maisRecenteQue(data) == -1).mapToInt(e -> this.acelardorPts.multiplicar(e.calcularPontuacao())).sum();
         return valorTotal;
     }
-    
+
+    /**
+     * Seta os bilhetes mais recentes que 1 ano para inva lidos
+     */
     private void setBilhetesInvalidos(){
         Data data = new Data();
         data.tirar1Ano();
         this.bilhetesCliente.stream().filter(b -> b.getDataCompra().maisRecenteQue(data) == -1 && b.getStatus() == true).forEach(b -> b.setStatusCalculoPromocao(false));
     }
+
+    /**
+     * Ativa o multiplicador do cliente
+     * @return
+     */
     public boolean ativarMulti(){
         try{
             return this.acelardorPts.on_off();
         }
         catch(NullPointerException e){throw e;}
     }
-    public void setNumeroBilhetesPromocionais (int valor) {
-        this.numeroBilhetesPromocionais = valor - 1;
-    }
+
     @Override
     public String toString() {
         int qtdBilhetes = (int) this.bilhetesCliente.stream().count();
