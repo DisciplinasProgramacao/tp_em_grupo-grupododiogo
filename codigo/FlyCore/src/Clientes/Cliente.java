@@ -5,7 +5,6 @@ import java.util.Deque;
 import java.util.LinkedList;
 
 import Passagens.Bilhete;
-import Utilitarios.AceleradorPts.MultiplicadorPrata;
 import Utilitarios.Data;
 import Utilitarios.AceleradorPts.IMultiplicavel;
 

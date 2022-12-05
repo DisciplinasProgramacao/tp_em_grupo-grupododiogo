@@ -76,9 +76,11 @@ public class Trecho implements Serializable {
     public String getCidadeDestino() {
         return cidadeDestino;
     }
+
     public String getCidadeOrigem() {
         return cidadeOrigem;
     }
+
     public int getIdTrecho() {
         return this.idTrecho;
     }

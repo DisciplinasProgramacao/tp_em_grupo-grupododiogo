@@ -15,7 +15,6 @@ import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.util.*;
-import java.util.stream.Collector;
 import java.util.stream.Collectors;
 import java.util.stream.DoubleStream;
 
@@ -287,7 +286,6 @@ public class Application {
 
   /**
    * Pausa para leitura de mensagens em console
-   * @return void
    */
   public static void pausa() {
     System.out.println("\nEnter para continuar.");
@@ -422,11 +420,12 @@ public class Application {
 
   //#region Bilhetes
 
-  // private static Trecho escolherTrehcoBilhete() {
-  //   Trecho novoTrecho = formarTrecho();
-  //   return novoTrecho;
-  // }
-
+  /**
+   * Forma um trecho
+   * @param cidadeOrigem
+   * @param cidadeDestino
+   * @return escalas
+   */
   private static Trecho[] formarEscalasVoo(
     String cidadeOrigem,
     String cidadeDestino
@@ -463,6 +462,10 @@ public class Application {
     }
   }
 
+  /**
+   * Menu para compra do bilhete
+   * @return opcao usuario
+   */
   public static int menuCompraBilhete() {
     System.out.println();
     System.out.println();
@@ -483,6 +486,9 @@ public class Application {
     }
   }
 
+  /**
+   * Gera um bilhete dependendo da escolha do usuario
+   */
   public static Bilhete gerarBilhete() {
     int tipoBilhete = 0;
     tipoBilhete = menuTipoBilhete();
@@ -499,6 +505,10 @@ public class Application {
     }
   }
 
+  /**
+   * Exibe voos disponiveis para um trecho procurado
+   * @param trechoProcurado
+   */
   public static void exibirVoosDisponiveisParaUmTrecho(Trecho trechoProcurado) {
     List<Voo> voosTrecho = new LinkedList<>();
     voosTrecho = buscarVoosPorTrecho(trechoProcurado);
@@ -507,6 +517,11 @@ public class Application {
     }
   }
 
+  /**
+   * Exibe voos da escala
+   * @param tr1
+   * @param tr2
+   */
   public static void exibirVoosEscala(Trecho tr1, Trecho tr2) {
     List<Voo> voosTrechoUm = new LinkedList<>();
     List<Voo> voosTrechoDois = new LinkedList<>();
@@ -531,6 +546,11 @@ public class Application {
     }catch(NullPointerException e){}
   }
 
+  /**
+   * Procura um voo por trecho recebido por parametro
+   * @param trechoProcurado
+   * @return
+   */
   private static List<Voo> buscarVoosPorTrecho(Trecho trechoProcurado) {
     return voosSistema
       .values()
@@ -539,6 +559,11 @@ public class Application {
       .toList();
   }
 
+  /**
+   * Forma uma escala com a cidade origem fixa ( Sao Paulo) e a cidade destino passada por parametro
+   * @param cidadeDestino
+   * @return Trecho ou NULL 
+   */
   private static Trecho formarEscalaCoringaDestino(String cidadeDestino) {
     Trecho escalaCoringaDestino = new Trecho("São Paulo", cidadeDestino);
     if (trechosSistema.contains(escalaCoringaDestino)) {
@@ -546,7 +571,12 @@ public class Application {
     }
     return null;
   }
-
+  
+  /**
+   * Forma uma escala com a cidade destino fixa ( Sao Paulo) e a cidade origem passada por parametro
+   * @param cidadeOrigem
+   * @return Trecho ou NULL 
+   */
   private static Trecho formarEscalaCoringaOrigem(String cidadeOrigem) {
     Trecho escalaCoringaDestino = new Trecho(cidadeOrigem, "São Paulo");
     if (trechosSistema.contains(escalaCoringaDestino)) {
@@ -618,6 +648,10 @@ public class Application {
     return preco;
   }
 
+  /**
+   * Metodo para o usuario inserir uma data, apos isso a data e formatada e retornada em forma de Data
+   * @return data
+   */
   private static Data formatarData() {
     System.out.println("=======FlyCORE======");
     System.out.println("Insira uma Data : \n(XX/XX/XXXX)");
@@ -1498,7 +1532,7 @@ public class Application {
         case 4:
           limparTela();
           String cidade = escolherCidadeDestino();
-          Data data = formatarData(); //criar metodo para pegar data
+          Data data = formatarData();
           voosMaisDe100reservas(data, cidade);
           continue;
         case 5:
@@ -1600,13 +1634,27 @@ public class Application {
   //#endregion
 
   //#region Relatorios ADM
+
+  /**
+   * Metodo para retornar os informacoes dos voos de uma data e cidade especifica com mais de 100 reservas
+   * @param data
+   * @param cidade
+   */
   private static void voosMaisDe100reservas(Data data, String cidade) {
 
-  List<Voo> voos = voosSistema.values().stream().filter(v -> Objects.equals(v.getData().dataFormatada(), data.dataFormatada()) && Objects.equals(v.getCidadeDestino(), cidade)).toList();
+    try {
+      List<Voo> voos = voosSistema.values().stream().filter(v -> Objects.equals(v.getData().dataFormatada(), data.dataFormatada()) && Objects.equals(v.getCidadeDestino(), cidade)).toList();
+      voos.stream().filter(v -> v.getNumeroPassageiros() > 100).forEach(v -> System.out.println(v.toString()));
+    }
+    catch (NullPointerException n ){
+      System.out.println("Nenhum voo encontrado.");
+    }
 
-  voos.stream().filter(v -> v.getNumeroPassageiros() > 100).forEach(v -> System.out.println(v.toString()));
   }
 
+  /**
+   * Metodo para retornar a informacao do cliente que tem mais pontos anuais
+   */
   private static void clienteMaisPontos() {
     try {
       Cliente clienteM = clientesSistema.values().stream().max(Comparator.comparingInt(Cliente::calcularPontuacaoAnual)).get();
@@ -1616,14 +1664,18 @@ public class Application {
     }
   }
 
+  /**
+   * Gera o relatorio de bilhetes anuais de um cliente especifico
+   * @param cpf
+   */
   private static void gerarRelatorioBilhetesAnual(String cpf) {
-    Cliente clienteProcurado = buscarCliente(cpf);
-
-    Data data = new Data();
-    data.tirar1Ano();
-    int total = 0;
-
     try {
+      Cliente clienteProcurado = buscarCliente(cpf);
+
+      Data data = new Data();
+      data.tirar1Ano();
+      int total = 0;
+
       total = clienteProcurado.calcularNumeroBilhetesPromocionais();
       clienteProcurado
         .getBilhetesCliente()
@@ -1642,6 +1694,10 @@ public class Application {
     }
   }
 
+  /**
+   * Gera relatorio geral de um cliente especifico
+   * @param cpf
+   */
   private static void gerarRelatorioCliente(String cpf) {
     try {
 
