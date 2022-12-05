@@ -1,8 +1,10 @@
 package Passagens;
 
+
 import java.io.Serializable;
 
 public class Trecho implements Serializable {
+
     private static final long serialVersionUID = 20221L;
 
     private final int idTrecho;
@@ -10,9 +12,7 @@ public class Trecho implements Serializable {
     private String cidadeDestino;
 
     /**
-     * Recebe a cidade do aeroporto de origem e destino
-     * @param cidadeOrigem,cidadeDestino 
-     * @return void
+     * Construtor que recebe a cidade do aeroporto de origem e destino
      */
     public Trecho(String cidadeOrigem, String cidadeDestino) {
         this.cidadeOrigem  = cidadeOrigem;
@@ -21,9 +21,8 @@ public class Trecho implements Serializable {
     }
 
     /**
-     * Alterar o nome da cidade de origem do trecho
+     * Altera o nome da cidade de origem do trecho
      * @param cidadeOrigem
-     * @return void
      */
     public void setCidadeOrigem(String cidadeOrigem) {
         this.cidadeOrigem = cidadeOrigem;
@@ -32,7 +31,6 @@ public class Trecho implements Serializable {
     /**
      * Alterar o nome da cidade de origem do destino
      * @param cidadeDestino
-     * @return void
      */
     public void setCidadeDestino(String cidadeDestino) {
         this.cidadeDestino = cidadeDestino;
