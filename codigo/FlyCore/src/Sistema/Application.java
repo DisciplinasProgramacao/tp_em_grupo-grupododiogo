@@ -498,10 +498,7 @@ public class Application {
       case 2:
         return new BilhetePromocional();
       case 3:
-        if ( cliente.calcularNumeroBilhetesPromocionais() != 0){
-          return new BilheteFidelidade();
-        }
-        return null;
+        return (cliente.calcularNumeroBilhetesPromocionais() != 0) ?  new BilheteFidelidade() :  null;
       default:
         System.out.println("\nTipo invalido!");
         return null;
