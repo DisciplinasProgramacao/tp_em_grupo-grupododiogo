@@ -489,7 +489,7 @@ public class Application {
   /**
    * Gera um bilhete dependendo da escolha do usuario
    */
-  public static Bilhete gerarBilhete() {
+  public static Bilhete gerarBilhete(Cliente cliente) {
     int tipoBilhete = 0;
     tipoBilhete = menuTipoBilhete();
     switch (tipoBilhete) {
@@ -498,7 +498,10 @@ public class Application {
       case 2:
         return new BilhetePromocional();
       case 3:
-        return new BilheteFidelidade();
+        if ( cliente.calcularNumeroBilhetesPromocionais() != 0){
+          return new BilheteFidelidade();
+        }
+        return null;
       default:
         System.out.println("\nTipo invalido!");
         return null;
@@ -1045,10 +1048,8 @@ public class Application {
       optMenuCompra = menuCompraBilhete();
       switch (optMenuCompra) {
         case 1:
-          bilheteCompra = gerarBilhete();
-          if(bilheteCompra!=null){
-            System.out.println("\nOk Bilhete Selecionado");
-          }
+          bilheteCompra = gerarBilhete(cl);
+            System.out.println((bilheteCompra == null) ? "\nCliente nao tem bilhete fidelidade!":"\nOk Bilhete Selecionado");
           break;
         case 2:
           int idVooEscolhido = 0;
